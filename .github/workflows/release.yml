@@ -13,7 +13,7 @@ on:
       - main
 
 env:
-  package_name: Snowplow <PACKAGE NAME>
+  package_name: snowplow-ecommerce
 
 jobs:
   version_check:
