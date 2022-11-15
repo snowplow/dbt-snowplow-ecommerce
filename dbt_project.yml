@@ -1,5 +1,5 @@
 
-name: 'your_project_name'
+name: 'dbt-snowplow-ecommerce'
 version: '0.0.1'
 config-version: 2
 
