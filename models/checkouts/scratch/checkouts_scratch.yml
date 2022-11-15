@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: snowplow_ecommerce_checkout_interactions_this_run
+    description: '{{ doc("table_checkout_interactions_this_run") }}'
+    columns:
+      - name: event_id
+        description: '{{ doc("col_event_id") }}'
+        tags:
+          - primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: page_view_id
+        description: '{{ doc("col_page_view_id") }}'
+
+      - name: domain_sessionid
+        description: '{{ doc("col_domain_sessionid") }}'
+
+      - name: page_view_in_session_index
+        description: '{{ doc("col_page_view_in_session_index") }}'
+
+      - name: domain_userid
+        description: '{{ doc("col_domain_userid") }}'
+
+      - name: network_userid
+        description: '{{ doc("col_network_userid") }}'
+
+      - name: user_id
+        description: '{{ doc("col_user_id") }}'
+
+      - name: ecommerce_user_id
+        description: '{{ doc("col_ecommerce_user_id") }}'
+
+      - name: derived_tstamp
+        description: '{{ doc("col_derived_tstamp") }}'
+
+      - name: derived_tstamp_date
+        description: '{{ doc("col_derived_tstamp_date") }}'
+
+      - name: ecommerce_action_type
+        description: '{{ doc("col_ecommerce_action_type") }}'
+
+      - name: ecommerce_action_name
+        description: '{{ doc("col_ecommerce_action_name") }}'
+
+      - name: ecommerce_page_type
+        description: '{{ doc("col_ecommerce_page_type") }}'
+
+      - name: checkout_step_number
+        description: '{{ doc("col_checkout_step_number") }}'
+
+      - name: checkout_account_type
+        description: '{{ doc("col_checkout_account_type") }}'
+
+      - name: checkout_billing_full_address
+        description: '{{ doc("col_checkout_billing_full_address") }}'
+
+      - name: checkout_billing_postcode
+        description: '{{ doc("col_checkout_billing_postcode") }}'
+
+      - name: checkout_coupon_code
+        description: '{{ doc("col_checkout_coupon_code") }}'
+
+      - name: checkout_delivery_method
+        description: '{{ doc("col_checkout_delivery_method") }}'
+
+      - name: checkout_delivery_provider
+        description: '{{ doc("col_checkout_delivery_provider") }}'
+
+      - name: checkout_marketing_opt_in
+        description: '{{ doc("col_checkout_marketing_opt_in") }}'
+
+      - name: checkout_payment_method
+        description: '{{ doc("col_checkout_payment_method") }}'
+
+      - name: checkout_proof_of_payment
+        description: '{{ doc("col_checkout_proof_of_payment") }}'
+
+      - name: checkout_shipping_full_address
+        description: '{{ doc("col_checkout_shipping_full_address") }}'
+
+      - name: checkout_shipping_postcode
+        description: '{{ doc("col_checkout_shipping_postcode") }}'
+
+      - name: session_entered_at_step
+        description: '{{ doc("col_session_entered_at_step") }}'
+
+      - name: checkout_succeeded
+        description: '{{ doc("col_checkout_succeeded") }}'
+
+      - name: ecommerce_user_email
+        description: '{{ doc("col_ecommerce_user_email") }}'
+
+      - name: ecommerce_user_is_guest
+        description: '{{ doc("col_ecommerce_user_is_guest") }}'

@@ -1,0 +1,120 @@
+version: 2
+
+models:
+  - name: snowplow_ecommerce_userids_this_run
+    description: '{{ doc("table_userids_this_run") }}'
+    columns:
+      - name: identifying_userid
+        description: '{{ doc("col_identifying_userid") }}'
+        tags:
+          - primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: start_tstamp
+        description: '{{ doc("col_start_tstamp") }}'
+
+  - name: snowplow_ecommerce_users_this_run
+    description: '{{ doc("table_users_this_run") }}'
+    columns:
+      - name: identifying_userid
+        description: '{{ doc("col_identifying_userid") }}'
+        tags:
+          - primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: user_id_field
+        description: '{{ doc("col_user_id_field") }}'
+
+      - name: start_tstamp
+        description: '{{ doc("col_start_tstamp") }}'
+
+      - name: first_cart_created
+        description: '{{ doc("col_first_cart_created") }}'
+
+      - name: latest_cart_created
+        description: '{{ doc("col_latest_cart_created") }}'
+
+      - name: number_carts_created
+        description: '{{ doc("col_number_carts_created") }}'
+
+      - name: number_carts_emptied
+        description: '{{ doc("col_number_carts_emptied") }}'
+
+      - name: number_carts_transacted
+        description: '{{ doc("col_number_carts_transacted") }}'
+
+      - name: first_cart_transacted
+        description: '{{ doc("col_first_cart_transacted") }}'
+
+      - name: latest_cart_transacted
+        description: '{{ doc("col_latest_cart_transacted") }}'
+
+      - name: first_checkout_attempted
+        description: '{{ doc("col_first_checkout_attempted") }}'
+
+      - name: latest_checkout_attempted
+        description: '{{ doc("col_latest_checkout_attempted") }}'
+
+      - name: first_checkout_succeeded
+        description: '{{ doc("col_first_checkout_succeeded") }}'
+
+      - name: latest_checkout_succeeded
+        description: '{{ doc("col_latest_checkout_succeeded") }}'
+
+      - name: first_product_view
+        description: '{{ doc("col_first_product_view") }}'
+
+      - name: latest_product_view
+        description: '{{ doc("col_latest_product_view") }}'
+
+      - name: first_product_add_to_cart
+        description: '{{ doc("col_first_product_add_to_cart") }}'
+
+      - name: latest_product_add_to_cart
+        description: '{{ doc("col_latest_product_add_to_cart") }}'
+
+      - name: first_product_remove_from_cart
+        description: '{{ doc("col_first_product_remove_from_cart") }}'
+
+      - name: latest_product_remove_from_cart
+        description: '{{ doc("col_latest_product_remove_from_cart") }}'
+
+      - name: first_product_transaction
+        description: '{{ doc("col_first_product_transaction") }}'
+
+      - name: latest_product_transaction
+        description: '{{ doc("col_latest_product_transaction") }}'
+
+      - name: number_product_views
+        description: '{{ doc("col_number_product_views") }}'
+
+      - name: number_add_to_carts
+        description: '{{ doc("col_number_add_to_carts") }}'
+
+      - name: number_remove_from_carts
+        description: '{{ doc("col_number_remove_from_carts") }}'
+
+      - name: number_product_transactions
+        description: '{{ doc("col_number_product_transactions") }}'
+
+      - name: first_transaction_completed
+        description: '{{ doc("col_first_transaction_completed") }}'
+
+      - name: latest_transaction_completed
+        description: '{{ doc("col_latest_transaction_completed") }}'
+
+      - name: total_transaction_revenue
+        description: '{{ doc("col_total_transaction_revenue") }}'
+
+      - name: total_transaction_quantity
+        description: '{{ doc("col_total_transaction_quantity") }}'
+
+      - name: total_number_transactions
+        description: '{{ doc("col_total_number_transactions") }}'
+
+      - name: total_transacted_products
+        description: '{{ doc("col_total_transacted_products") }}'

@@ -1,50 +1,53 @@
-[![early-release]][tracker-classification] 
+[![early-release]][tracker-classification]
 [![Release][release-image]][releases]
-[![License][license-image]][license] 
+[![License][license-image]][license]
 [![Discourse posts][discourse-image]][discourse]
 
 ![snowplow-logo](https://raw.githubusercontent.com/snowplow/dbt-snowplow-utils/main/assets/snowplow_logo.png)
 
-# <YOUR REPO HERE>
+# snowplow-ecommerce
 
-This is a template repo for new dbt packages within Snowplow. To use this template, follow the instructions for [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) then follow these steps:
+This dbt package:
 
-1. Update this `README.md` with relevant information, deleting these instructions and replacing all <YOUR REPO HERE> text including in badge links
-2. Update the `.github/workflows/release.yml` with your package name
-3. Update the `CHANGELOG` with your package name
-4. Name your package in the `dbt_project.yml`
-5. Commit these changes
-6. Add the relevant users/teams to your repo
-7. Update the repo settings to the following:
-   1. Features:
-       - [ ] Wikis
-       - [x] Issues
-       - [x] Allow forking
-       - [ ] Sponsorships
-       - [x] Preserve this repository
-       - [ ] Discussions
-       - [ ] Projects
-    1. Pull Requests:
-        - [ ] Allow merge commits
-        - [x] Allow squash merging (Default to pull request title)
-        - [x] Allow rebase merging
-        - [ ] Always suggest updating pull request branches
-        - [ ] Allow auto-merge
-        - [ ] Automatically delete head branches
-8. Add branch protection on `main` and `release/**/*` with the following settings: 
-    - [x] Require a pull request before merging
-        - [x] Require approvals
-    - [x] Require status checks to pass before merging *(pick specific status checks once they are added)*
-        - [x] Require branches to be up to date before merging
-    - [x] Require conversation resolution before merging
-    - [ ] Require signed commits
-    - [ ] Require linear history
-    - [ ] Require deployments to succeed before merging
-    - [ ] Lock branch
-    - [x] Do not allow bypassing the above setting ***(unticked for release branch)***
-    - [ ] Restrict who can push to matching branches
-    - [ ] Allow force pushes ***(ticked  for release branch)***
-    - [ ] Allow deletions ***(ticked for release branch)***
+- Transforms and aggregates raw web ecommerce event data collected from the [Snowplow JavaScript tracker][tracker-docs] into a set of derived tables based around the following ecommerce data objects: carts, checkouts, products and transactions.
+- Processes **all ecommerce events incrementally**. It is not just constrained to out-of-the-box events - any custom events you are tracking will also be incrementally processed.
+- Is designed in a modular manner, allowing you to easily integrate your own custom SQL into the incremental framework provided by the package.
+
+Please refer to the [doc site][snowplow-ecommerce-docs] for a full breakdown of the package.
+
+### Adapter Support
+
+The snowplow-ecommerce v0.1.0 package currently supports BigQuery. Future support is expected for Databricks, Redshift, Snowflake & Postgres.
+
+| Warehouse | dbt versions | snowplow-ecommerce version |
+| :--------------------------------------------------: | :-----------------: | :------------------: |
+| BigQuery | >=1.0.0 to <2.0.0 | 0.1.0 |
+
+### Requirements
+
+- A dataset of web events from the [Snowplow JavaScript tracker][tracker-docs] must be available in the database.
+- Have the [`webPage` context][webpage-context] enabled.
+
+### Installation
+
+Check dbt Hub for the latest installation instructions, or read the [dbt docs][dbt-package-docs] for more information on installing packages.
+
+### Configuration & Operation
+
+Please refer to the [doc site][snowplow-ecommerce-docs] for details on how to configure and run the package.
+
+### Models
+
+The package contains multiple staging models however the mart models are as follows:
+
+| Model                     | Description                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| snowplow_ecommerce_cart_interactions | A table that provides insights into actions that occurred with carts, such as adding and removing to cart. |
+| snowplow_ecommerce_cart_sessions | A table that provides insights into all of the interactions that a occurred with carts during a session as defined by the `domain_sessionid`. |
+| snowplow_ecommerce_checkout_interactions | A table that provides insights into the checkout steps that were stepped through, including information that was filled out throughout the process  |
+| snowplow_ecommerce_product_interactions | A table that provides information into the products that were viewed, either on product pages or in product lists, and how those products were later interacted with, e.g. through adding to cart. |
+| snowplow_ecommerce_transaction_interactions | A table that provides insights into which transactions transpired, their value, how many products they contained, etc. |
+| snowplow_ecommerce_users | A table which aggregates the behaviour of users in terms of cart, checkout, product and transaction interactions into a table that can be joined on other user tables to e.g. build out user profiles. |
 
 # Join the Snowplow community
 
@@ -56,7 +59,7 @@ If you find a bug, please report an issue on GitHub.
 
 # Copyright and license
 
-The <YOUR PACKAGE HERE> package is Copyright 2022 Snowplow Analytics Ltd.
+The snowplow-ecommerce package is Copyright 2022 Snowplow Analytics Ltd.
 
 Licensed under the [Apache License, Version 2.0][license] (the "License");
 you may not use this software except in compliance with the License.
@@ -74,8 +77,8 @@ limitations under the License.
 [snowplow]: https://github.com/snowplow/snowplow
 [docs]: https://docs.snowplow.io/
 
-[release-image]: https://img.shields.io/github/v/release/snowplow/<YOUR_REPO_HERE>?sort=semver
-[releases]: https://github.com/snowplow/<YOUR_REPO_HERE>/releases
+[release-image]: https://img.shields.io/github/v/release/snowplow/dbt-snowplow-ecommerce?sort=semver
+[releases]: https://github.com/snowplow/dbt-snowplow-ecommerce/releases
 
 [tracker-classification]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/tracker-maintenance-classification/
 [early-release]: https://img.shields.io/static/v1?style=flat&label=Snowplow&message=Early%20Release&color=014477&labelColor=9ba0aa&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAeFBMVEVMaXGXANeYANeXANZbAJmXANeUANSQAM+XANeMAMpaAJhZAJeZANiXANaXANaOAM2WANVnAKWXANZ9ALtmAKVaAJmXANZaAJlXAJZdAJxaAJlZAJdbAJlbAJmQAM+UANKZANhhAJ+EAL+BAL9oAKZnAKVjAKF1ALNBd8J1AAAAKHRSTlMAa1hWXyteBTQJIEwRgUh2JjJon21wcBgNfmc+JlOBQjwezWF2l5dXzkW3/wAAAHpJREFUeNokhQOCA1EAxTL85hi7dXv/E5YPCYBq5DeN4pcqV1XbtW/xTVMIMAZE0cBHEaZhBmIQwCFofeprPUHqjmD/+7peztd62dWQRkvrQayXkn01f/gWp2CrxfjY7rcZ5V7DEMDQgmEozFpZqLUYDsNwOqbnMLwPAJEwCopZxKttAAAAAElFTkSuQmCC
@@ -83,5 +86,11 @@ limitations under the License.
 [maintained]: https://img.shields.io/static/v1?style=flat&label=Snowplow&message=Maintained&color=9e62dd&labelColor=9ba0aa&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAeFBMVEVMaXGXANeYANeXANZbAJmXANeUANSQAM+XANeMAMpaAJhZAJeZANiXANaXANaOAM2WANVnAKWXANZ9ALtmAKVaAJmXANZaAJlXAJZdAJxaAJlZAJdbAJlbAJmQAM+UANKZANhhAJ+EAL+BAL9oAKZnAKVjAKF1ALNBd8J1AAAAKHRSTlMAa1hWXyteBTQJIEwRgUh2JjJon21wcBgNfmc+JlOBQjwezWF2l5dXzkW3/wAAAHpJREFUeNokhQOCA1EAxTL85hi7dXv/E5YPCYBq5DeN4pcqV1XbtW/xTVMIMAZE0cBHEaZhBmIQwCFofeprPUHqjmD/+7peztd62dWQRkvrQayXkn01f/gWp2CrxfjY7rcZ5V7DEMDQgmEozFpZqLUYDsNwOqbnMLwPAJEwCopZxKttAAAAAElFTkSuQmCC
 [actively-maintained]: https://img.shields.io/static/v1?style=flat&label=Snowplow&message=Actively%20Maintained&color=6638b8&labelColor=9ba0aa&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAeFBMVEVMaXGXANeYANeXANZbAJmXANeUANSQAM+XANeMAMpaAJhZAJeZANiXANaXANaOAM2WANVnAKWXANZ9ALtmAKVaAJmXANZaAJlXAJZdAJxaAJlZAJdbAJlbAJmQAM+UANKZANhhAJ+EAL+BAL9oAKZnAKVjAKF1ALNBd8J1AAAAKHRSTlMAa1hWXyteBTQJIEwRgUh2JjJon21wcBgNfmc+JlOBQjwezWF2l5dXzkW3/wAAAHpJREFUeNokhQOCA1EAxTL85hi7dXv/E5YPCYBq5DeN4pcqV1XbtW/xTVMIMAZE0cBHEaZhBmIQwCFofeprPUHqjmD/+7peztd62dWQRkvrQayXkn01f/gWp2CrxfjY7rcZ5V7DEMDQgmEozFpZqLUYDsNwOqbnMLwPAJEwCopZxKttAAAAAElFTkSuQmCC
 
+[tracker-docs]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/
+[webpage-context]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/javascript-trackers/javascript-tracker/javascript-tracker-v3/tracker-setup/initialization-options/#Adding_predefined_contexts
+[dbt-package-docs]: https://docs.getdbt.com/docs/building-a-dbt-project/package-management
+
+[snowplow-ecommerce-docs-dbt]: https://snowplow.github.io/dbt-snowplow-ecommerce/#!/overview/snowplow_ecommerce
+[snowplow-ecommerce-docs]: https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/
 [discourse-image]: https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscourse.snowplow.io%2F
 [discourse]: http://discourse.snowplow.io/
