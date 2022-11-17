@@ -27,7 +27,7 @@ vars:
     snowplow__events: "{{ source('atomic', 'events') }}"
     snowplow__ecommerce_event_names: ['snowplow_ecommerce_action']
     snowplow__number_checkout_steps: 4
-    snowplow__number_category_level: 4
+    snowplow__number_category_levels: 4
     snowplow__categories_separator: '/'
     snowplow__user_product_quantity: false
     snowplow__user_id: 'domain_userid'
