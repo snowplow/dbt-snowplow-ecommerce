@@ -1,4 +1,5 @@
 name: 'snowplow_ecommerce'
+
 version: '0.0.1'
 config-version: 2
 
