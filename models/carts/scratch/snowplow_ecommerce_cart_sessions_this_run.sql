@@ -6,7 +6,7 @@
 
 with cart_session_stats AS (
     select domain_sessionid,
-       ecommerce_user_id,
+       MAX(ecommerce_user_id) as ecommerce_user_id,
        MIN(derived_tstamp) as start_tstamp,
 
        COUNT(DISTINCT cart_id) as number_unique_cart_ids,
@@ -16,7 +16,7 @@ with cart_session_stats AS (
 
 
     from {{ ref('snowplow_ecommerce_cart_interactions_this_run') }}
-    group by 1,2
+    group by 1
 )
 
 select

@@ -58,7 +58,7 @@ select
   -- ecommerce product fields
   pi.product_id,
   pi.product_category,
-  {%- for i in range(var("snowplow__number_categories", 4)) %}
+  {%- for i in range(var("snowplow__number_category_level", 4)) %}
   pi.product_categories_split[safe_offset({{i}})] as product_subcategory_{{i+1}},
   {%- endfor %}
   pi.product_currency,
