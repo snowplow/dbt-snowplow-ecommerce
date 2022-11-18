@@ -1082,6 +1082,10 @@ Unique ID set in the user ecommerce context
 The first time the session interacted with the website
 {% enddocs %}
 
+{% docs col_end_tstamp %}
+The last time the session interacted with the website
+{% enddocs %}
+
 {% docs col_first_cart_created %}
 The timestamp of when the session first created a cart
 {% enddocs %}

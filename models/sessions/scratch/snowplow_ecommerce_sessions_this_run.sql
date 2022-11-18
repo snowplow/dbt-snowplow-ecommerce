@@ -82,7 +82,9 @@ with cart_session_stats AS (
 )
 select
     s.session_id as domain_sessionid,
+    s.domain_userid,
     s.start_tstamp,
+    s.end_tstamp,
 
     css.number_unique_cart_ids,
     css.number_carts_created,

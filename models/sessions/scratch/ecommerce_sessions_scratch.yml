@@ -15,6 +15,12 @@ models:
       - name: start_tstamp
         description: '{{ doc("col_start_tstamp") }}'
 
+      - name: end_tstamp
+        description: '{{ doc("col_end_tstamp") }}'
+
+      - name: domain_userid
+        description: '{{ doc("col_domain_userid") }}'
+
       - name: number_unique_cart_ids
         description: '{{ doc("col_number_unique_cart_ids") }}'
 
