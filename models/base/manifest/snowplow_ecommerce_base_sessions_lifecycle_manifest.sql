@@ -34,6 +34,7 @@ with new_events_session_ids as (
     and e.collector_tstamp >= {{ lower_limit }}
     and e.collector_tstamp <= {{ upper_limit }}
     and {{ snowplow_utils.app_id_filter(var("snowplow__app_id",[])) }}
+    and {{ event_name_filter(var("snowplow__ecommerce_event_names", ["snowplow_ecommerce_event"]))}}
     and {{ is_run_with_new_events }} --don't reprocess sessions that have already been processed.
     {% if var('snowplow__derived_tstamp_partitioned', true) and target.type == 'bigquery' | as_bool() %} -- BQ only
       and e.derived_tstamp >= {{ lower_limit }}

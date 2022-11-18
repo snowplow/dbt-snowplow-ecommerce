@@ -1074,138 +1074,142 @@ The type of product view that occurred, e.g. list_view or product_view
 The number of products that are contained in a transaction, counted from the product interactions
 {% enddocs %}
 
-{% docs col_identifying_userid %}
-The identifying userid for the `users` tables. By default it has a value of `domain_userid` but can be customised in the model config.
-{% enddocs %}
-
-{% docs col_user_id_field %}
+{% docs col_ecommerce_user_id_field %}
 Unique ID set in the user ecommerce context
 {% enddocs %}
 
 {% docs col_start_tstamp %}
-The first time the user (defined with the `identifying_userid` key) interacted with the website
+The first time the session interacted with the website
 {% enddocs %}
 
 {% docs col_first_cart_created %}
-The timestamp of when the user first created a cart
+The timestamp of when the session first created a cart
 {% enddocs %}
 
-{% docs col_latest_cart_created %}
-The timestamp of when the user last created a cart
+{% docs col_last_cart_created %}
+The timestamp of when the session last created a cart
 {% enddocs %}
 
 {% docs col_first_cart_transacted %}
-The timestamp of when the user first transacted (purchased) the contents of a cart
+The timestamp of when the session first transacted (purchased) the contents of a cart
 {% enddocs %}
 
-{% docs col_latest_cart_transacted %}
-The timestamp of when the user last transacted (purchased) the contents of a cart
+{% docs col_last_cart_transacted %}
+The timestamp of when the session last transacted (purchased) the contents of a cart
 {% enddocs %}
 
 {% docs col_first_checkout_attempted %}
-The timestamp of when the user first attempted any checkout steps
+The timestamp of when the session first attempted any checkout steps
 {% enddocs %}
 
-{% docs col_latest_checkout_attempted %}
-The timestamp of when the user last attempted any checkout steps
+{% docs col_last_checkout_attempted %}
+The timestamp of when the session last attempted any checkout steps
 {% enddocs %}
 
 {% docs col_first_checkout_succeeded %}
-The timestamp of when the user first succeeded in checking out products
+The timestamp of when the session first succeeded in checking out products
 {% enddocs %}
 
-{% docs col_latest_checkout_succeeded %}
-The timestamp of when the user last succeeded in checking out products
+{% docs col_last_checkout_succeeded %}
+The timestamp of when the session last succeeded in checking out products
 {% enddocs %}
 
 {% docs col_first_product_view %}
-The timestamp of when the user first viewed a product
+The timestamp of when the session first viewed a product
 {% enddocs %}
 
-{% docs col_latest_product_view %}
-The timestamp of when the user last viewed a product
+{% docs col_last_product_view %}
+The timestamp of when the session last viewed a product
 {% enddocs %}
 
 {% docs col_first_product_add_to_cart %}
-The timestamp of when the user first added a product to their cart
+The timestamp of when the session first added a product to their cart
 {% enddocs %}
 
-{% docs col_latest_product_add_to_cart %}
-The timestamp of when the user last added a product to their cart
+{% docs col_last_product_add_to_cart %}
+The timestamp of when the session last added a product to their cart
 {% enddocs %}
 
 {% docs col_first_product_remove_from_cart %}
-The timestamp of when the user first removed a product from their cart
+The timestamp of when the session first removed a product from their cart
 {% enddocs %}
 
-{% docs col_latest_product_remove_from_cart %}
-The timestamp of when the user last removed a product from their cart
+{% docs col_last_product_remove_from_cart %}
+The timestamp of when the session last removed a product from their cart
 {% enddocs %}
 
 {% docs col_first_product_transaction %}
-The timestamp of when the user first purchased a product
+The timestamp of when the session first purchased a product
 {% enddocs %}
 
-{% docs col_latest_product_transaction %}
-The timestamp of when the user last purchased a product
+{% docs col_last_product_transaction %}
+The timestamp of when the session last purchased a product
 {% enddocs %}
 
 {% docs col_number_product_views %}
-The number of times a user viewed any product over their lifetime
+The number of product views that occurred within a session
 {% enddocs %}
 
 {% docs col_number_add_to_carts %}
-The number of add to cart actions a user had over their lifetime
+The number of add to cart actions that occurred within a session
 {% enddocs %}
 
 {% docs col_number_remove_from_carts %}
-The number of remove from cart actions a user had over their lifetime
+The number of remove from cart actions that occurred within a session
 {% enddocs %}
 
 {% docs col_number_product_transactions %}
-The number of product transaction actions a user had over their lifetime
+The number of product transaction actions that occurred within a session
 {% enddocs %}
 
 {% docs col_first_transaction_completed %}
-The timestamp of when the user first completed a transaction
+The timestamp of when the session first completed a transaction
 {% enddocs %}
 
-{% docs col_latest_transaction_completed %}
-The timestamp of when the user last completed a transaction
+{% docs col_last_transaction_completed %}
+The timestamp of when the session last completed a transaction
 {% enddocs %}
 
 {% docs col_total_transaction_revenue %}
-The total amount of revenue coming from transactions over the user's lifetime
+The total amount of revenue coming from transactions over the session's lifetime
 {% enddocs %}
 
 {% docs col_total_transaction_quantity %}
-The total quantity of products coming from transactions over the user's lifetime
+The total quantity of products coming from transactions over the session's lifetime
 {% enddocs %}
 
 {% docs col_total_number_transactions %}
-The total number of transactions over the user's lifetime
+The total number of transactions over the session's lifetime
 {% enddocs %}
 
 {% docs col_total_transacted_products %}
-The total number of transacted products over the user's lifetime
+The total number of transacted products over the session's lifetime
 {% enddocs %}
 
 {% docs col_number_unique_cart_ids %}
-The total number of unique `cart_id`s over the user's lifetime
+The total number of unique `cart_id`s over the session's lifetime
 {% enddocs %}
 
 {% docs col_number_carts_created %}
-The total number of carts created over the user's lifetime
+The total number of carts created over the session's lifetime
 {% enddocs %}
 
 {% docs col_number_carts_emptied %}
-The total number of carts emptied over the user's lifetime
+The total number of carts emptied over the session's lifetime
 {% enddocs %}
 
 {% docs col_number_carts_transacted %}
-The total number of carts transacted over the user's lifetime
+The total number of carts transacted over the session's lifetime
 {% enddocs %}
 
 {% docs col_session_cart_abandoned %}
-The total number of carts abandoned over the user's lifetime
+The total number of carts abandoned over the session's lifetime
+{% enddocs %}
+
+{% docs col_number_unique_checkout_steps_attempted %}
+The total distinct number of checkout steps that a session went through
+{% enddocs %}
+
+{% docs col_number_checkout_steps_visited %}
+The total number of (non-unique) checkout steps that a session went through
 {% enddocs %}

@@ -10,13 +10,13 @@ Placeholder text.
 
 {% enddocs %}
 
-{% docs table_cart_sessions %}
+{% docs table_ecommerce_sessions %}
 
 Placeholder text.
 
 {% enddocs %}
 
-{% docs table_cart_sessions_this_run %}
+{% docs table_ecommerce_sessions_this_run %}
 
 Placeholder text.
 

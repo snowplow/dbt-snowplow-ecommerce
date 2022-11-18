@@ -43,11 +43,10 @@ The package contains multiple staging models however the mart models are as foll
 | Model                     | Description                                                                                |
 | ------------------------- | ------------------------------------------------------------------------------------------ |
 | snowplow_ecommerce_cart_interactions | A table that provides insights into actions that occurred with carts, such as adding and removing to cart. |
-| snowplow_ecommerce_cart_sessions | A table that provides insights into all of the interactions that a occurred with carts during a session as defined by the `domain_sessionid`. |
+| snowplow_ecommerce_sessions | A table that provides insights into all of the ecommerce interactions that a occurred during a session as defined by the `domain_sessionid`. |
 | snowplow_ecommerce_checkout_interactions | A table that provides insights into the checkout steps that were stepped through, including information that was filled out throughout the process  |
 | snowplow_ecommerce_product_interactions | A table that provides information into the products that were viewed, either on product pages or in product lists, and how those products were later interacted with, e.g. through adding to cart. |
 | snowplow_ecommerce_transaction_interactions | A table that provides insights into which transactions transpired, their value, how many products they contained, etc. |
-| snowplow_ecommerce_users | A table which aggregates the behaviour of users in terms of cart, checkout, product and transaction interactions into a table that can be joined on other user tables to e.g. build out user profiles. |
 
 # Join the Snowplow community
 

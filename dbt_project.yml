@@ -30,7 +30,6 @@ vars:
     snowplow__number_category_levels: 4
     snowplow__categories_separator: '/'
     snowplow__user_product_quantity: false
-    snowplow__user_id: 'domain_userid'
     # Variables - Standard Config
     snowplow__start_date: '2020-01-01'
     snowplow__min_visit_length: 5
@@ -96,13 +95,13 @@ models:
       scratch:
         +schema: "scratch"
         +tags: "scratch"
-    transactions:
+    sessions:
       +schema: "derived"
       +tags: "snowplow_ecommerce_incremental"
       scratch:
         +schema: "scratch"
         +tags: "scratch"
-    users:
+    transactions:
       +schema: "derived"
       +tags: "snowplow_ecommerce_incremental"
       scratch:
