@@ -27,6 +27,8 @@ The snowplow-ecommerce v0.1.0 package currently supports BigQuery. Future suppor
 
 - A dataset of web events from the [Snowplow JavaScript tracker][tracker-docs] must be available in the database.
 - Have the [`webPage` context][webpage-context] enabled.
+- Have the following e-commerce contexts enabled: user, checkout_step, page, transaction, cart
+- Track the ecommerce tracking action events on your website
 
 ### Installation
 

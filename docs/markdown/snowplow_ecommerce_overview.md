@@ -19,7 +19,7 @@ This model consists of a series of modules, each producing a table which serves 
 - Checkouts: Placeholder text.
 - Products: Placeholder text.
 - Transactions: Placeholder text.
-- Users: Placeholder text.
+- Sessions: Placeholder text.
 
 Each module produces a table which acts as the input to the subsequent module (the `_this_run` tables), and updates a derived table - with the exception of the Base module, which takes atomic data as its input, and does not update a derived table.
 

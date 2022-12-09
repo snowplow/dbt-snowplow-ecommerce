@@ -6,9 +6,25 @@
 
 with product_info as (
   select
+    {{ dbt_utils.surrogate_key(['t.event_id', 'r.id']) }} as product_event_id,
     t.event_id,
     t.page_view_id,
 
+    -- session fields
+    t.domain_sessionid,
+    t.page_view_in_session_index,
+
+    -- user fields
+    t.domain_userid,
+    t.network_userid,
+    t.user_id,
+    t.ecommerce_user_id,
+
+    -- timestamp fields
+    t.derived_tstamp,
+    DATE(derived_tstamp) as derived_tstamp_date,
+
+    -- ecommerce product fields
     r.id as product_id,
     r.category as product_category,
     SPLIT(r.category, '{{ var("snowplow__categories_separator", "/") }}') as product_categories_split,
@@ -25,7 +41,15 @@ with product_info as (
     r.variant as product_variant,
     t.ecommerce_action_type,
     t.ecommerce_action_name,
-    t.ecommerce_user_id,
+
+    -- ecommerce action booleans
+    t.ecommerce_action_type IN ('product_view', 'list_view') as is_product_view,
+    CASE WHEN t.ecommerce_action_type IN ('product_view', 'list_view') THEN t.ecommerce_action_type END as product_view_type,
+    t.ecommerce_action_type = 'add_to_cart' as is_add_to_cart,
+    t.ecommerce_action_type = 'remove_from_cart' as is_remove_from_cart,
+    CASE WHEN t.ecommerce_action_type = 'list_view' THEN t.ecommerce_action_name END as product_list_name,
+    t.ecommerce_action_type = 'transaction' as is_product_transaction,
+
     t.ecommerce_user_is_guest,
     t.ecommerce_user_email,
     t.transaction_id
@@ -36,55 +60,54 @@ with product_info as (
 )
 
 select
-  {{ dbt_utils.surrogate_key(['e.event_id', 'pi.product_id']) }} as product_event_id,
+  product_event_id,
   -- event fields
-  e.event_id,
-  e.page_view_id,
+  event_id,
+  page_view_id,
 
   -- session fields
-  e.domain_sessionid,
-  e.page_view_in_session_index,
+  domain_sessionid,
+  page_view_in_session_index,
 
   -- user fields
-  e.domain_userid,
-  e.network_userid,
-  e.user_id,
-  pi.ecommerce_user_id,
+  domain_userid,
+  network_userid,
+  user_id,
+  ecommerce_user_id,
 
   -- timestamp fields
-  e.derived_tstamp,
-  DATE(derived_tstamp) as derived_tstamp_date,
+  derived_tstamp,
+  derived_tstamp_date,
 
   -- ecommerce product fields
-  pi.product_id,
-  pi.product_category,
+  product_id,
+  product_category,
   {%- for i in range(var("snowplow__number_category_levels", 4)) %}
-  pi.product_categories_split[safe_offset({{i}})] as product_subcategory_{{i+1}},
+  product_categories_split[safe_offset({{i}})] as product_subcategory_{{i+1}},
   {%- endfor %}
-  pi.product_currency,
-  pi.product_price,
-  pi.product_brand,
-  pi.product_creative_id,
-  pi.product_inventory_status,
-  pi.product_list_price,
-  pi.product_name,
-  pi.product_list_position,
-  pi.product_quantity,
-  pi.product_size,
-  pi.product_variant,
+  product_currency,
+  product_price,
+  product_brand,
+  product_creative_id,
+  product_inventory_status,
+  product_list_price,
+  product_name,
+  product_list_position,
+  product_quantity,
+  product_size,
+  product_variant,
 
   -- ecommerce action booleans
-  pi.ecommerce_action_type IN ('product_view', 'list_view') as is_product_view,
-  CASE WHEN pi.ecommerce_action_type IN ('product_view', 'list_view') THEN pi.ecommerce_action_type END as product_view_type,
-  pi.ecommerce_action_type = 'add_to_cart' as is_add_to_cart,
-  pi.ecommerce_action_type = 'remove_from_cart' as is_remove_from_cart,
-  CASE WHEN pi.ecommerce_action_type = 'list_view' THEN pi.ecommerce_action_name END as product_list_name,
-  pi.ecommerce_action_type = 'transaction' as is_product_transaction,
+  is_product_view,
+  product_view_type,
+  is_add_to_cart,
+  is_remove_from_cart,
+  product_list_name,
+  is_product_transaction,
 
   -- transaction and user fields
-  pi.transaction_id,
-  pi.ecommerce_user_email,
-  pi.ecommerce_user_is_guest
+  transaction_id,
+  ecommerce_user_email,
+  ecommerce_user_is_guest
 
-from product_info as pi
-join {{ ref('snowplow_ecommerce_base_events_this_run') }} as e on pi.event_id = e.event_id
+from product_info

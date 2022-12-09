@@ -851,7 +851,7 @@ The full billing address provided at the checkout step e.g. 1 Lincoln Street
 {% enddocs %}
 
 {% docs col_checkout_billing_postcode %}
-The full billing postcode provided at the checkout step e.g. 90210
+The full billing postcode/zipcode provided at the checkout step e.g. 90210
 {% enddocs %}
 
 {% docs col_checkout_coupon_code %}
@@ -1074,10 +1074,6 @@ The type of product view that occurred, e.g. list_view or product_view
 The number of products that are contained in a transaction, counted from the product interactions
 {% enddocs %}
 
-{% docs col_ecommerce_user_id_field %}
-Unique ID set in the user ecommerce context
-{% enddocs %}
-
 {% docs col_start_tstamp %}
 The first time the session interacted with the website
 {% enddocs %}
@@ -1154,6 +1150,10 @@ The timestamp of when the session last purchased a product
 The number of product views that occurred within a session
 {% enddocs %}
 
+{% docs col_number_distinct_products_viewed %}
+The number of distinct product IDs that were viewed within a session
+{% enddocs %}
+
 {% docs col_number_add_to_carts %}
 The number of add to cart actions that occurred within a session
 {% enddocs %}
@@ -1204,10 +1204,6 @@ The total number of carts emptied over the session's lifetime
 
 {% docs col_number_carts_transacted %}
 The total number of carts transacted over the session's lifetime
-{% enddocs %}
-
-{% docs col_session_cart_abandoned %}
-The total number of carts abandoned over the session's lifetime
 {% enddocs %}
 
 {% docs col_number_unique_checkout_steps_attempted %}

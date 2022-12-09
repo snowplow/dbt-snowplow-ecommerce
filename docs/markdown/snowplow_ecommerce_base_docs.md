@@ -1,6 +1,6 @@
 {% docs table_base_sessions_lifecycle_manifest %}
 
-This incremental table is a manifest of all sessions that have been processed by the Snowplow dbt ecommerce model. For each session, the start and end timestamp is recorded.
+This incremental table is a manifest of all sessions that have been processed by the Snowplow dbt ecommerce package. For each session, the start and end timestamp is recorded.
 
 By knowing the lifecycle of a session the model is able to able to determine which sessions and thus events to process for a given timeframe, as well as the complete date range required to reprocess all events of each session.
 
@@ -8,7 +8,7 @@ By knowing the lifecycle of a session the model is able to able to determine whi
 
 {% docs table_base_incremental_manifest %}
 
-This incremental table is a manifest of the timestamp of the latest event consumed per model within the `snowplow-ecommerce` package as well as any models leveraging the incremental framework provided by the package. The latest event's timestamp is based off `collector_tstamp`. This table is used to determine what events should be processed in the next run of the model.
+This incremental table is a manifest of the timestamp of the latest event consumed per model within the Snowplow dbt ecommerce package as well as any models leveraging the incremental framework provided by the package. The latest event's timestamp is based off `collector_tstamp`. This table is used to determine what events should be processed in the next run of the model.
 {% enddocs %}
 
 {% docs table_base_new_event_limits %}

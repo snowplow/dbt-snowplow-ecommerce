@@ -3,7 +3,7 @@
   {% set user_fields = [
       {'field':('id', 'ecommerce_user_id'), 'dtype':'string'},
       {'field':('email', 'ecommerce_user_email'), 'dtype':'string'},
-      {'field':('is_guest', 'ecommerce_user_is_guest'), 'dtype':'boolea'}
+      {'field':('is_guest', 'ecommerce_user_is_guest'), 'dtype':'boolean'}
     ] %}
 
   {{ return(user_fields) }}

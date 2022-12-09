@@ -3,7 +3,7 @@
 
   {%- if event_names|length -%}
 
-    lower(event_name) in ('{{ event_names|join("','") }}') --filter on event_name if provided
+    lower(event_name) in ('{{ event_names|map("lower")|join("','") }}') --filter on event_name if provided
 
   {%- else -%}
 

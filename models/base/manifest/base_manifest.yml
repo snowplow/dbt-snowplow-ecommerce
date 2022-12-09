@@ -32,7 +32,7 @@ models:
           - unique
           - not_null
       - name: last_success
-        description: The latest event consumed by the model, based on `collector_tstamp`
+        description: The timestamp of the latest event consumed by the model, based on `collector_tstamp`
   - name: snowplow_ecommerce_base_quarantined_sessions
     description: '{{ doc("table_base_quarantined_sessions") }}'
     columns:

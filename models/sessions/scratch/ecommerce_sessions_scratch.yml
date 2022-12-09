@@ -108,6 +108,9 @@ models:
       - name: number_product_transactions
         description: '{{ doc("col_number_product_transactions") }}'
 
+      - name: number_distinct_products_viewed
+        description: '{{ doc("col_number_distinct_products_viewed") }}'
+
       - name: first_transaction_completed
         description: '{{ doc("col_first_transaction_completed") }}'
 
