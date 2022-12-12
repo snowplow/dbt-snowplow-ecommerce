@@ -951,11 +951,11 @@ The total value of the cart after this interaction
 {% enddocs %}
 
 {% docs col_ecommerce_action_type %}
-The type of the page that was visited E.g. homepage, product page, checkout page.
+The type of ecommerce action that was performed, e.g. transaction, add_to_cart, etc.
 {% enddocs %}
 
 {% docs col_ecommerce_action_name %}
-The name of the list presented to the user E.g. product list, search results, shop the look, frequently bought with.
+The name that is associated with the ecommerce action. E.g. when a list_click occurs, the name of the product list such as 'recommended' or 'shop the look'
 {% enddocs %}
 
 {% docs col_page_view_in_session_index %}
@@ -980,6 +980,14 @@ A boolean to describe whether the cart was transacted (purchased) in this action
 
 {% docs col_session_entered_at_step %}
 A boolean to describe whether the session was entered at this checkout step
+{% enddocs %}
+
+{% docs col_session_entered_at_checkout %}
+A boolean to describe whether the session started within the checkout
+{% enddocs %}
+
+{% docs col_session_cart_abandoned %}
+A boolean to describe whether the session's cart was abandoned
 {% enddocs %}
 
 {% docs col_checkout_succeeded %}

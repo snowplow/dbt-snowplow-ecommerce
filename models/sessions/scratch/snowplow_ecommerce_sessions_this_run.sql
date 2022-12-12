@@ -5,7 +5,11 @@
 }}
 
 with cart_session_stats AS (
-    with carts_intermediate AS (
+    select
+        t.*,
+        number_carts_transacted < number_carts_created as session_cart_abandoned
+
+    from (
         select domain_sessionid,
 
         COUNT(DISTINCT cart_id) as number_unique_cart_ids,
@@ -22,17 +26,13 @@ with cart_session_stats AS (
 
         from {{ ref('snowplow_ecommerce_cart_interactions_this_run') }}
         group by 1
-    )
-    select
-        *,
-        number_carts_transacted < number_carts_created as session_cart_abandoned
 
-    from carts_intermediate
+    ) as t
 ), checkout_session_stats AS (
     select
         domain_sessionid,
 
-        MAX(session_entered_at_step) as session_entered_at_step,
+        MAX(session_entered_at_step) as session_entered_at_checkout,
         COUNT(DISTINCT checkout_step_number) as number_unique_checkout_steps_attempted,
         COUNT(DISTINCT event_id) as number_checkout_steps_visited,
         MAX(checkout_succeeded) as checkout_succeeded,
@@ -60,7 +60,8 @@ with cart_session_stats AS (
         COUNT(DISTINCT CASE WHEN is_product_view THEN event_id END) AS number_product_views,
         COUNT(DISTINCT CASE WHEN is_add_to_cart THEN event_id END) AS number_add_to_carts,
         COUNT(DISTINCT CASE WHEN is_remove_from_cart THEN event_id END) AS number_remove_from_carts,
-        COUNT(DISTINCT CASE WHEN is_product_transaction THEN event_id END) AS number_product_transactions
+        COUNT(DISTINCT CASE WHEN is_product_transaction THEN event_id END) AS number_product_transactions,
+        COUNT(DISTINCT CASE WHEN is_product_view THEN product_id END) as number_distinct_products_viewed,
 
 
     from {{ ref('snowplow_ecommerce_product_interactions_this_run') }}
@@ -97,7 +98,7 @@ select
     css.last_cart_transacted,
     css.session_cart_abandoned,
 
-    chss.session_entered_at_step,
+    chss.session_entered_at_checkout,
     chss.number_unique_checkout_steps_attempted,
     chss.number_checkout_steps_visited,
     chss.checkout_succeeded,

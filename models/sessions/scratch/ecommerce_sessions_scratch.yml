@@ -48,8 +48,8 @@ models:
       - name: session_cart_abandoned
         description: '{{ doc("col_session_cart_abandoned") }}'
 
-      - name: session_entered_at_step
-        description: '{{ doc("col_session_entered_at_step") }}'
+      - name: session_entered_at_checkout
+        description: '{{ doc("col_session_entered_at_checkout") }}'
 
       - name: number_unique_checkout_steps_attempted
         description: '{{ doc("col_number_unique_checkout_steps_attempted") }}'

@@ -22,7 +22,7 @@ with transaction_info AS (
 
         -- timestamp fields
         e.derived_tstamp,
-        e.DATE(derived_tstamp) as derived_tstamp_date,
+        DATE(e.derived_tstamp) as derived_tstamp_date,
 
         -- ecommerce transaction fields
         e.transaction_id as transaction_id,
