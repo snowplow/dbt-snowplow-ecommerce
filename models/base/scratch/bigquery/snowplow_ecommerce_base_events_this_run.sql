@@ -72,16 +72,7 @@ from (
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
-    a.* except(contexts_com_snowplowanalytics_snowplow_web_page_1_0_0,
-               domain_userid,
-               contexts_ecommerce_tracking_user_1_0_0,
-               contexts_ecommerce_tracking_checkout_step_1_0_0,
-               contexts_ecommerce_tracking_page_1_0_0,
-               contexts_ecommerce_tracking_transaction_1_0_0,
-               contexts_ecommerce_tracking_cart_1_0_0,
-               unstruct_event_ecommerce_tracking_action_1_0_0
-               )
-
+    a.*
 
     from {{ var('snowplow__events') }} as a
     inner join {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as b
