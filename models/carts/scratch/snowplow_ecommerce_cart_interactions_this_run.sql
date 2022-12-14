@@ -34,7 +34,7 @@ with cart_product_interactions AS (
 
 
     from {{ ref('snowplow_ecommerce_base_events_this_run') }} as e
-    join {{ ref('snowplow_ecommerce_product_interactions_this_run') }} as pi on e.event_id = pi.event_id AND pi.is_add_to_cart
+    left join {{ ref('snowplow_ecommerce_product_interactions_this_run') }} as pi on e.event_id = pi.event_id AND pi.is_add_to_cart
     where e.ecommerce_action_type IN ('add_to_cart', 'remove_from_cart', 'transaction')
     group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14
 )
