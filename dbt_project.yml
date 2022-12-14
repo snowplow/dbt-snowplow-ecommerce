@@ -36,8 +36,11 @@ vars:
     snowplow__app_id: []
     snowplow__derived_tstamp_partitioned: true
     # Variables - Advanced Config
+    snowplow__lookback_window_hours: 6
+    snowplow__session_lookback_days: 730
     snowplow__days_late_allowed: 3
     snowplow__max_session_days: 3
+    snowplow__upsert_lookback_days: 30
     snowplow__query_tag: "snowplow_dbt"
     snowplow__incremental_materialization: "snowplow_incremental"
     snowplow__dev_target_name: 'dev'
