@@ -1,0 +1,112 @@
+version: 2
+
+models:
+  - name: snowplow_ecommerce_product_interactions
+    description: '{{ doc("table_product_interactions") }}'
+    columns:
+      - name: product_event_id
+        description: '{{ doc("col_product_event_id") }}'
+        tags:
+          - primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: event_id
+        description: '{{ doc("col_event_id") }}'
+
+      - name: page_view_id
+        description: '{{ doc("col_page_view_id") }}'
+
+      - name: domain_sessionid
+        description: '{{ doc("col_domain_sessionid") }}'
+
+      - name: page_view_in_session_index
+        description: '{{ doc("col_page_view_in_session_index") }}'
+
+      - name: domain_userid
+        description: '{{ doc("col_domain_userid") }}'
+
+      - name: network_userid
+        description: '{{ doc("col_network_userid") }}'
+
+      - name: user_id
+        description: '{{ doc("col_user_id") }}'
+
+      - name: ecommerce_user_id
+        description: '{{ doc("col_ecommerce_user_id") }}'
+
+      - name: derived_tstamp
+        description: '{{ doc("col_derived_tstamp") }}'
+
+      - name: derived_tstamp_date
+        description: '{{ doc("col_derived_tstamp_date") }}'
+
+      - name: product_id
+        description: '{{ doc("col_product_id") }}'
+
+      - name: product_category
+        description: '{{ doc("col_product_category") }}'
+
+      - name: product_subcategory
+        description: '{{ doc("col_product_subcategory") }}'
+
+      - name: product_currency
+        description: '{{ doc("col_product_currency") }}'
+
+      - name: product_price
+        description: '{{ doc("col_product_price") }}'
+
+      - name: product_brand
+        description: '{{ doc("col_product_brand") }}'
+
+      - name: product_creative_id
+        description: '{{ doc("col_product_creative_id") }}'
+
+      - name: product_inventory_status
+        description: '{{ doc("col_product_inventory_status") }}'
+
+      - name: product_list_price
+        description: '{{ doc("col_product_list_price") }}'
+
+      - name: product_name
+        description: '{{ doc("col_product_name") }}'
+
+      - name: product_list_position
+        description: '{{ doc("col_product_list_position") }}'
+
+      - name: product_quantity
+        description: '{{ doc("col_product_quantity") }}'
+
+      - name: product_size
+        description: '{{ doc("col_product_size") }}'
+
+      - name: product_variant
+        description: '{{ doc("col_product_variant") }}'
+
+      - name: is_product_view
+        description: '{{ doc("col_is_product_view") }}'
+
+      - name: product_view_type
+        description: '{{ doc("col_product_view_type") }}'
+
+      - name: is_add_to_cart
+        description: '{{ doc("col_is_add_to_cart") }}'
+
+      - name: is_remove_from_cart
+        description: '{{ doc("col_is_remove_from_cart") }}'
+
+      - name: product_list_name
+        description: '{{ doc("col_product_list_name") }}'
+
+      - name: is_product_transaction
+        description: '{{ doc("col_is_product_transaction") }}'
+
+      - name: transaction_id
+        description: '{{ doc("col_transaction_id") }}'
+
+      - name: ecommerce_user_email
+        description: '{{ doc("col_ecommerce_user_email") }}'
+
+      - name: ecommerce_user_is_guest
+        description: '{{ doc("col_ecommerce_user_is_guest") }}'

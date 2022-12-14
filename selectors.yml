@@ -1,0 +1,44 @@
+selectors:
+  - name: snowplow_ecommerce
+    description: >
+      Suggested node selection when running the Snowplow Ecommerce package.
+      Runs:
+        - All Snowplow Ecommerce models.
+        - All custom models in your dbt project, tagged with `snowplow_ecommerce_incremental`.
+    definition:
+      union:
+        - method: package
+          value: snowplow_ecommerce
+        - method: tag
+          value: snowplow_ecommerce_incremental
+  - name: snowplow_ecommerce_lean_tests
+    description: >
+      Suggested testing implementation for the Snowplow Ecommerce package. Lean approach, essential tests rather than full suite to save cost.
+      Tests:
+        - All tests on Snowplow Ecommerce this_run and manifest tables.
+        - Primary key and data tests on the Snowplow Ecommerce derived tables (cart_interactions, cart_sessions, checkout_interactions, product_interactions, transaction_interactions, and users)
+        - All tests on any custom models in your dbt project, tagged with `snowplow_ecommerce_incremental`.
+    definition:
+      union:
+        - intersection:
+          - method: package
+            value: snowplow_ecommerce
+          - method: tag
+            value: this_run
+        - intersection:
+          - method: package
+            value: snowplow_ecommerce
+          - method: tag
+            value: manifest
+        - intersection:
+          - method: package
+            value: snowplow_ecommerce
+          - method: tag
+            value: derived
+          - method: tag
+            value: primary-key
+        - intersection:
+          - method: path
+            value: models
+          - method: tag
+            value: snowplow_ecommerce_incremental
