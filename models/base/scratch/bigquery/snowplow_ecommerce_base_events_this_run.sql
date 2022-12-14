@@ -72,7 +72,7 @@ from (
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
-    a.*
+    a.* except (domain_userid)
 
     from {{ var('snowplow__events') }} as a
     inner join {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as b
