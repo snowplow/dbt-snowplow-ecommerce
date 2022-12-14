@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: snowplow_ecommerce_cart_interactions_this_run
+    description: '{{ doc("table_cart_interactions_this_run") }}'
+    columns:
+      - name: event_id
+        description: '{{ doc("col_event_id") }}'
+        tags:
+          - primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: page_view_id
+        description: '{{ doc("col_page_view_id") }}'
+
+      - name: domain_sessionid
+        description: '{{ doc("col_domain_sessionid") }}'
+
+      - name: page_view_in_session_index
+        description: '{{ doc("col_page_view_in_session_index") }}'
+
+      - name: domain_userid
+        description: '{{ doc("col_domain_userid") }}'
+
+      - name: network_userid
+        description: '{{ doc("col_network_userid") }}'
+
+      - name: user_id
+        description: '{{ doc("col_user_id") }}'
+
+      - name: ecommerce_user_id
+        description: '{{ doc("col_ecommerce_user_id") }}'
+
+      - name: derived_tstamp
+        description: '{{ doc("col_derived_tstamp") }}'
+
+      - name: derived_tstamp_date
+        description: '{{ doc("col_derived_tstamp_date") }}'
+
+      - name: cart_id
+        description: '{{ doc("col_cart_id") }}'
+
+      - name: cart_currency
+        description: '{{ doc("col_cart_currency") }}'
+
+      - name: cart_total_value
+        description: '{{ doc("col_cart_total_value") }}'
+
+      - name: cart_created
+        description: '{{ doc("col_cart_created") }}'
+
+      - name: cart_emptied
+        description: '{{ doc("col_cart_emptied") }}'
+
+      - name: cart_transacted
+        description: '{{ doc("col_cart_transacted") }}'
+
+      - name: ecommerce_action_type
+        description: '{{ doc("col_ecommerce_action_type") }}'

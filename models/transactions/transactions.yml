@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: snowplow_ecommerce_transaction_interactions
+    description: '{{ doc("table_transaction_interactions") }}'
+    columns:
+      - name: transaction_id
+        description: '{{ doc("col_transaction_id") }}'
+        tags:
+          - primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: event_id
+        description: '{{ doc("col_event_id") }}'
+
+      - name: page_view_id
+        description: '{{ doc("col_page_view_id") }}'
+
+      - name: domain_sessionid
+        description: '{{ doc("col_domain_sessionid") }}'
+
+      - name: page_view_in_session_index
+        description: '{{ doc("col_page_view_in_session_index") }}'
+
+      - name: domain_userid
+        description: '{{ doc("col_domain_userid") }}'
+
+      - name: network_userid
+        description: '{{ doc("col_network_userid") }}'
+
+      - name: user_id
+        description: '{{ doc("col_user_id") }}'
+
+      - name: ecommerce_user_id
+        description: '{{ doc("col_ecommerce_user_id") }}'
+
+      - name: derived_tstamp
+        description: '{{ doc("col_derived_tstamp") }}'
+
+      - name: derived_tstamp_date
+        description: '{{ doc("col_derived_tstamp_date") }}'
+
+      - name: transaction_currency
+        description: '{{ doc("col_transaction_currency") }}'
+
+      - name: transaction_payment_method
+        description: '{{ doc("col_transaction_payment_method") }}'
+
+      - name: transaction_revenue
+        description: '{{ doc("col_transaction_revenue") }}'
+
+      - name: transaction_total_quantity
+        description: '{{ doc("col_transaction_total_quantity") }}'
+
+      - name: transaction_credit_order
+        description: '{{ doc("col_transaction_credit_order") }}'
+
+      - name: transaction_discount_amount
+        description: '{{ doc("col_transaction_discount_amount") }}'
+
+      - name: transaction_discount_code
+        description: '{{ doc("col_transaction_discount_code") }}'
+
+      - name: transaction_shipping
+        description: '{{ doc("col_transaction_shipping") }}'
+
+      - name: transaction_tax
+        description: '{{ doc("col_transaction_tax") }}'
+
+      - name: ecommerce_user_email
+        description: '{{ doc("col_ecommerce_user_email") }}'
+
+      - name: ecommerce_user_is_guest
+        description: '{{ doc("col_ecommerce_user_is_guest") }}'
+
+      - name: number_products
+        description: '{{ doc("col_number_products") }}'
