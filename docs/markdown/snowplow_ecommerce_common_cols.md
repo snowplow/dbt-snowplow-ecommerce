@@ -958,8 +958,8 @@ The type of ecommerce action that was performed, e.g. transaction, add_to_cart, 
 The name that is associated with the ecommerce action. E.g. when a list_click occurs, the name of the product list such as 'recommended' or 'shop the look'
 {% enddocs %}
 
-{% docs col_page_view_in_session_index %}
-The number of the page view in the corresponding session.
+{% docs col_event_in_session_index %}
+The index of the event in the corresponding session.
 {% enddocs %}
 
 {% docs col_derived_tstamp_date %}
