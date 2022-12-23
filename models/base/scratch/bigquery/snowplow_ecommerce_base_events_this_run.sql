@@ -28,7 +28,7 @@ from (
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=user_fields(),
-        col_prefix='contexts_ecommerce_tracking_user_1',
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_user_1',
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
@@ -36,7 +36,7 @@ from (
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=checkout_step_fields(),
-        col_prefix='contexts_ecommerce_tracking_checkout_step_1',
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1',
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
@@ -44,7 +44,7 @@ from (
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=tracking_page_fields(),
-        col_prefix='contexts_ecommerce_tracking_page_1',
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_page_1',
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
@@ -52,7 +52,7 @@ from (
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=transaction_fields(),
-        col_prefix='contexts_ecommerce_tracking_transaction_1',
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1',
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
@@ -60,7 +60,7 @@ from (
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=cart_fields(),
-        col_prefix='contexts_ecommerce_tracking_cart_1',
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1',
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
@@ -68,7 +68,7 @@ from (
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=tracking_action_fields(),
-        col_prefix='unstruct_event_ecommerce_tracking_action_1',
+        col_prefix='unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1',
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 

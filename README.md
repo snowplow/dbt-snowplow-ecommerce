@@ -92,6 +92,6 @@ limitations under the License.
 [dbt-package-docs]: https://docs.getdbt.com/docs/building-a-dbt-project/package-management
 
 [snowplow-ecommerce-docs-dbt]: https://snowplow.github.io/dbt-snowplow-ecommerce/#!/overview/snowplow_ecommerce
-[snowplow-ecommerce-docs]: https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/
+[snowplow-ecommerce-docs]: https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-models/dbt-ecommerce-data-model/
 [discourse-image]: https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscourse.snowplow.io%2F
 [discourse]: http://discourse.snowplow.io/
