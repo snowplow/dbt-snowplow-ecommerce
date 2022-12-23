@@ -1,6 +1,7 @@
 {{
     config(
-        tags=["this_run"]
+        tags=["this_run"],
+        sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt'))
     )
 }}
 
@@ -61,7 +62,7 @@ with cart_session_stats AS (
         COUNT(DISTINCT CASE WHEN is_add_to_cart THEN event_id END) AS number_add_to_carts,
         COUNT(DISTINCT CASE WHEN is_remove_from_cart THEN event_id END) AS number_remove_from_carts,
         COUNT(DISTINCT CASE WHEN is_product_transaction THEN event_id END) AS number_product_transactions,
-        COUNT(DISTINCT CASE WHEN is_product_view THEN product_id END) as number_distinct_products_viewed,
+        COUNT(DISTINCT CASE WHEN is_product_view THEN product_id END) as number_distinct_products_viewed
 
 
     from {{ ref('snowplow_ecommerce_product_interactions_this_run') }}

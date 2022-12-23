@@ -1,0 +1,436 @@
+name: 'snowplow_ecommerce_integration_tests'
+version: '0.1.0'
+config-version: 2
+
+profile: 'integration_tests'
+
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_packages"
+
+quoting:
+  identifier: false
+  schema: false
+
+models:
+  snowplow_ecommerce_integration_tests:
+    bind: false
+    +schema: "snplw_ecommerce_int_tests"
+    source:
+      bigquery:
+        +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+      snowflake:
+        +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
+
+
+
+vars:
+  snowplow_ecommerce:
+    snowplow__events: "{{ ref('snowplow_ecommerce_events_stg') }}"
+    snowplow__start_date: "2022-10-01"
+    snowplow__backfill_limit_days: 30
+
+seeds:
+  quote_columns: false
+  snowplow_ecommerce_integration_tests:
+    +schema: "snplw_ecommerce_int_tests"
+    source:
+      snowplow_ecommerce_events:
+        +column_types:
+          app_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          platform: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          etl_tstamp: timestamp
+          collector_tstamp: timestamp
+          dvce_created_tstamp: timestamp
+          event_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          name_tracker: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          v_tracker: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          v_collector: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          v_etl: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          user_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          user_ipaddress: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          user_fingerprint: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          domain_userid: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          domain_sessionidx: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          network_userid: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          geo_country: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          geo_region: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          geo_city: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          geo_zipcode: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          geo_latitude: float
+          geo_longitude: float
+          geo_region_name: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          ip_isp: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          ip_organization: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          ip_domain: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          ip_netspeed: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_url: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_title: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_referrer: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_urlscheme: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_urlhost: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_urlport: integer
+          page_urlpath: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_urlquery: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          page_urlfragment: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_urlscheme: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_urlhost: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_urlport: integer
+          refr_urlpath: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_urlquery: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_urlfragment: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_medium: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_source: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_term: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_medium: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_source: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_term: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_content: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_campaign: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          se_category: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          se_action: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          se_label: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          se_property: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          se_value: float
+          useragent: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          os_name: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          os_family: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          os_manufacturer: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          os_timezone: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          base_currency: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          geo_timezone: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_clickid: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          mkt_network: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          etl_tags: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          dvce_sent_tstamp: timestamp
+          refr_domain_userid: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          refr_dvce_tstamp: timestamp
+          domain_sessionid: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          derived_tstamp: timestamp
+          event_vendor: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          event_name: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          event_format: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          event_version: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+          event_fingerprint: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+    expected:
+      bigquery:
+        +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+        snowplow_ecommerce_cart_interactions_expected:
+          +column_types:
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            cart_id: string
+            cart_currency: string
+            cart_total_value: float
+            cart_created: boolean
+            cart_emptied: boolean
+            cart_transacted: boolean
+            ecommerce_action_type: string
+        snowplow_ecommerce_checkout_interactions_expected:
+          +column_types:
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            ecommerce_action_type: string
+            ecommerce_action_name: string
+            ecommerce_page_type: string
+            checkout_step_number: integer
+            checkout_account_type: string
+            checkout_billing_full_address: string
+            checkout_billing_postcode: string
+            checkout_coupon_code: string
+            checkout_delivery_method: string
+            checkout_delivery_provider: string
+            checkout_marketing_opt_in: boolean
+            checkout_payment_method: string
+            checkout_proof_of_payment: string
+            checkout_shipping_full_address: string
+            checkout_shipping_postcode: string
+            session_entered_at_step: boolean
+            checkout_succeeded: boolean
+            ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+        snowplow_ecommerce_product_interactions_expected:
+          +column_types:
+            product_event_id: string
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            product_id: string
+            product_category: string
+            product_subcategory_1: string
+            product_subcategory_2: string
+            product_subcategory_3: string
+            product_subcategory_4: string
+            product_currency: string
+            product_price: float
+            product_brand: string
+            product_creative_id: string
+            product_inventory_status: string
+            product_list_price: float
+            product_name: string
+            product_list_position: integer
+            product_quantity: integer
+            product_size: string
+            product_variant: string
+            is_product_view: boolean
+            product_view_type: string
+            is_add_to_cart: boolean
+            is_remove_from_cart: boolean
+            product_list_name: string
+            is_product_transaction: boolean
+            transaction_id: string
+            ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+        snowplow_ecommerce_sessions_expected:
+          +column_types:
+            domain_sessionid: string
+            domain_userid: string
+            start_tstamp: timestamp
+            end_tstamp: timestamp
+            number_unique_cart_ids: integer
+            number_carts_created: integer
+            number_carts_emptied: integer
+            number_carts_transacted: integer
+            first_cart_created: timestamp
+            last_cart_created: timestamp
+            first_cart_transacted: timestamp
+            last_cart_transacted: timestamp
+            session_cart_abandoned: boolean
+            session_entered_at_checkout: boolean
+            number_unique_checkout_steps_attempted: integer
+            number_checkout_steps_visited: integer
+            checkout_succeeded: boolean
+            first_checkout_attempted: timestamp
+            last_checkout_attempted: timestamp
+            first_checkout_succeeded: timestamp
+            last_checkout_succeeded: timestamp
+            first_product_view: timestamp
+            last_product_view: timestamp
+            first_product_add_to_cart: timestamp
+            last_product_add_to_cart: timestamp
+            first_product_remove_from_cart: timestamp
+            last_product_remove_from_cart: timestamp
+            first_product_transaction: timestamp
+            last_product_transaction: timestamp
+            number_product_views: integer
+            number_add_to_carts: integer
+            number_remove_from_carts: integer
+            number_product_transactions: integer
+            first_transaction_completed: timestamp
+            last_transaction_completed: timestamp
+            total_transaction_revenue: float
+            total_transaction_quantity: integer
+            total_number_transactions: integer
+            total_transacted_products: integer
+        snowplow_ecommerce_transaction_interactions_expected:
+          +column_types:
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            transaction_id: string
+            transaction_currency: string
+            transaction_payment_method: string
+            transaction_revenue: float
+            transaction_total_quantity: integer
+            transaction_credit_order: boolean
+            transaction_discount_amount: float
+            transaction_discount_code: string
+            transaction_shipping: float
+            transaction_tax: float
+            ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+            number_products: integer
+      snowflake:
+        +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
+        snowplow_ecommerce_cart_interactions_expected:
+          +column_types:
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            cart_id: string
+            cart_currency: string
+            cart_total_value: float
+            cart_created: boolean
+            cart_emptied: boolean
+            cart_transacted: boolean
+            ecommerce_action_type: string
+        snowplow_ecommerce_checkout_interactions_expected:
+          +column_types:
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            ecommerce_action_type: string
+            ecommerce_action_name: string
+            ecommerce_page_type: string
+            checkout_step_number: integer
+            checkout_account_type: string
+            checkout_billing_full_address: string
+            checkout_billing_postcode: string
+            checkout_coupon_code: string
+            checkout_delivery_method: string
+            checkout_delivery_provider: string
+            checkout_marketing_opt_in: boolean
+            checkout_payment_method: string
+            checkout_proof_of_payment: string
+            checkout_shipping_full_address: string
+            checkout_shipping_postcode: string
+            session_entered_at_step: boolean
+            checkout_succeeded: boolean
+            ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+        snowplow_ecommerce_product_interactions_expected:
+          +column_types:
+            product_event_id: string
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            product_id: string
+            product_category: string
+            product_subcategory_1: string
+            product_subcategory_2: string
+            product_subcategory_3: string
+            product_subcategory_4: string
+            product_currency: string
+            product_price: float
+            product_brand: string
+            product_creative_id: string
+            product_inventory_status: string
+            product_list_price: float
+            product_name: string
+            product_list_position: integer
+            product_quantity: integer
+            product_size: string
+            product_variant: string
+            is_product_view: boolean
+            product_view_type: string
+            is_add_to_cart: boolean
+            is_remove_from_cart: boolean
+            product_list_name: string
+            is_product_transaction: boolean
+            transaction_id: string
+            ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+        snowplow_ecommerce_sessions_expected:
+          +column_types:
+            domain_sessionid: string
+            domain_userid: string
+            start_tstamp: timestamp
+            end_tstamp: timestamp
+            number_unique_cart_ids: integer
+            number_carts_created: integer
+            number_carts_emptied: integer
+            number_carts_transacted: integer
+            first_cart_created: timestamp
+            last_cart_created: timestamp
+            first_cart_transacted: timestamp
+            last_cart_transacted: timestamp
+            session_cart_abandoned: boolean
+            session_entered_at_checkout: boolean
+            number_unique_checkout_steps_attempted: integer
+            number_checkout_steps_visited: integer
+            checkout_succeeded: boolean
+            first_checkout_attempted: timestamp
+            last_checkout_attempted: timestamp
+            first_checkout_succeeded: timestamp
+            last_checkout_succeeded: timestamp
+            first_product_view: timestamp
+            last_product_view: timestamp
+            first_product_add_to_cart: timestamp
+            last_product_add_to_cart: timestamp
+            first_product_remove_from_cart: timestamp
+            last_product_remove_from_cart: timestamp
+            first_product_transaction: timestamp
+            last_product_transaction: timestamp
+            number_product_views: integer
+            number_add_to_carts: integer
+            number_remove_from_carts: integer
+            number_product_transactions: integer
+            first_transaction_completed: timestamp
+            last_transaction_completed: timestamp
+            total_transaction_revenue: float
+            total_transaction_quantity: integer
+            total_number_transactions: integer
+            total_transacted_products: integer
+        snowplow_ecommerce_transaction_interactions_expected:
+          +column_types:
+            event_id: string
+            page_view_id: string
+            domain_sessionid: string
+            event_in_session_index: integer
+            domain_userid: string
+            network_userid: string
+            user_id: string
+            ecommerce_user_id: string
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            transaction_id: string
+            transaction_currency: string
+            transaction_payment_method: string
+            transaction_revenue: float
+            transaction_total_quantity: integer
+            transaction_credit_order: boolean
+            transaction_discount_amount: float
+            transaction_discount_code: string
+            transaction_shipping: float
+            transaction_tax: float
+            ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+            number_products: integer

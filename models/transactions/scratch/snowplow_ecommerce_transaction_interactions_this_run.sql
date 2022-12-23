@@ -1,6 +1,7 @@
 {{
     config(
-        tags=["this_run"]
+        tags=["this_run"],
+        sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt')),
     )
 }}
 
@@ -12,7 +13,7 @@ with transaction_info AS (
 
         -- session fields
         e.domain_sessionid,
-        e.page_view_in_session_index,
+        e.event_in_session_index,
 
         -- user fields
         e.domain_userid,

@@ -1,0 +1,22 @@
+-- page view context is given as json string in csv. Parse json
+with prep as (
+select
+  *,
+  parse_json(contexts_com_snowplowanalytics_snowplow_web_page_1_0_0) as contexts_com_snowplowanalytics_snowplow_web_page_1,
+  parse_json(contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_user_1,
+  parse_json(contexts_com_snowplowanalytics_snowplow_ecommerce_page_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_page_1,
+  parse_json(unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1_0_0) as unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1,
+  parse_json(contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1,
+  parse_json(contexts_com_snowplowanalytics_snowplow_ecommerce_product_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_product_1,
+  parse_json(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1,
+  parse_json(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1
+
+
+from {{ ref('snowplow_ecommerce_events') }}
+)
+
+
+select
+  *
+
+from prep
