@@ -18,8 +18,8 @@ models:
       - name: domain_sessionid
         description: '{{ doc("col_domain_sessionid") }}'
 
-      - name: page_view_in_session_index
-        description: '{{ doc("col_page_view_in_session_index") }}'
+      - name: event_in_session_index
+        description: '{{ doc("col_event_in_session_index") }}'
 
       - name: domain_userid
         description: '{{ doc("col_domain_userid") }}'

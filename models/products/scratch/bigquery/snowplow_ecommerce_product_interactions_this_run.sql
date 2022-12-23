@@ -4,6 +4,7 @@
   )
 }}
 
+
 with product_info as (
   select
     {{ dbt_utils.surrogate_key(['t.event_id', 'r.id']) }} as product_event_id,
@@ -12,7 +13,7 @@ with product_info as (
 
     -- session fields
     t.domain_sessionid,
-    t.page_view_in_session_index,
+    t.event_in_session_index,
 
     -- user fields
     t.domain_userid,
@@ -55,7 +56,7 @@ with product_info as (
     t.transaction_id
 
 
-  from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t, unnest(t.contexts_ecommerce_tracking_product_1_0_0) r
+  from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t, unnest( {{coalesce_columns_by_prefix(ref('snowplow_ecommerce_base_events_this_run'), 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1') }}) r
 
 )
 
@@ -67,7 +68,7 @@ select
 
   -- session fields
   domain_sessionid,
-  page_view_in_session_index,
+  event_in_session_index,
 
   -- user fields
   domain_userid,

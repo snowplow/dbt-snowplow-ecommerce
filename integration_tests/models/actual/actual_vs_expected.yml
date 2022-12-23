@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: snowplow_ecommerce_cart_interactions_actual
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('snowplow_ecommerce_cart_interactions_expected_stg')
+      - dbt_utils.equality:
+          compare_model: ref('snowplow_ecommerce_cart_interactions_expected_stg')
+  - name: snowplow_ecommerce_checkout_interactions_actual
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('snowplow_ecommerce_checkout_interactions_expected_stg')
+      - dbt_utils.equality:
+          compare_model: ref('snowplow_ecommerce_checkout_interactions_expected_stg')
+  - name: snowplow_ecommerce_product_interactions_actual
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('snowplow_ecommerce_product_interactions_expected_stg')
+      - dbt_utils.equality:
+          compare_model: ref('snowplow_ecommerce_product_interactions_expected_stg')
+  - name: snowplow_ecommerce_transaction_interactions_actual
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('snowplow_ecommerce_transaction_interactions_expected_stg')
+      - dbt_utils.equality:
+          compare_model: ref('snowplow_ecommerce_transaction_interactions_expected_stg')
+  - name: snowplow_ecommerce_sessions_actual
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('snowplow_ecommerce_sessions_expected_stg')
+      - dbt_utils.equality:
+          compare_model: ref('snowplow_ecommerce_sessions_expected_stg')

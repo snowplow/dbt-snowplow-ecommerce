@@ -11,7 +11,7 @@
 
 select
   *,
-  row_number() over (partition by ev.domain_sessionid order by ev.derived_tstamp) AS page_view_in_session_index,
+  dense_rank() over (partition by ev.domain_sessionid order by ev.derived_tstamp) AS event_in_session_index,
 
 from (
   -- without downstream joins, it's safe to dedupe by picking the first event_id found.
@@ -72,7 +72,8 @@ from (
         relation=source('atomic', 'events'),
         relation_alias='a') }},
 
-    a.* except (domain_userid)
+    a.* except (domain_userid,
+                contexts_com_snowplowanalytics_snowplow_web_page_1_0_0)
 
     from {{ var('snowplow__events') }} as a
     inner join {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as b

@@ -1,6 +1,7 @@
 {{
   config(
-    tags=["this_run"]
+    tags=["this_run"],
+    sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt'))
   )
 }}
 
@@ -11,7 +12,7 @@ select
 
   -- session fields
   domain_sessionid,
-  page_view_in_session_index,
+  event_in_session_index,
 
   -- user fields
   domain_userid,
@@ -42,7 +43,7 @@ select
   checkout_proof_of_payment,
   checkout_shipping_full_address,
   checkout_shipping_postcode,
-  page_view_in_session_index = 1 as session_entered_at_step,
+  event_in_session_index = 1 as session_entered_at_step,
   ecommerce_action_type = 'transaction' as checkout_succeeded,
 
   -- ecommerce user fields

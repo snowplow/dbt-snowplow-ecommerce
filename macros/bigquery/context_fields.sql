@@ -49,13 +49,13 @@
       {'field': 'transaction_id', 'dtype': 'int'},
       {'field': ('currency', 'transaction_currency'), 'dtype': 'string'},
       {'field': ('payment_method', 'transaction_payment_method'), 'dtype': 'string'},
-      {'field': ('revenue', 'transaction_revenue'), 'dtype': 'string'},
-      {'field': ('total_quantity', 'transaction_total_quantity'), 'dtype': 'string'},
-      {'field': ('credit_order', 'transaction_credit_order'), 'dtype': 'string'},
-      {'field': ('discount_amount', 'transaction_discount_amount'), 'dtype': 'string'},
-      {'field': ('discount_code', 'transaction_discount_code'), 'dtype': 'boolean'},
-      {'field': ('shipping', 'transaction_shipping'), 'dtype': 'string'},
-      {'field': ('tax', 'transaction_tax'), 'dtype': 'string'},
+      {'field': ('revenue', 'transaction_revenue'), 'dtype': 'numeric'},
+      {'field': ('total_quantity', 'transaction_total_quantity'), 'dtype': 'integer'},
+      {'field': ('credit_order', 'transaction_credit_order'), 'dtype': 'boolean'},
+      {'field': ('discount_amount', 'transaction_discount_amount'), 'dtype': 'numeric'},
+      {'field': ('discount_code', 'transaction_discount_code'), 'dtype': 'string'},
+      {'field': ('shipping', 'transaction_shipping'), 'dtype': 'numeric'},
+      {'field': ('tax', 'transaction_tax'), 'dtype': 'numeric'},
     ] %}
 
   {{ return(transaction_fields) }}
