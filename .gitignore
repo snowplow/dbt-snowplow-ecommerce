@@ -22,3 +22,5 @@ logs/
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/python,dbt,visualstudiocode
+.DS_Store
+dbt-service-account.json
