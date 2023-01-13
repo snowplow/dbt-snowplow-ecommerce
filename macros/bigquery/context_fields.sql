@@ -13,7 +13,7 @@
 {% macro checkout_step_fields() %}
 
   {% set checkout_step_fields = [
-      {'field': ('step', 'checkout_step_number'), 'dtype': 'int'},
+      {'field': ('step', 'checkout_step_number'), 'dtype': 'integer'},
       {'field': ('account_type', 'checkout_account_type'), 'dtype': 'string'},
       {'field': ('billing_full_address', 'checkout_billing_full_address'), 'dtype': 'string'},
       {'field': ('billing_postcode', 'checkout_billing_postcode'), 'dtype': 'string'},
@@ -46,7 +46,7 @@
 {% macro transaction_fields() %}
 
   {% set transaction_fields = [
-      {'field': 'transaction_id', 'dtype': 'int'},
+      {'field': 'transaction_id', 'dtype': 'string'},
       {'field': ('currency', 'transaction_currency'), 'dtype': 'string'},
       {'field': ('payment_method', 'transaction_payment_method'), 'dtype': 'string'},
       {'field': ('revenue', 'transaction_revenue'), 'dtype': 'numeric'},
@@ -67,7 +67,7 @@
   {% set cart_fields = [
       {'field': 'cart_id', 'dtype': 'string'},
       {'field': ('currency', 'cart_currency'), 'dtype': 'string'},
-      {'field': ('total_value', 'cart_total_value'), 'dtype': 'string'},
+      {'field': ('total_value', 'cart_total_value'), 'dtype': 'numeric'},
     ] %}
 
   {{ return(cart_fields) }}
