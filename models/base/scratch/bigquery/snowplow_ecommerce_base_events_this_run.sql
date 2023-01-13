@@ -24,53 +24,106 @@ from (
     a.contexts_com_snowplowanalytics_snowplow_web_page_1_0_0[safe_offset(0)].id as page_view_id,
     b.domain_userid,
 
-    -- unpacking the ecommerce user object
+  -- handling relations for integration tests
+  {% if target.schema.startswith('gh_sp_ecom_dbt_') %}
+
+      -- unpacking the ecommerce user object
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=user_fields(),
-        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_user_1',
-        relation=source('atomic', 'events'),
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_',
+        relation=ref('snowplow_ecommerce_events_stg'),
         relation_alias='a') }},
 
     -- unpacking the ecommerce checkout step object
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=checkout_step_fields(),
-        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1',
-        relation=source('atomic', 'events'),
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_',
+        relation=ref('snowplow_ecommerce_events_stg'),
         relation_alias='a') }},
 
     -- unpacking the ecommerce page object
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=tracking_page_fields(),
-        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_page_1',
-        relation=source('atomic', 'events'),
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_page_1_',
+        relation=ref('snowplow_ecommerce_events_stg'),
         relation_alias='a') }},
 
     -- unpacking the ecommerce transaction object
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=transaction_fields(),
-        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1',
-        relation=source('atomic', 'events'),
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_',
+        relation=ref('snowplow_ecommerce_events_stg'),
         relation_alias='a') }},
 
     -- unpacking the ecommerce cart object
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=cart_fields(),
-        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1',
-        relation=source('atomic', 'events'),
+        col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_',
+        relation=ref('snowplow_ecommerce_events_stg'),
         relation_alias='a') }},
 
     -- unpacking the ecommerce action object
     {{ snowplow_utils.get_optional_fields(
         enabled=true,
         fields=tracking_action_fields(),
-        col_prefix='unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1',
-        relation=source('atomic', 'events'),
+        col_prefix='unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1_',
+        relation=ref('snowplow_ecommerce_events_stg'),
         relation_alias='a') }},
+
+    {% else %}
+      -- unpacking the ecommerce user object
+      {{ snowplow_utils.get_optional_fields(
+          enabled=true,
+          fields=user_fields(),
+          col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_',
+          relation=source('atomic', 'events'),
+          relation_alias='a') }},
+
+      -- unpacking the ecommerce checkout step object
+      {{ snowplow_utils.get_optional_fields(
+          enabled=true,
+          fields=checkout_step_fields(),
+          col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_',
+          relation=source('atomic', 'events'),
+          relation_alias='a') }},
+
+      -- unpacking the ecommerce page object
+      {{ snowplow_utils.get_optional_fields(
+          enabled=true,
+          fields=tracking_page_fields(),
+          col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_page_1_',
+          relation=source('atomic', 'events'),
+          relation_alias='a') }},
+
+      -- unpacking the ecommerce transaction object
+      {{ snowplow_utils.get_optional_fields(
+          enabled=true,
+          fields=transaction_fields(),
+          col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_',
+          relation=source('atomic', 'events'),
+          relation_alias='a') }},
+
+      -- unpacking the ecommerce cart object
+      {{ snowplow_utils.get_optional_fields(
+          enabled=true,
+          fields=cart_fields(),
+          col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_',
+          relation=source('atomic', 'events'),
+          relation_alias='a') }},
+
+      -- unpacking the ecommerce action object
+      {{ snowplow_utils.get_optional_fields(
+          enabled=true,
+          fields=tracking_action_fields(),
+          col_prefix='unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1_',
+          relation=source('atomic', 'events'),
+          relation_alias='a') }},
+    {% endif %}
 
     a.* except (domain_userid,
                 contexts_com_snowplowanalytics_snowplow_web_page_1_0_0)

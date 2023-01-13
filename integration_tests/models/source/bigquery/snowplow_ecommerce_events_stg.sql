@@ -97,9 +97,9 @@ select
                      CAST(JSON_EXTRACT_scalar(json_array, '$.payment_method') AS STRING) as payment_method,
                      CAST(JSON_EXTRACT_scalar(json_array, '$.revenue') AS NUMERIC) as revenue,
                      CAST(JSON_EXTRACT_scalar(json_array, '$.total_quantity') AS INTEGER) as total_quantity,
-                     CAST(JSON_EXTRACT_scalar(json_array, '$.credit_order') AS STRING) as credit_order,
+                     CAST(JSON_EXTRACT_scalar(json_array, '$.credit_order') AS BOOLEAN) as credit_order,
                      CAST(JSON_EXTRACT_scalar(json_array, '$.discount_amount') AS NUMERIC) as discount_amount,
-                     CAST(JSON_EXTRACT_scalar(json_array, '$.discount_code') AS BOOLEAN) as discount_code,
+                     CAST(JSON_EXTRACT_scalar(json_array, '$.discount_code') AS STRING) as discount_code,
                      CAST(JSON_EXTRACT_scalar(json_array, '$.shipping') AS NUMERIC) as shipping,
                      CAST(JSON_EXTRACT_scalar(json_array, '$.tax') AS NUMERIC) as tax
     from unnest(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0) as json_array
