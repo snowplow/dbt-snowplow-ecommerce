@@ -75,6 +75,8 @@ models:
         +tags: "scratch"
         bigquery:
           enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+        databricks:
+          enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
         snowflake:
           enabled: "{{ target.type == 'snowflake' | as_bool() }}"
     carts:
@@ -97,6 +99,8 @@ models:
         +tags: "scratch"
         bigquery:
           enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+        databricks:
+          enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
         snowflake:
           enabled: "{{ target.type == 'snowflake' | as_bool() }}"
     sessions:

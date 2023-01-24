@@ -7,8 +7,12 @@
     partition_by = snowplow_utils.get_partition_by(bigquery_partition_by = {
       "field": "derived_tstamp",
       "data_type": "timestamp"
-    }),
-    tags=["derived"]
+    }, databricks_partition_by='derived_tstamp_date'),
+    tags=["derived"],
+    tblproperties={
+      'delta.autoOptimize.optimizeWrite' : 'true',
+      'delta.autoOptimize.autoCompact' : 'true'
+    }
   )
 }}
 
