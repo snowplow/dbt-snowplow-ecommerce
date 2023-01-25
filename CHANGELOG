@@ -1,3 +1,18 @@
+snowplow-ecommerce 0.2.0 (2023-01-25)
+---------------------------------------
+## Summary
+This is the second release of the Snowplow E-commerce package, which adds support for Databricks and Snowflake, as well as automating the action for generating docs and fixing a bug introduced in the initial release for BigQuery.
+
+## Features
+- Add support for Snowflake (Close #5)
+- Add support for Databricks (Close #7)
+- Fix BigQuery updated product context versions bug (Close #6)
+- Automate docs generation
+
+
+## Installation
+To install the package, simply bump the package version in your project's `dbt_packages.yml`
+
 snowplow-ecommerce 0.1.0 (2022-12-14)
 ---------------------------------------
 ## Summary
