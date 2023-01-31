@@ -41,7 +41,7 @@ with transaction_info AS (
         e.ecommerce_user_email,
         e.ecommerce_user_is_guest,
 
-        {% if var("snowplow__use_product_quanity", false) -%}
+        {% if var("snowplow__use_product_quantity", false) -%}
         SUM(pi.product_quantity) as number_products
         {%- else -%}
         COUNT(*) as number_products -- count all products added
