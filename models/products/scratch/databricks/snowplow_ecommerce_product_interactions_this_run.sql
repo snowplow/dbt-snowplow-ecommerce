@@ -45,7 +45,7 @@ with prep as (
 
 ), product_info as (
   select
-    {{ dbt_utils.surrogate_key(['event_id', 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.id']) }} as product_event_id,
+    {{ dbt_utils.generate_surrogate_key(['event_id', 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.id']) }} as product_event_id,
     event_id,
     page_view_id,
 
