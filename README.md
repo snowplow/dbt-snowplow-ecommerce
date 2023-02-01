@@ -17,11 +17,11 @@ Please refer to the [doc site][snowplow-ecommerce-docs] for a full breakdown of 
 
 ### Adapter Support
 
-The snowplow-ecommerce v0.2.0 package currently supports BigQuery, Databricks and Snowflake. Future support is expected for Redshift & Postgres.
+The snowplow-ecommerce v0.2.1 package currently supports BigQuery, Databricks and Snowflake. Future support is expected for Redshift & Postgres.
 
 | Warehouse | dbt versions | snowplow-ecommerce version |
 | :--------------------------------------------------: | :-----------------: | :------------------: |
-| BigQuery, Databricks, Snowflake | >=1.0.0 to <2.0.0 | 0.2.0 |
+| BigQuery, Databricks, Snowflake | >=1.0.0 to <2.0.0 | 0.2.1 |
 
 ### Requirements
 
