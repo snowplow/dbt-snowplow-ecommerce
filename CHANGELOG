@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.2.1 (2023-02-01)
+---------------------------------------
+## Summary
+This is a patch release to fix a typo in 0.2.0
+
+## Features
+- Fix typo in using the `snowplow__product_quantity` variable
+
+## Installation
+To install the package, simply bump the package version in your project's `dbt_packages.yml`
+
 snowplow-ecommerce 0.2.0 (2023-01-25)
 ---------------------------------------
 ## Summary
