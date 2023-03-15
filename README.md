@@ -15,14 +15,13 @@ This dbt package:
 
 Please refer to the [doc site][snowplow-ecommerce-docs] for a full breakdown of the package.
 
+### Getting Started
+
+The easiest way to get started is to follow our [QuickStart guide](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-quickstart/ecommerce/), or to use our [E-Commerce Web Accelerator](https://docs.snowplow.io/accelerators/ecommerce/) which includes steps for setting up tracking as well as modeling.
+
 ### Adapter Support
 
-The snowplow-ecommerce v0.3.0 package currently supports BigQuery, Databricks and Snowflake. Future support is expected for Redshift & Postgres.
-
-| Warehouse | dbt versions | snowplow-ecommerce version |
-| :--------------------------------------------------: | :-----------------: | :------------------: |
-| BigQuery, Databricks, Snowflake | >=1.3.0 to <2.0.0 | 0.3.0 |
-| BigQuery, Databricks, Snowflake | >=1.0.0 to <2.0.0 | 0.2.1 |
+The latest version of the snowplow-ecommerce package supports BigQuery, Databricks, and Snowflake. For previous versions see our [package docs](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/).
 
 ### Requirements
 
@@ -33,12 +32,11 @@ The snowplow-ecommerce v0.3.0 package currently supports BigQuery, Databricks an
 
 ### Installation
 
-Check dbt Hub for the latest installation instructions, or read the [dbt docs][dbt-package-docs] for more information on installing packages.
+Check [dbt Hub](https://hub.getdbt.com/snowplow/snowplow_ecommerce/latest/) for the latest installation instructions.
 
 ### Configuration & Operation
 
-Please refer to the [doc site][snowplow-ecommerce-docs] for details on how to configure and run the package.
-
+Please refer to the [doc site](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/) for details on how to [configure](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-configuration/ecommerce/) and [run](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-quickstart/ecommerce/) the package.
 ### Models
 
 The package contains multiple staging models however the mart models are as follows:
@@ -75,9 +73,6 @@ limitations under the License.
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 [license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
 
-[website]: https://snowplow.io/
-[snowplow]: https://github.com/snowplow/snowplow
-[docs]: https://docs.snowplow.io/
 
 [release-image]: https://img.shields.io/github/v/release/snowplow/dbt-snowplow-ecommerce?sort=semver
 [releases]: https://github.com/snowplow/dbt-snowplow-ecommerce/releases
@@ -90,9 +85,8 @@ limitations under the License.
 
 [tracker-docs]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/
 [webpage-context]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/javascript-trackers/javascript-tracker/javascript-tracker-v3/tracker-setup/initialization-options/#Adding_predefined_contexts
-[dbt-package-docs]: https://docs.getdbt.com/docs/building-a-dbt-project/package-management
 
-[snowplow-ecommerce-docs-dbt]: https://snowplow.github.io/dbt-snowplow-ecommerce/#!/overview/snowplow_ecommerce
+
 [snowplow-ecommerce-docs]: https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-models/dbt-ecommerce-data-model/
 [discourse-image]: https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscourse.snowplow.io%2F
 [discourse]: http://discourse.snowplow.io/
