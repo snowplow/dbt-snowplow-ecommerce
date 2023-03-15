@@ -1,15 +1,16 @@
 {{
   config(
-    materialized=var("snowplow__incremental_materialization"),
+    materialized="incremental",
     unique_key='session_id',
     upsert_date_key='start_tstamp',
     sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt')),
-    partition_by = snowplow_utils.get_partition_by(bigquery_partition_by={
+    partition_by = snowplow_utils.get_value_by_target_type(bigquery_val={
       "field": "start_tstamp",
       "data_type": "timestamp"
-    }),
+    }, databricks_val='start_tstamp_date'),
     full_refresh=snowplow_ecommerce.allow_refresh(),
-    tags=["manifest"]
+    tags=["manifest"],
+    snowplow_optimize=true
   )
 }}
 
@@ -46,7 +47,7 @@ with new_events_session_ids as (
   group by 1
   )
 
-{% if snowplow_utils.snowplow_is_incremental() %}
+{% if is_incremental() %}
 
 , previous_sessions as (
   select *
