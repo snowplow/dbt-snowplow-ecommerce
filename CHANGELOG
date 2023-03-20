@@ -1,11 +1,11 @@
-snowplow-ecommerce 0.4.0 (2023-0X-XX)
+snowplow-ecommerce 0.4.0 (2023-03-29)
 ---------------------------------------
 ## Summary
-This version migrates our models away from the `snowplow_incremental_materialization` and instead move to using the built-in `incremental` with an optimization applied on top. 
+This version migrates our models away from the `snowplow_incremental_materialization` and instead move to using the built-in `incremental` with an optimization applied on top. We've also introduced some new variables that can be used to disable unneeded modules while maintaining downstream functionality in the `sessions` table that is produced.
 
 ## 🚨 Breaking Changes 🚨
 ### Changes to materialization
-To take advantage of the optimization we apply to the `incremental` materialization, users will need to add the following to their `dbt_project.yml` : 
+To take advantage of the optimization we apply to the `incremental` materialization, users will need to add the following to their `dbt_project.yml` :
 ```yaml
 # dbt_project.yml
 ...
@@ -19,6 +19,7 @@ For custom models please refer to the [snowplow utils migration guide](https://d
 ## Features
 - Migrate from `get_cluster_by` and `get_partition_by` to `get_value_by_target_type`
 - Migrate all models to use new materialization
+- Allow users to disable certain modules while still upholding downstream functionality through new variables
 
 ## Docs
 - Update readme
