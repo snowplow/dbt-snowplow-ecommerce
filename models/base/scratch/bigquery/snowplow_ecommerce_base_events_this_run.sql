@@ -29,7 +29,7 @@ from (
 
       -- unpacking the ecommerce user object
     {{ snowplow_utils.get_optional_fields(
-        enabled=true,
+        enabled=not var('snowplow__disable_ecommerce_user_context', false),
         fields=user_fields(),
         col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_',
         relation=ref('snowplow_ecommerce_events_stg'),
@@ -37,7 +37,7 @@ from (
 
     -- unpacking the ecommerce checkout step object
     {{ snowplow_utils.get_optional_fields(
-        enabled=true,
+        enabled=not var('snowplow__disable_ecommerce_checkouts', false),
         fields=checkout_step_fields(),
         col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_',
         relation=ref('snowplow_ecommerce_events_stg'),
@@ -45,7 +45,7 @@ from (
 
     -- unpacking the ecommerce page object
     {{ snowplow_utils.get_optional_fields(
-        enabled=true,
+        enabled=not var('snowplow__disable_ecommerce_page_context', false),
         fields=tracking_page_fields(),
         col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_page_1_',
         relation=ref('snowplow_ecommerce_events_stg'),
@@ -53,7 +53,7 @@ from (
 
     -- unpacking the ecommerce transaction object
     {{ snowplow_utils.get_optional_fields(
-        enabled=true,
+        enabled=not var('snowplow__disable_ecommerce_transactions', false),
         fields=transaction_fields(),
         col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_',
         relation=ref('snowplow_ecommerce_events_stg'),
@@ -61,7 +61,7 @@ from (
 
     -- unpacking the ecommerce cart object
     {{ snowplow_utils.get_optional_fields(
-        enabled=true,
+        enabled=not var('snowplow__disable_ecommerce_carts', false),
         fields=cart_fields(),
         col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_',
         relation=ref('snowplow_ecommerce_events_stg'),
@@ -78,7 +78,7 @@ from (
     {% else %}
       -- unpacking the ecommerce user object
       {{ snowplow_utils.get_optional_fields(
-          enabled=true,
+          enabled=not var('snowplow__disable_ecommerce_user_context', false),
           fields=user_fields(),
           col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_',
           relation=source('atomic', 'events'),
@@ -86,7 +86,7 @@ from (
 
       -- unpacking the ecommerce checkout step object
       {{ snowplow_utils.get_optional_fields(
-          enabled=true,
+          enabled=not var('snowplow__disable_ecommerce_checkouts', false),
           fields=checkout_step_fields(),
           col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_',
           relation=source('atomic', 'events'),
@@ -94,7 +94,7 @@ from (
 
       -- unpacking the ecommerce page object
       {{ snowplow_utils.get_optional_fields(
-          enabled=true,
+          enabled=not var('snowplow__disable_ecommerce_page_context', false),
           fields=tracking_page_fields(),
           col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_page_1_',
           relation=source('atomic', 'events'),
@@ -102,7 +102,7 @@ from (
 
       -- unpacking the ecommerce transaction object
       {{ snowplow_utils.get_optional_fields(
-          enabled=true,
+          enabled=not var('snowplow__disable_ecommerce_transactions', false),
           fields=transaction_fields(),
           col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_',
           relation=source('atomic', 'events'),
@@ -110,7 +110,7 @@ from (
 
       -- unpacking the ecommerce cart object
       {{ snowplow_utils.get_optional_fields(
-          enabled=true,
+          enabled=not var('snowplow__disable_ecommerce_carts', false),
           fields=cart_fields(),
           col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_',
           relation=source('atomic', 'events'),

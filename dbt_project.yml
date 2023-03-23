@@ -30,6 +30,7 @@ vars:
     snowplow__number_category_levels: 4
     snowplow__categories_separator: '/'
     snowplow__use_product_quantity: false
+
     # Variables - Standard Config
     snowplow__start_date: '2020-01-01'
     snowplow__backfill_limit_days: 30

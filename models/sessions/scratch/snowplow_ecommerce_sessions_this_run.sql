@@ -6,81 +6,140 @@
 }}
 
 with cart_session_stats AS (
-    select
-        t.*,
-        number_carts_transacted < number_carts_created as session_cart_abandoned
+    {% if var('snowplow__disable_ecommerce_carts', false) -%}
+        select
+        CAST(NULL as {{ type_string() }}) as domain_sessionid,
+        CAST(NULL as {{ type_int() }}) as number_unique_cart_ids,
+        CAST(NULL as {{ type_int() }}) as number_carts_created,
+        CAST(NULL as {{ type_int() }}) as number_carts_emptied,
+        CAST(NULL as {{ type_int() }}) as number_carts_transacted,
+        CAST(NULL as {{ type_timestamp() }}) as first_cart_created,
+        CAST(NULL as {{ type_timestamp() }}) as last_cart_created,
+        CAST(NULL as {{ type_timestamp() }}) as first_cart_transacted,
+        CAST(NULL as {{ type_timestamp() }}) as last_cart_transacted,
+        CAST(NULL as {{ type_boolean() }}) as session_cart_abandoned
 
-    from (
-        select domain_sessionid,
+    {%- else -%}
+        select
+            t.*,
+            number_carts_transacted < number_carts_created as session_cart_abandoned
 
-        COUNT(DISTINCT cart_id) as number_unique_cart_ids,
-        COUNT(DISTINCT CASE WHEN cart_created THEN event_id END) as number_carts_created,
-        COUNT(DISTINCT CASE WHEN cart_emptied THEN event_id END) as number_carts_emptied,
-        COUNT(DISTINCT CASE WHEN cart_transacted THEN event_id END) as number_carts_transacted,
+        from (
+            select domain_sessionid,
 
-        MIN(CASE WHEN cart_created THEN derived_tstamp END) as first_cart_created,
-        MAX(CASE WHEN cart_created THEN derived_tstamp END) as last_cart_created,
+            COUNT(DISTINCT cart_id) as number_unique_cart_ids,
+            COUNT(DISTINCT CASE WHEN cart_created THEN event_id END) as number_carts_created,
+            COUNT(DISTINCT CASE WHEN cart_emptied THEN event_id END) as number_carts_emptied,
+            COUNT(DISTINCT CASE WHEN cart_transacted THEN event_id END) as number_carts_transacted,
 
-        MIN(CASE WHEN cart_transacted THEN derived_tstamp END) as first_cart_transacted,
-        MAX(CASE WHEN cart_transacted THEN derived_tstamp END) as last_cart_transacted
+            MIN(CASE WHEN cart_created THEN derived_tstamp END) as first_cart_created,
+            MAX(CASE WHEN cart_created THEN derived_tstamp END) as last_cart_created,
+
+            MIN(CASE WHEN cart_transacted THEN derived_tstamp END) as first_cart_transacted,
+            MAX(CASE WHEN cart_transacted THEN derived_tstamp END) as last_cart_transacted
 
 
-        from {{ ref('snowplow_ecommerce_cart_interactions_this_run') }}
+            from {{ ref('snowplow_ecommerce_cart_interactions_this_run') }}
+            group by 1
+
+        ) as t
+    {%- endif %}
+), checkout_session_stats AS (
+    {% if var('snowplow__disable_ecommerce_checkouts', false) -%}
+       select
+            CAST(NULL as {{ type_string() }}) as domain_sessionid,
+            CAST(NULL as {{ type_boolean() }}) as session_entered_at_checkout,
+            CAST(NULL as {{ type_int() }}) as number_unique_checkout_steps_attempted,
+            CAST(NULL as {{ type_int() }}) as number_checkout_steps_visited,
+            CAST(NULL as {{ type_boolean() }}) as checkout_succeeded,
+            CAST(NULL as {{ type_timestamp() }}) as first_checkout_attempted,
+            CAST(NULL as {{ type_timestamp() }}) as last_checkout_attempted,
+            CAST(NULL as {{ type_timestamp() }}) as first_checkout_succeeded,
+            CAST(NULL as {{ type_timestamp() }}) as last_checkout_succeeded
+    {%- else -%}
+     select
+            domain_sessionid,
+
+            MAX(session_entered_at_step) as session_entered_at_checkout,
+            COUNT(DISTINCT checkout_step_number) as number_unique_checkout_steps_attempted,
+            COUNT(DISTINCT event_id) as number_checkout_steps_visited,
+            MAX(checkout_succeeded) as checkout_succeeded,
+
+            MIN(CASE WHEN checkout_step_number = 1 THEN derived_tstamp END) as first_checkout_attempted,
+            MAX(CASE WHEN checkout_step_number = 1 THEN derived_tstamp END) as last_checkout_attempted,
+            MIN(CASE WHEN checkout_succeeded THEN derived_tstamp END) as first_checkout_succeeded,
+            MAX(CASE WHEN checkout_succeeded THEN derived_tstamp END) as last_checkout_succeeded
+
+        from {{ ref('snowplow_ecommerce_checkout_interactions_this_run') }}
         group by 1
 
-    ) as t
-), checkout_session_stats AS (
-    select
-        domain_sessionid,
-
-        MAX(session_entered_at_step) as session_entered_at_checkout,
-        COUNT(DISTINCT checkout_step_number) as number_unique_checkout_steps_attempted,
-        COUNT(DISTINCT event_id) as number_checkout_steps_visited,
-        MAX(checkout_succeeded) as checkout_succeeded,
-
-        MIN(CASE WHEN checkout_step_number = 1 THEN derived_tstamp END) as first_checkout_attempted,
-        MAX(CASE WHEN checkout_step_number = 1 THEN derived_tstamp END) as last_checkout_attempted,
-        MIN(CASE WHEN checkout_succeeded THEN derived_tstamp END) as first_checkout_succeeded,
-        MAX(CASE WHEN checkout_succeeded THEN derived_tstamp END) as last_checkout_succeeded
-
-    from {{ ref('snowplow_ecommerce_checkout_interactions_this_run') }}
-    group by 1
+    {%- endif %}
 ), product_session_stats AS (
-    select
-        domain_sessionid,
+    {% if var('snowplow__disable_ecommerce_products', false) -%}
+        select
+            CAST(NULL as {{ type_string() }}) AS domain_sessionid,
+            CAST(NULL as {{ type_timestamp() }}) AS first_product_view,
+            CAST(NULL as {{ type_timestamp() }}) AS last_product_view,
+            CAST(NULL as {{ type_timestamp() }}) AS first_product_add_to_cart,
+            CAST(NULL as {{ type_timestamp() }}) AS last_product_add_to_cart,
+            CAST(NULL as {{ type_timestamp() }}) AS first_product_remove_from_cart,
+            CAST(NULL as {{ type_timestamp() }}) AS last_product_remove_from_cart,
+            CAST(NULL as {{ type_timestamp() }}) AS first_product_transaction,
+            CAST(NULL as {{ type_timestamp() }}) AS last_product_transaction,
+            CAST(NULL as {{ type_int() }}) AS number_product_views,
+            CAST(NULL as {{ type_int() }}) AS number_add_to_carts,
+            CAST(NULL as {{ type_int() }}) AS number_remove_from_carts,
+            CAST(NULL as {{ type_int() }}) AS number_product_transactions,
+            CAST(NULL as {{ type_int() }}) AS number_distinct_products_viewed
+    {%- else -%}
+        select
+            domain_sessionid,
 
-        MIN(CASE WHEN is_product_view THEN derived_tstamp END) AS first_product_view,
-        MAX(CASE WHEN is_product_view THEN derived_tstamp END) AS last_product_view,
-        MIN(CASE WHEN is_add_to_cart THEN derived_tstamp END) AS first_product_add_to_cart,
-        MAX(CASE WHEN is_add_to_cart THEN derived_tstamp END) AS last_product_add_to_cart,
-        MIN(CASE WHEN is_remove_from_cart THEN derived_tstamp END) AS first_product_remove_from_cart,
-        MAX(CASE WHEN is_remove_from_cart THEN derived_tstamp END) AS last_product_remove_from_cart,
-        MIN(CASE WHEN is_product_transaction THEN derived_tstamp END) AS first_product_transaction,
-        MAX(CASE WHEN is_product_transaction THEN derived_tstamp END) AS last_product_transaction,
+            MIN(CASE WHEN is_product_view THEN derived_tstamp END) AS first_product_view,
+            MAX(CASE WHEN is_product_view THEN derived_tstamp END) AS last_product_view,
+            MIN(CASE WHEN is_add_to_cart THEN derived_tstamp END) AS first_product_add_to_cart,
+            MAX(CASE WHEN is_add_to_cart THEN derived_tstamp END) AS last_product_add_to_cart,
+            MIN(CASE WHEN is_remove_from_cart THEN derived_tstamp END) AS first_product_remove_from_cart,
+            MAX(CASE WHEN is_remove_from_cart THEN derived_tstamp END) AS last_product_remove_from_cart,
+            MIN(CASE WHEN is_product_transaction THEN derived_tstamp END) AS first_product_transaction,
+            MAX(CASE WHEN is_product_transaction THEN derived_tstamp END) AS last_product_transaction,
 
-        COUNT(DISTINCT CASE WHEN is_product_view THEN event_id END) AS number_product_views,
-        COUNT(DISTINCT CASE WHEN is_add_to_cart THEN event_id END) AS number_add_to_carts,
-        COUNT(DISTINCT CASE WHEN is_remove_from_cart THEN event_id END) AS number_remove_from_carts,
-        COUNT(DISTINCT CASE WHEN is_product_transaction THEN event_id END) AS number_product_transactions,
-        COUNT(DISTINCT CASE WHEN is_product_view THEN product_id END) as number_distinct_products_viewed
+            COUNT(DISTINCT CASE WHEN is_product_view THEN event_id END) AS number_product_views,
+            COUNT(DISTINCT CASE WHEN is_add_to_cart THEN event_id END) AS number_add_to_carts,
+            COUNT(DISTINCT CASE WHEN is_remove_from_cart THEN event_id END) AS number_remove_from_carts,
+            COUNT(DISTINCT CASE WHEN is_product_transaction THEN event_id END) AS number_product_transactions,
+            COUNT(DISTINCT CASE WHEN is_product_view THEN product_id END) as number_distinct_products_viewed
 
 
-    from {{ ref('snowplow_ecommerce_product_interactions_this_run') }}
-    group by 1
+        from {{ ref('snowplow_ecommerce_product_interactions_this_run') }}
+        group by 1
+        
+    {%- endif %}
 ), transaction_session_stats AS (
-    select
-        domain_sessionid,
+    {% if var('snowplow__disable_ecommerce_transactions', false) -%}
+        select
+            CAST(NULL as {{ type_string() }}) AS domain_sessionid,
+            CAST(NULL as {{ type_timestamp() }}) AS first_transaction_completed,
+            CAST(NULL as {{ type_timestamp() }}) AS last_transaction_completed,
+            CAST(NULL as {{ type_float() }}) AS total_transaction_revenue,
+            CAST(NULL as {{ type_int() }}) AS total_transaction_quantity,
+            CAST(NULL as {{ type_int() }}) AS total_number_transactions,
+            CAST(NULL as {{ type_int() }}) AS total_transacted_products
+       
+    {%- else -%}
+         select
+            domain_sessionid,
 
-        MIN(derived_tstamp) AS first_transaction_completed,
-        MAX(derived_tstamp) AS last_transaction_completed,
-        SUM(transaction_revenue) as total_transaction_revenue,
-        SUM(transaction_total_quantity) as total_transaction_quantity,
-        COUNT(DISTINCT transaction_id) as total_number_transactions,
-        SUM(number_products) as total_transacted_products
+            MIN(derived_tstamp) AS first_transaction_completed,
+            MAX(derived_tstamp) AS last_transaction_completed,
+            SUM(transaction_revenue) as total_transaction_revenue,
+            SUM(transaction_total_quantity) as total_transaction_quantity,
+            COUNT(DISTINCT transaction_id) as total_number_transactions,
+            SUM(number_products) as total_transacted_products
 
-
-    from {{ ref('snowplow_ecommerce_transaction_interactions_this_run') }}
-    group by 1
+        from {{ ref('snowplow_ecommerce_transaction_interactions_this_run') }}
+        group by 1
+    {%- endif %}
 )
 select
     s.session_id as domain_sessionid,
