@@ -31,13 +31,20 @@ with cart_product_interactions AS (
 
         -- ecommerce action field
         e.ecommerce_action_type,
-        SUM(pi.product_price) as product_value_added
+        {% if var('snowplow__disable_ecommerce_products', false) -%}
+            cast(NULL as {{ type_float() }}) as product_value_added
+        {%- else -%}
+            SUM(pi.product_price) as product_value_added
+        {%- endif %}
 
 
     from {{ ref('snowplow_ecommerce_base_events_this_run') }} as e
-    left join {{ ref('snowplow_ecommerce_product_interactions_this_run') }} as pi on e.event_id = pi.event_id AND pi.is_add_to_cart
+    {% if not var('snowplow__disable_ecommerce_products', false) -%}
+        left join {{ ref('snowplow_ecommerce_product_interactions_this_run') }} as pi on e.event_id = pi.event_id AND pi.is_add_to_cart
+    {%- endif %}
     where e.ecommerce_action_type IN ('add_to_cart', 'remove_from_cart', 'transaction')
     group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14
+
 )
 
 select
