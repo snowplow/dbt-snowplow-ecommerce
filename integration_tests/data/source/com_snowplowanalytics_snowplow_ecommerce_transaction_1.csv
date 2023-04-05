@@ -1,0 +1,28 @@
+root_id,root_tstamp,transaction_id,currency,payment_method,revenue,total_quantity,credit_order,discount_amount,discount_code,shipping,tax,schema_name
+a64a0af6-639e-4735-b06c-7cc4e2ca0c17,2022-12-22 13:25:42.247000 UTC,TtlZ3b,EUR,BNPL,13,1,,,,1,,snowplow_ecommerce_transaction
+bc8487ac-ea8d-4eff-9a44-3505855d44f9,2022-12-22 13:26:12.974000 UTC,TT9ZEQ,EUR,BNPL,13,1,,,,1,,snowplow_ecommerce_transaction
+79314f8f-3979-4e1b-afcf-0ddf02526778,2022-12-22 13:26:33.536000 UTC,TOG6u9,EUR,BNPL,28.2,1,,,,3,,snowplow_ecommerce_transaction
+295a97ba-7318-4ec7-9131-397c5b8b4122,2022-11-17 10:21:40.410000 UTC,Tkd7Nu,EUR,credit card,43,1,,,,3,,snowplow_ecommerce_transaction
+67b2e6dd-7ce4-4748-989b-6d66bc9147f8,2022-10-25 08:09:31.975000 UTC,TukaQc,EUR,credit card,18,1,,,,3,,snowplow_ecommerce_transaction
+5eb7314c-5573-4b66-a727-60925bc0c915,2022-11-28 08:37:39.456000 UTC,TlsV50,EUR,bank transfer,26,1,,,,1,,snowplow_ecommerce_transaction
+3811e453-e79d-45db-ad9a-4b8c050f4d84,2022-11-28 08:38:27.733000 UTC,T7VDwt,EUR,bank transfer,26,1,,,,1,,snowplow_ecommerce_transaction
+313a1cfb-720a-4310-813b-f8145a3bb95b,2022-11-28 08:38:42.276000 UTC,TusjuG,EUR,bank transfer,26,1,,,,1,,snowplow_ecommerce_transaction
+46c3a845-4844-473c-b0ed-f269438e2be5,2022-11-28 08:37:59.171000 UTC,ToC4Xl,EUR,bank transfer,18,1,,,,3,,snowplow_ecommerce_transaction
+c1803fb7-e86a-4d1c-87b9-5fb2a3ebe61d,2022-11-28 08:39:49.914000 UTC,TzMQGt,EUR,bank transfer,18,1,,,,3,,snowplow_ecommerce_transaction
+ed83da3f-4b4d-4548-8e78-f4668b04d845,2022-11-28 08:40:04.194000 UTC,TdTTa1,EUR,bank transfer,18,1,,,,3,,snowplow_ecommerce_transaction
+43aa3243-f477-477f-8e4d-a6d5122c1519,2022-11-28 08:40:37.981000 UTC,TH3hdJ,EUR,bank transfer,18,1,,,,3,,snowplow_ecommerce_transaction
+8d0ed841-b5ad-46d3-9e22-511f60675e86,2022-11-28 08:38:17.289000 UTC,TjflJE,EUR,credit card,43,1,,,,3,,snowplow_ecommerce_transaction
+6fc9a47d-42b3-49f8-8fe1-88cbea98a4bb,2022-11-28 08:40:21.493000 UTC,TfRvMN,EUR,credit card,43,1,,,,3,,snowplow_ecommerce_transaction
+103576b2-b319-4d3d-8e52-5ea2984dd19f,2022-10-25 07:52:51.280000 UTC,TPOp0e,EUR,credit card,26,1,,,,1,,snowplow_ecommerce_transaction
+7f12d1c9-ca92-4c40-9ca2-6fbba17d8c60,2022-10-25 07:55:14.105000 UTC,TDu7jK,EUR,credit card,26,1,,,,1,,snowplow_ecommerce_transaction
+fb1ddf7f-a240-4440-ba61-8179bfeaed4a,2022-10-25 07:56:13.756000 UTC,TeNOyd,EUR,credit card,26,1,,,,1,,snowplow_ecommerce_transaction
+8dd110c6-d72c-4d7e-8538-30a2d6332c9d,2022-10-25 08:10:25.017000 UTC,TmvFcg,EUR,credit card,26,1,,,,1,,snowplow_ecommerce_transaction
+78d8107c-790d-4b71-a897-b439ac1773b0,2022-10-25 08:30:18.307000 UTC,TaoBik,EUR,credit card,26,1,,,,1,,snowplow_ecommerce_transaction
+5a2ec007-027b-41fb-b19d-83baf6668ff0,2022-10-25 07:54:21.089000 UTC,TgUBkv,EUR,credit card,18,1,,,,3,,snowplow_ecommerce_transaction
+4baaa6ee-54ff-4747-b9d2-56b7019f94b9,2022-10-25 08:09:54.663000 UTC,TJKfGq,EUR,credit card,18,1,,,,3,,snowplow_ecommerce_transaction
+01ebeeb1-2b52-4b3a-95b2-d81f840dd59a,2022-10-25 08:10:47.307000 UTC,ThmLpu,EUR,credit card,43,1,,,,3,,snowplow_ecommerce_transaction
+ace4f28c-787d-4492-a416-79886d034d79,2022-11-29 06:18:53.637000 UTC,TQj5QV,EUR,BNPL,26,1,,,,1,,snowplow_ecommerce_transaction
+7130fd8e-1b39-45d8-9b28-c83ead6a4af3,2022-11-29 06:19:28.036000 UTC,T7s3zy,EUR,bank transfer,26,1,,,,1,,snowplow_ecommerce_transaction
+b24eeae8-e7f6-4b14-91ad-05753b3d1de1,2022-11-29 06:24:43.032000 UTC,TczcaB,EUR,bank transfer,13,1,,,,1,,snowplow_ecommerce_transaction
+599bd0e9-b3bd-4292-abb1-6c37358cca6b,2022-11-29 06:25:18.641000 UTC,TJb32C,EUR,BNPL,13,1,,,,1,,snowplow_ecommerce_transaction
+73d863ca-3242-4c68-a0bd-ccfa814dd3aa,2022-11-29 06:17:50.981000 UTC,TtD5aV,EUR,bank transfer,18,1,,,,3,,snowplow_ecommerce_transaction
