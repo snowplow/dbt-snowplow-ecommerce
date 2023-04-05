@@ -46,3 +46,13 @@ integration_tests:
       warehouse: "{{ env_var('SNOWFLAKE_TEST_WAREHOUSE') }}"
       schema: "gh_sp_ecom_dbt_{{ env_var('SCHEMA_SUFFIX') }}"
       threads: 4
+
+    postgres:
+      type: postgres
+      host: "{{ env_var('POSTGRES_TEST_HOST') }}"
+      user: "{{ env_var('POSTGRES_TEST_USER') }}"
+      pass: "{{ env_var('POSTGRES_TEST_PASS') }}"
+      port: "{{ env_var('POSTGRES_TEST_PORT') | as_number }}"
+      dbname: "{{ env_var('POSTGRES_TEST_DBNAME') }}"
+      schema: "gh_sp_ecom_dbt_{{ env_var('SCHEMA_SUFFIX') }}"
+      threads: 4

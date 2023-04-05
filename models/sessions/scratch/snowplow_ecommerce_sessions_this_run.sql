@@ -60,10 +60,10 @@ with cart_session_stats AS (
      select
             domain_sessionid,
 
-            MAX(session_entered_at_step) as session_entered_at_checkout,
+            CAST(MAX(CAST(session_entered_at_step as {{ type_int() }})) as {{ type_boolean() }}) as session_entered_at_checkout,
             COUNT(DISTINCT checkout_step_number) as number_unique_checkout_steps_attempted,
             COUNT(DISTINCT event_id) as number_checkout_steps_visited,
-            MAX(checkout_succeeded) as checkout_succeeded,
+            CAST(MAX(CAST(checkout_succeeded as {{ type_int() }})) as {{ type_boolean() }}) as checkout_succeeded,
 
             MIN(CASE WHEN checkout_step_number = 1 THEN derived_tstamp END) as first_checkout_attempted,
             MAX(CASE WHEN checkout_step_number = 1 THEN derived_tstamp END) as last_checkout_attempted,
@@ -113,7 +113,7 @@ with cart_session_stats AS (
 
         from {{ ref('snowplow_ecommerce_product_interactions_this_run') }}
         group by 1
-        
+
     {%- endif %}
 ), transaction_session_stats AS (
     {% if var('snowplow__disable_ecommerce_transactions', false) -%}
@@ -125,7 +125,7 @@ with cart_session_stats AS (
             CAST(NULL as {{ type_int() }}) AS total_transaction_quantity,
             CAST(NULL as {{ type_int() }}) AS total_number_transactions,
             CAST(NULL as {{ type_int() }}) AS total_transacted_products
-       
+
     {%- else -%}
          select
             domain_sessionid,

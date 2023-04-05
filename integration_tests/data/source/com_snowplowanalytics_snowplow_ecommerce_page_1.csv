@@ -1,0 +1,158 @@
+root_id,root_tstamp,type,language,locale,schema_name
+b3ed7970-753a-475f-a5b7-f6856fba1683,2022-12-22 13:26:11.183000 UTC,checkout step 1,,,snowplow_ecommerce_page
+398416a4-c667-4749-a34f-98156807e7b9,2022-12-22 13:26:31.374000 UTC,checkout step 1,,,snowplow_ecommerce_page
+d1c81006-ffac-4a8e-b28c-991726303cc6,2022-12-22 13:25:41.072000 UTC,checkout step 1,,,snowplow_ecommerce_page
+60b02af4-9536-41e1-a109-1de14510d2db,2022-12-22 13:26:27.364000 UTC,homepage,,,snowplow_ecommerce_page
+97a47c1f-ae84-4e14-824e-c582277a2acc,2022-12-22 13:26:27.699000 UTC,homepage,,,snowplow_ecommerce_page
+46ed81b5-b645-4d6e-b2c7-2f3236052bdb,2022-12-22 13:26:28.372000 UTC,homepage,,,snowplow_ecommerce_page
+c0c0b51d-2c99-4aeb-aaf1-f32b7d42ea45,2022-12-22 13:26:11.834000 UTC,checkout step 2,,,snowplow_ecommerce_page
+4e912a42-1a33-44ff-bc63-537730ac7e12,2022-12-22 13:26:31.839000 UTC,checkout step 2,,,snowplow_ecommerce_page
+b34a6010-b13d-4404-94cb-752bb6fc8577,2022-12-22 13:25:41.602000 UTC,checkout step 2,,,snowplow_ecommerce_page
+a64a0af6-639e-4735-b06c-7cc4e2ca0c17,2022-12-22 13:25:42.247000 UTC,order complete,,,snowplow_ecommerce_page
+bc8487ac-ea8d-4eff-9a44-3505855d44f9,2022-12-22 13:26:12.974000 UTC,order complete,,,snowplow_ecommerce_page
+79314f8f-3979-4e1b-afcf-0ddf02526778,2022-12-22 13:26:33.536000 UTC,order complete,,,snowplow_ecommerce_page
+3a2dd0d2-8d97-42f9-bf18-a88bd9925755,2022-11-28 08:43:39.014000 UTC,checkout step 1,,,snowplow_ecommerce_page
+a4399669-bef0-480b-b0af-7b1cc60b1579,2022-11-28 08:44:05.129000 UTC,checkout step 1,,,snowplow_ecommerce_page
+91fbd20f-84b5-4738-96b4-3a1ef36908b6,2022-11-28 08:44:19.345000 UTC,checkout step 1,,,snowplow_ecommerce_page
+03e25858-36ee-4948-a24d-aa3436570737,2022-11-28 08:44:37.537000 UTC,checkout step 1,,,snowplow_ecommerce_page
+6163ade6-11b5-442a-8a43-fa2112d779ad,2022-11-28 08:45:32.666000 UTC,checkout step 1,,,snowplow_ecommerce_page
+27b37c65-b32e-4348-ac23-b76f2816f2e8,2022-11-28 08:45:47.757000 UTC,checkout step 1,,,snowplow_ecommerce_page
+98f02d83-23d1-4df4-be90-747fbf34cd60,2022-11-17 10:19:39.197000 UTC,checkout step 1,,,snowplow_ecommerce_page
+f50449b7-0b7a-4a3d-b580-31a6c38d4834,2022-11-17 10:21:37.855000 UTC,checkout step 1,,,snowplow_ecommerce_page
+4a07c13b-0819-4ac0-acaa-a08df156e7a6,2022-11-17 10:23:37.403000 UTC,checkout step 1,,,snowplow_ecommerce_page
+6ceba0f5-30f7-4df6-9775-2de84d52f3c4,2022-11-28 08:43:07.930000 UTC,homepage,,,snowplow_ecommerce_page
+1abf7c0b-41bd-4373-8111-974df93b0e2d,2022-11-28 08:44:31.489000 UTC,homepage,,,snowplow_ecommerce_page
+1c1c6d70-b38e-4ba5-8739-05f353e8373e,2022-11-28 08:45:24.681000 UTC,homepage,,,snowplow_ecommerce_page
+f875e4fb-347d-45f5-9d54-a6f7c4c7a024,2022-11-28 08:45:42.311000 UTC,homepage,,,snowplow_ecommerce_page
+3c89068c-3d0b-40bb-afc0-3e887e9f63bb,2022-11-17 10:23:24.767000 UTC,homepage,,,snowplow_ecommerce_page
+e6b992f2-4ab1-4c31-916c-73fa2f3fb4f7,2022-11-28 08:44:34.219000 UTC,homepage,,,snowplow_ecommerce_page
+c463ac81-782a-4a61-bc10-ac4d10e9d904,2022-11-28 08:45:28.586000 UTC,homepage,,,snowplow_ecommerce_page
+664f9fb0-9094-4301-a2bb-b5b64a3a77b1,2022-11-28 08:45:46.087000 UTC,homepage,,,snowplow_ecommerce_page
+948c9848-97be-4723-b285-836c52b313c0,2022-11-28 08:43:09.638000 UTC,homepage,,,snowplow_ecommerce_page
+a35e9b28-2f50-468d-955b-9945da2aee07,2022-11-28 08:43:12.309000 UTC,homepage,,,snowplow_ecommerce_page
+37576367-7191-4815-9086-7f17db9bb99d,2022-11-28 08:43:34.739000 UTC,homepage,,,snowplow_ecommerce_page
+aa5fe301-a9c9-4ca1-bc89-876c3a95c2aa,2022-11-28 08:44:32.049000 UTC,homepage,,,snowplow_ecommerce_page
+48876667-7846-493d-a289-eca9bcfd3cfc,2022-11-28 08:44:34.142000 UTC,homepage,,,snowplow_ecommerce_page
+de4e0755-bf89-4bbd-a1d7-93a7fc0f4efc,2022-11-28 08:45:25.227000 UTC,homepage,,,snowplow_ecommerce_page
+0afbccf8-07e9-4f3e-8872-b871a2d6f8a6,2022-11-28 08:45:26.277000 UTC,homepage,,,snowplow_ecommerce_page
+6296f479-4d1e-4773-b209-639b5d2979a5,2022-11-28 08:45:27.607000 UTC,homepage,,,snowplow_ecommerce_page
+f3904f49-073b-4222-94b2-393c14fe145c,2022-11-28 08:45:42.895000 UTC,homepage,,,snowplow_ecommerce_page
+e4d927f9-1e41-436a-a61e-e4f5f4b58fa5,2022-11-28 08:45:44.458000 UTC,homepage,,,snowplow_ecommerce_page
+184b19a3-0e2a-4fc5-8252-46bcaea31d3b,2022-11-28 08:44:35.731000 UTC,homepage,,,snowplow_ecommerce_page
+ba6fa010-424b-4dbf-8ab8-6ee4a690818c,2022-11-28 08:45:29.792000 UTC,homepage,,,snowplow_ecommerce_page
+73ab95c9-76b2-4ba4-aee9-b2bd8ac4aa41,2022-11-17 10:23:30.776000 UTC,homepage,,,snowplow_ecommerce_page
+af84edb2-4c82-4379-9542-2c7dde9c799f,2022-11-17 10:23:25.242000 UTC,homepage,,,snowplow_ecommerce_page
+79c390d4-3dd8-4af8-9d1a-483c33c5f4b4,2022-11-17 10:23:31.840000 UTC,homepage,,,snowplow_ecommerce_page
+e926d52c-5b5d-4488-ac27-e4e4604b8d8a,2022-11-28 08:43:37.620000 UTC,homepage,,,snowplow_ecommerce_page
+a00bfa4e-8d50-40ea-8b9d-78609a3f926b,2022-11-28 08:43:10.402000 UTC,homepage,,,snowplow_ecommerce_page
+0b1745f5-d02c-43f2-9f5e-1d5210f5a208,2022-11-28 08:43:35.522000 UTC,homepage,,,snowplow_ecommerce_page
+e2042870-037e-4e4d-81e7-670e01547ede,2022-11-28 08:44:32.571000 UTC,homepage,,,snowplow_ecommerce_page
+ff386ca7-51f0-4cc6-8845-8b02002dbaf6,2022-11-28 08:45:25.692000 UTC,homepage,,,snowplow_ecommerce_page
+74ee4766-1121-4e2b-b6fc-c178ecd2eea8,2022-11-28 08:45:26.967000 UTC,homepage,,,snowplow_ecommerce_page
+112637fb-18fe-407f-90c8-b0db0f40be50,2022-11-28 08:45:43.971000 UTC,homepage,,,snowplow_ecommerce_page
+f0372250-3da1-49e7-9592-6df1c1abf8c3,2022-11-17 10:21:59.670000 UTC,order complete,,,snowplow_ecommerce_page
+07f7889e-a87f-4370-a483-e2eebb754b72,2022-11-17 10:21:57.951000 UTC,order complete,,,snowplow_ecommerce_page
+944a8019-1121-4042-ba81-45432297ab60,2022-11-17 10:21:58.873000 UTC,order complete,,,snowplow_ecommerce_page
+831f4567-cf61-463e-bf8e-19a1c6cdd387,2022-11-17 10:21:59.158000 UTC,order complete,,,snowplow_ecommerce_page
+919f789a-32e2-4572-b806-806afe6e7fcd,2022-11-28 08:45:33.437000 UTC,checkout step 2,,,snowplow_ecommerce_page
+8abc6b86-1536-4f81-bd6c-88f6627286f6,2022-11-17 10:19:39.992000 UTC,checkout step 2,,,snowplow_ecommerce_page
+8b8a9b87-e871-4a9d-9e4c-da575365dfd3,2022-11-17 10:21:38.436000 UTC,checkout step 2,,,snowplow_ecommerce_page
+faa5d9ff-9522-437a-9e42-370af5f78a97,2022-11-17 10:23:37.891000 UTC,checkout step 2,,,snowplow_ecommerce_page
+f65604b8-afe4-4eb2-8935-952b66beda16,2022-11-17 10:21:34.517000 UTC,checkout step 2,,,snowplow_ecommerce_page
+295a97ba-7318-4ec7-9131-397c5b8b4122,2022-11-17 10:21:40.410000 UTC,order complete,,,snowplow_ecommerce_page
+685976d0-f174-41a0-8b87-f68ee44a03f7,2022-11-17 10:21:30.398000 UTC,checkout step 2,,,snowplow_ecommerce_page
+1ca091ff-09e2-4fca-8810-5836421b3596,2022-11-17 10:21:31.815000 UTC,checkout step 2,,,snowplow_ecommerce_page
+fc1ec68f-152e-467e-9515-4d5a0183452c,2022-11-28 08:37:37.310000 UTC,checkout step 1,,,snowplow_ecommerce_page
+44f1d391-29a6-40f0-be24-000ad212fd32,2022-11-28 08:37:57.027000 UTC,checkout step 1,,,snowplow_ecommerce_page
+3b3937df-8e47-48f2-80bd-34c361355682,2022-11-28 08:38:15.331000 UTC,checkout step 1,,,snowplow_ecommerce_page
+b19b4fb5-ecd8-48eb-bf1b-6fb47cba3026,2022-11-28 08:38:26.131000 UTC,checkout step 1,,,snowplow_ecommerce_page
+c637137b-67b9-440f-a03d-a757beab841c,2022-11-28 08:38:40.665000 UTC,checkout step 1,,,snowplow_ecommerce_page
+c600610b-f5e2-4a63-842e-603937f2bc4a,2022-11-28 08:39:47.901000 UTC,checkout step 1,,,snowplow_ecommerce_page
+28e9c75b-d1c3-4dc2-9539-83f50f57a473,2022-11-28 08:40:02.205000 UTC,checkout step 1,,,snowplow_ecommerce_page
+2c8fd91a-e695-43c1-8469-5d9242ca3c7a,2022-11-28 08:40:19.407000 UTC,checkout step 1,,,snowplow_ecommerce_page
+39ff558b-7a85-49b0-a862-b02f3076bce3,2022-11-28 08:40:36.343000 UTC,checkout step 1,,,snowplow_ecommerce_page
+9d905aad-b81e-45f9-b0c2-eb9040aca231,2022-11-28 08:41:03.429000 UTC,checkout step 1,,,snowplow_ecommerce_page
+476239a4-fb3f-476d-a2d7-73fdb9536bbc,2022-11-28 08:41:22.412000 UTC,checkout step 1,,,snowplow_ecommerce_page
+3d6df919-9c7e-4f6c-b3c7-465ca8fcb52e,2022-11-28 08:41:51.240000 UTC,checkout step 1,,,snowplow_ecommerce_page
+67b2e6dd-7ce4-4748-989b-6d66bc9147f8,2022-10-25 08:09:31.975000 UTC,order complete,,,snowplow_ecommerce_page
+3766eae6-1074-4733-80ac-2d1b6891656a,2022-10-25 07:52:45.579000 UTC,checkout step 1,,,snowplow_ecommerce_page
+b62c54fa-b061-4a58-a139-9e55959580e4,2022-10-25 07:54:16.906000 UTC,checkout step 1,,,snowplow_ecommerce_page
+51e69a6b-aa3a-4f4a-8bc9-0ba6368e51b9,2022-10-25 07:55:11.850000 UTC,checkout step 1,,,snowplow_ecommerce_page
+7fdabf21-ffeb-4637-9439-bdbef55bfbbd,2022-10-25 07:56:11.820000 UTC,checkout step 1,,,snowplow_ecommerce_page
+4cc7c1de-3b39-4016-b6f3-5d4d61961313,2022-10-25 08:09:52.169000 UTC,checkout step 1,,,snowplow_ecommerce_page
+4c070af6-e1c7-4e05-afd4-fcb1568e4527,2022-10-25 08:10:20.855000 UTC,checkout step 1,,,snowplow_ecommerce_page
+936a8f26-3eb0-4c1a-a639-617ba47ac775,2022-10-25 08:10:44.896000 UTC,checkout step 1,,,snowplow_ecommerce_page
+ae8e3225-64ec-48d0-86bd-94f63c1e7923,2022-10-25 08:13:05.289000 UTC,checkout step 1,,,snowplow_ecommerce_page
+0162110f-134d-413b-80f3-412d1098fd5e,2022-10-25 08:13:31.450000 UTC,checkout step 1,,,snowplow_ecommerce_page
+ab35850e-fc70-4a25-ba36-a084787a9366,2022-10-25 08:28:13.529000 UTC,checkout step 1,,,snowplow_ecommerce_page
+13643c67-d85b-4023-b328-d63b320ebe06,2022-10-25 08:29:20.575000 UTC,checkout step 1,,,snowplow_ecommerce_page
+b66cfde0-2563-43ad-b024-67e22087ba78,2022-10-25 08:29:59.290000 UTC,checkout step 1,,,snowplow_ecommerce_page
+3fcce587-3b72-4dc1-9c8e-b833e51277ee,2022-10-25 08:30:16.491000 UTC,checkout step 1,,,snowplow_ecommerce_page
+c156a2be-144f-49b2-9f25-ffe996e242fe,2022-11-29 06:17:48.444000 UTC,checkout step 1,,,snowplow_ecommerce_page
+ce13bc90-0438-4597-8af4-515f8e9aede0,2022-11-29 06:18:50.832000 UTC,checkout step 1,,,snowplow_ecommerce_page
+5c0b653e-ddd9-4220-adef-4155a49143be,2022-11-29 06:19:23.511000 UTC,checkout step 1,,,snowplow_ecommerce_page
+907e48c0-68a0-4a4f-9873-a6264bac0748,2022-11-29 06:20:05.617000 UTC,checkout step 1,,,snowplow_ecommerce_page
+48dfa841-981a-4d8d-a875-858235734613,2022-11-29 06:24:40.283000 UTC,checkout step 1,,,snowplow_ecommerce_page
+a6ecb5ca-9542-4d08-8fff-6333496aa75f,2022-11-29 06:25:16.625000 UTC,checkout step 1,,,snowplow_ecommerce_page
+7d375f8a-48af-40b7-8d38-e4aa72b65f6a,2022-10-25 07:56:44.622000 UTC,homepage,,,snowplow_ecommerce_page
+b1ac1bd6-7c04-4448-b138-ff1daa7cab44,2022-11-28 08:42:07.046000 UTC,homepage,,,snowplow_ecommerce_page
+7b88080c-8db9-42d3-8daa-85db795e2802,2022-11-28 08:42:07.557000 UTC,homepage,,,snowplow_ecommerce_page
+3d69c4ae-6821-43cd-acb9-d257e1f6884b,2022-11-28 08:42:05.762000 UTC,homepage,,,snowplow_ecommerce_page
+03961caa-5852-46f4-a54f-56c70dfd38d1,2022-11-28 08:42:08.834000 UTC,homepage,,,snowplow_ecommerce_page
+1dccd25a-aa6e-40a0-9f11-a2b808fa999b,2022-11-28 08:42:11.645000 UTC,homepage,,,snowplow_ecommerce_page
+a3ac6bd9-0d1e-4989-a137-7ef4433bc43c,2022-10-25 07:56:45.909000 UTC,homepage,,,snowplow_ecommerce_page
+5c6bb15c-60c3-4494-a42c-0fc91a7bbac1,2022-10-25 07:56:48.249000 UTC,homepage,,,snowplow_ecommerce_page
+12afc011-e908-4d20-9502-9cd11b73f0b3,2022-11-29 12:55:03.492000 UTC,checkout step 1,,,snowplow_ecommerce_page
+8680a8cc-20a3-4ec0-8ddb-aa86c35a5d37,2022-10-25 07:56:51.002000 UTC,homepage,,,snowplow_ecommerce_page
+1a69f457-e995-42b5-a13c-295833f04d22,2022-10-25 07:56:47.624000 UTC,homepage,,,snowplow_ecommerce_page
+4f2bd4b1-d504-4f61-85f9-95c616e7cb87,2022-10-25 07:56:48.877000 UTC,homepage,,,snowplow_ecommerce_page
+7045789f-60e8-4265-ac65-9295173402bc,2022-10-25 07:56:52.040000 UTC,homepage,,,snowplow_ecommerce_page
+3c993244-1450-46b5-8048-c4075d1681b2,2022-11-28 08:37:38.196000 UTC,checkout step 2,,,snowplow_ecommerce_page
+279abc15-8753-436e-ad47-224b0ef0f677,2022-11-28 08:37:57.764000 UTC,checkout step 2,,,snowplow_ecommerce_page
+9d9e0c6b-a80f-4b75-9418-a95048555e2d,2022-11-28 08:38:16.038000 UTC,checkout step 2,,,snowplow_ecommerce_page
+b5a8c751-b7cf-4148-bc4e-e4617842c4e2,2022-11-28 08:38:26.775000 UTC,checkout step 2,,,snowplow_ecommerce_page
+9ca9a24f-7cc9-4687-a416-e59e8be1736f,2022-11-28 08:38:41.318000 UTC,checkout step 2,,,snowplow_ecommerce_page
+6ff75cc9-b426-4613-9ead-bc889f38b92b,2022-11-28 08:39:48.577000 UTC,checkout step 2,,,snowplow_ecommerce_page
+def13db5-39d5-495b-abe6-3df7badee309,2022-11-28 08:40:02.946000 UTC,checkout step 2,,,snowplow_ecommerce_page
+dad879f1-e0fb-4c08-9ca7-53763591421a,2022-11-28 08:40:20.113000 UTC,checkout step 2,,,snowplow_ecommerce_page
+36293c82-dbe2-4b95-a2ed-ce6b08b7f5ff,2022-11-28 08:40:36.925000 UTC,checkout step 2,,,snowplow_ecommerce_page
+0c2d0b93-822a-4b45-bac4-4d33c616d834,2022-10-25 07:52:46.835000 UTC,checkout step 2,,,snowplow_ecommerce_page
+e18e1719-1785-4360-accd-0a8a717d667d,2022-10-25 07:54:18.010000 UTC,checkout step 2,,,snowplow_ecommerce_page
+6bfb4072-bf1e-41b7-906a-da9ef1895d14,2022-10-25 07:55:12.690000 UTC,checkout step 2,,,snowplow_ecommerce_page
+1e9b34dd-d07a-438d-b0e5-a892cdb2643a,2022-10-25 07:56:12.606000 UTC,checkout step 2,,,snowplow_ecommerce_page
+07504351-4e3d-4226-81aa-f1dc1108f4c0,2022-10-25 08:09:52.891000 UTC,checkout step 2,,,snowplow_ecommerce_page
+4f6e7b7a-7e93-4cf0-8176-7836b05bd4bb,2022-10-25 08:10:21.533000 UTC,checkout step 2,,,snowplow_ecommerce_page
+e848e8ae-9e3c-4895-a492-3a31fc0686cf,2022-10-25 08:10:45.968000 UTC,checkout step 2,,,snowplow_ecommerce_page
+84ecdebb-7169-4d8d-a111-1959f313b79c,2022-10-25 08:13:06.091000 UTC,checkout step 2,,,snowplow_ecommerce_page
+92167aaa-29ac-4d0b-a4df-74f54588cb17,2022-10-25 08:28:14.525000 UTC,checkout step 2,,,snowplow_ecommerce_page
+dd427e36-ea50-4b7e-969a-50e30f3d476f,2022-10-25 08:29:21.416000 UTC,checkout step 2,,,snowplow_ecommerce_page
+4d5ff831-5861-4c83-832b-d032f8c9525b,2022-10-25 08:30:01.430000 UTC,checkout step 2,,,snowplow_ecommerce_page
+fbfc8602-6d21-4124-b8a8-e43003826d5f,2022-10-25 08:30:17.051000 UTC,checkout step 2,,,snowplow_ecommerce_page
+159c7697-b9f8-485b-a292-307cd35f9e37,2022-11-29 06:17:49.125000 UTC,checkout step 2,,,snowplow_ecommerce_page
+4d44efcb-9b5c-4179-a749-87e37986c5b3,2022-11-29 06:18:51.694000 UTC,checkout step 2,,,snowplow_ecommerce_page
+9bf07ce7-ff4f-46d7-8c9e-9d0b1602c47b,2022-11-29 06:19:24.443000 UTC,checkout step 2,,,snowplow_ecommerce_page
+fdf3653c-8fc2-49fa-aefd-fa15bddc18b5,2022-11-29 06:20:06.825000 UTC,checkout step 2,,,snowplow_ecommerce_page
+d739851c-f8ef-4f46-83e2-e7b0c002cc77,2022-11-29 06:24:40.972000 UTC,checkout step 2,,,snowplow_ecommerce_page
+55cd1a5b-954a-4f25-992d-994264eced5a,2022-11-29 06:25:17.440000 UTC,checkout step 2,,,snowplow_ecommerce_page
+5eb7314c-5573-4b66-a727-60925bc0c915,2022-11-28 08:37:39.456000 UTC,order complete,,,snowplow_ecommerce_page
+3811e453-e79d-45db-ad9a-4b8c050f4d84,2022-11-28 08:38:27.733000 UTC,order complete,,,snowplow_ecommerce_page
+313a1cfb-720a-4310-813b-f8145a3bb95b,2022-11-28 08:38:42.276000 UTC,order complete,,,snowplow_ecommerce_page
+46c3a845-4844-473c-b0ed-f269438e2be5,2022-11-28 08:37:59.171000 UTC,order complete,,,snowplow_ecommerce_page
+c1803fb7-e86a-4d1c-87b9-5fb2a3ebe61d,2022-11-28 08:39:49.914000 UTC,order complete,,,snowplow_ecommerce_page
+ed83da3f-4b4d-4548-8e78-f4668b04d845,2022-11-28 08:40:04.194000 UTC,order complete,,,snowplow_ecommerce_page
+43aa3243-f477-477f-8e4d-a6d5122c1519,2022-11-28 08:40:37.981000 UTC,order complete,,,snowplow_ecommerce_page
+8d0ed841-b5ad-46d3-9e22-511f60675e86,2022-11-28 08:38:17.289000 UTC,order complete,,,snowplow_ecommerce_page
+6fc9a47d-42b3-49f8-8fe1-88cbea98a4bb,2022-11-28 08:40:21.493000 UTC,order complete,,,snowplow_ecommerce_page
+103576b2-b319-4d3d-8e52-5ea2984dd19f,2022-10-25 07:52:51.280000 UTC,order complete,,,snowplow_ecommerce_page
+7f12d1c9-ca92-4c40-9ca2-6fbba17d8c60,2022-10-25 07:55:14.105000 UTC,order complete,,,snowplow_ecommerce_page
+fb1ddf7f-a240-4440-ba61-8179bfeaed4a,2022-10-25 07:56:13.756000 UTC,order complete,,,snowplow_ecommerce_page
+8dd110c6-d72c-4d7e-8538-30a2d6332c9d,2022-10-25 08:10:25.017000 UTC,order complete,,,snowplow_ecommerce_page
+78d8107c-790d-4b71-a897-b439ac1773b0,2022-10-25 08:30:18.307000 UTC,order complete,,,snowplow_ecommerce_page
+5a2ec007-027b-41fb-b19d-83baf6668ff0,2022-10-25 07:54:21.089000 UTC,order complete,,,snowplow_ecommerce_page
+4baaa6ee-54ff-4747-b9d2-56b7019f94b9,2022-10-25 08:09:54.663000 UTC,order complete,,,snowplow_ecommerce_page
+01ebeeb1-2b52-4b3a-95b2-d81f840dd59a,2022-10-25 08:10:47.307000 UTC,order complete,,,snowplow_ecommerce_page
+ace4f28c-787d-4492-a416-79886d034d79,2022-11-29 06:18:53.637000 UTC,order complete,,,snowplow_ecommerce_page
+7130fd8e-1b39-45d8-9b28-c83ead6a4af3,2022-11-29 06:19:28.036000 UTC,order complete,,,snowplow_ecommerce_page
+b24eeae8-e7f6-4b14-91ad-05753b3d1de1,2022-11-29 06:24:43.032000 UTC,order complete,,,snowplow_ecommerce_page
+599bd0e9-b3bd-4292-abb1-6c37358cca6b,2022-11-29 06:25:18.641000 UTC,order complete,,,snowplow_ecommerce_page
+73d863ca-3242-4c68-a0bd-ccfa814dd3aa,2022-11-29 06:17:50.981000 UTC,order complete,,,snowplow_ecommerce_page
