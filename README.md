@@ -21,7 +21,7 @@ The easiest way to get started is to follow our [QuickStart guide](https://docs.
 
 ### Adapter Support
 
-The latest version of the snowplow-ecommerce package supports BigQuery, Databricks, and Snowflake. For previous versions see our [package docs](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/).
+The latest version of the snowplow-ecommerce package supports Redshift, BigQuery, Databricks, and Snowflake. For previous versions see our [package docs](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/).
 
 ### Requirements
 

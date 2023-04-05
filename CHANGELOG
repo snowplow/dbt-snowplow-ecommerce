@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.4.1 (2023-0X-XX)
+---------------------------------------
+## Summary
+This version adds support for running the models on Redshift warehouses. Support for Postgres is also technically added, however the `snowplow_ecommerce_action` context cannot currently be tracked by default into Postgres due to table name length limits, so a custom version of the schema would have to be tracked against.
+
+## Features
+- Adds support for Redshift 
+
+## Upgrading
+Bump the snowplow-ecommerce version in your `packages.yml` file
+
 snowplow-ecommerce 0.4.0 (2023-03-29)
 ---------------------------------------
 ## Summary

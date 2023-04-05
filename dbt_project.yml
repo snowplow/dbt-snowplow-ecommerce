@@ -35,6 +35,16 @@ vars:
     snowplow__categories_separator: '/'
     snowplow__use_product_quantity: false
 
+    # Redshift/Postgres contexts
+    snowplow__context_ecommerce_user: 'com_snowplowanalytics_snowplow_ecommerce_user_1'
+    snowplow__context_ecommerce_checkout_step: 'com_snowplowanalytics_snowplow_ecommerce_checkout_step_1'
+    snowplow__context_ecommerce_page: 'com_snowplowanalytics_snowplow_ecommerce_page_1'
+    snowplow__context_ecommerce_transaction: 'com_snowplowanalytics_snowplow_ecommerce_transaction_1'
+    snowplow__context_ecommerce_cart: 'com_snowplowanalytics_snowplow_ecommerce_cart_1'
+    snowplow__sde_ecommerce_action: 'com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1'
+    snowplow__context_web_page: 'com_snowplowanalytics_snowplow_web_page_1'
+    snowplow__context_ecommerce_product: 'com_snowplowanalytics_snowplow_ecommerce_product_1'
+
     # Variables - Standard Config
     snowplow__start_date: '2020-01-01'
     snowplow__backfill_limit_days: 30
@@ -49,6 +59,7 @@ vars:
     snowplow__query_tag: "snowplow_dbt"
     snowplow__dev_target_name: 'dev'
     snowplow__allow_refresh: false
+    snowplow__enable_load_tstamp: true
     # Variables - Databricks Only
     # Add the following variable to your dbt project's dbt_project.yml file
     # Depending on the use case it should either be the catalog (for Unity Catalog users from databricks connector 1.1.1 onwards) or the same value as your snowplow__atomic_schema (unless changed it should be 'atomic')
@@ -77,11 +88,13 @@ models:
         +schema: "scratch"
         +tags: "scratch"
         bigquery:
-          enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+          +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
         databricks:
-          enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+          +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+        default:
+          +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
         snowflake:
-          enabled: "{{ target.type == 'snowflake' | as_bool() }}"
+          +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
     carts:
       +schema: "derived"
       +tags: "snowplow_ecommerce_incremental"
@@ -101,11 +114,13 @@ models:
         +schema: "scratch"
         +tags: "scratch"
         bigquery:
-          enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+          +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
         databricks:
-          enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+          +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+        default:
+          +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
         snowflake:
-          enabled: "{{ target.type == 'snowflake' | as_bool() }}"
+          +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
     sessions:
       +schema: "derived"
       +tags: "snowplow_ecommerce_incremental"

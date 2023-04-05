@@ -32,6 +32,8 @@ models:
         +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
       databricks:
         +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+      default:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
       snowflake:
         +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
 
@@ -42,6 +44,8 @@ vars:
     snowplow__events: "{{ ref('snowplow_ecommerce_events_stg') }}"
     snowplow__start_date: "2022-10-01"
     snowplow__backfill_limit_days: 30
+    snowplow__atomic_schema: "{{ target.schema }}_snplw_ecommerce_int_tests"
+    snowplow__sde_ecommerce_action: 'com_snowplowanalytics_snowplow_ecommerce_action_1'
 
 seeds:
   quote_columns: false
@@ -125,6 +129,85 @@ seeds:
           event_format: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           event_version: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           event_fingerprint: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
+      com_snowplowanalytics_snowplow_ecommerce_action_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          type: varchar
+          name: varchar
+      com_snowplowanalytics_snowplow_ecommerce_cart_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          cart_id: varchar
+          currency: varchar
+          total_value: numeric
+      com_snowplowanalytics_snowplow_ecommerce_checkout_step_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          step: integer
+          account_type: varchar
+          billing_full_address: varchar
+          billing_postcode: varchar
+          coupon_code: varchar
+          delivery_method: varchar
+          delivery_provider: varchar
+          marketing_opt_in: boolean
+          payment_method: varchar
+          proof_of_payment: varchar
+          shipping_full_address: varchar
+          shipping_postcode: varchar
+      com_snowplowanalytics_snowplow_ecommerce_page_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          type: varchar
+          language: varchar
+          locale: varchar
+      com_snowplowanalytics_snowplow_ecommerce_product_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          id: varchar
+          name: varchar
+          category: varchar
+          price: numeric
+          list_price: numeric
+          quantity: integer
+          size: varchar
+          variant: varchar
+          brand: varchar
+          inventory_status: varchar
+          position: integer
+          currency: varchar
+          creative_id: varchar
+      com_snowplowanalytics_snowplow_ecommerce_transaction_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          transaction_id: varchar
+          currency: varchar
+          payment_method: varchar
+          revenue: numeric
+          total_quantity: integer
+          credit_order: boolean
+          discount_amount: numeric
+          discount_code: varchar
+          shipping: numeric
+          tax: numeric
+      com_snowplowanalytics_snowplow_ecommerce_user_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          id: varchar
+          email: varchar
+          is_guest: boolean
+      com_snowplowanalytics_snowplow_web_page_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_tstamp: timestamp
+          id: varchar
     expected:
       bigquery:
         +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
@@ -596,5 +679,162 @@ seeds:
             transaction_shipping: float
             transaction_tax: float
             ecommerce_user_email: string
+            ecommerce_user_is_guest: boolean
+            number_products: integer
+      default:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        snowplow_ecommerce_cart_interactions_expected:
+          +column_types:
+            event_id: varchar
+            page_view_id: varchar
+            domain_sessionid: varchar
+            event_in_session_index: integer
+            domain_userid: varchar
+            network_userid: varchar
+            user_id: varchar
+            ecommerce_user_id: varchar
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            cart_id: varchar
+            cart_currency: varchar
+            cart_total_value: float
+            cart_created: boolean
+            cart_emptied: boolean
+            cart_transacted: boolean
+            ecommerce_action_type: varchar
+        snowplow_ecommerce_checkout_interactions_expected:
+          +column_types:
+            event_id: varchar
+            page_view_id: varchar
+            domain_sessionid: varchar
+            event_in_session_index: integer
+            domain_userid: varchar
+            network_userid: varchar
+            user_id: varchar
+            ecommerce_user_id: varchar
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            ecommerce_action_type: varchar
+            ecommerce_action_name: varchar
+            ecommerce_page_type: varchar
+            checkout_step_number: integer
+            checkout_account_type: varchar
+            checkout_billing_full_address: varchar
+            checkout_billing_postcode: varchar
+            checkout_coupon_code: varchar
+            checkout_delivery_method: varchar
+            checkout_delivery_provider: varchar
+            checkout_marketing_opt_in: boolean
+            checkout_payment_method: varchar
+            checkout_proof_of_payment: varchar
+            checkout_shipping_full_address: varchar
+            checkout_shipping_postcode: varchar
+            session_entered_at_step: boolean
+            checkout_succeeded: boolean
+            ecommerce_user_email: varchar
+            ecommerce_user_is_guest: boolean
+        snowplow_ecommerce_product_interactions_expected:
+          +column_types:
+            product_event_id: varchar
+            event_id: varchar
+            page_view_id: varchar
+            domain_sessionid: varchar
+            event_in_session_index: integer
+            domain_userid: varchar
+            network_userid: varchar
+            user_id: varchar
+            ecommerce_user_id: varchar
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            product_id: varchar
+            product_category: varchar
+            product_subcategory_1: varchar
+            product_subcategory_2: varchar
+            product_subcategory_3: varchar
+            product_subcategory_4: varchar
+            product_currency: varchar
+            product_price: float
+            product_brand: varchar
+            product_creative_id: varchar
+            product_inventory_status: varchar
+            product_list_price: float
+            product_name: varchar
+            product_list_position: integer
+            product_quantity: integer
+            product_size: varchar
+            product_variant: varchar
+            is_product_view: boolean
+            product_view_type: varchar
+            is_add_to_cart: boolean
+            is_remove_from_cart: boolean
+            product_list_name: varchar
+            is_product_transaction: boolean
+            transaction_id: varchar
+            ecommerce_user_email: varchar
+            ecommerce_user_is_guest: boolean
+        snowplow_ecommerce_sessions_expected:
+          +column_types:
+            domain_sessionid: varchar
+            domain_userid: varchar
+            start_tstamp: timestamp
+            end_tstamp: timestamp
+            number_unique_cart_ids: integer
+            number_carts_created: integer
+            number_carts_emptied: integer
+            number_carts_transacted: integer
+            first_cart_created: timestamp
+            last_cart_created: timestamp
+            first_cart_transacted: timestamp
+            last_cart_transacted: timestamp
+            session_cart_abandoned: boolean
+            session_entered_at_checkout: boolean
+            number_unique_checkout_steps_attempted: integer
+            number_checkout_steps_visited: integer
+            checkout_succeeded: boolean
+            first_checkout_attempted: timestamp
+            last_checkout_attempted: timestamp
+            first_checkout_succeeded: timestamp
+            last_checkout_succeeded: timestamp
+            first_product_view: timestamp
+            last_product_view: timestamp
+            first_product_add_to_cart: timestamp
+            last_product_add_to_cart: timestamp
+            first_product_remove_from_cart: timestamp
+            last_product_remove_from_cart: timestamp
+            first_product_transaction: timestamp
+            last_product_transaction: timestamp
+            number_product_views: integer
+            number_add_to_carts: integer
+            number_remove_from_carts: integer
+            number_product_transactions: integer
+            first_transaction_completed: timestamp
+            last_transaction_completed: timestamp
+            total_transaction_revenue: float
+            total_transaction_quantity: integer
+            total_number_transactions: integer
+            total_transacted_products: integer
+        snowplow_ecommerce_transaction_interactions_expected:
+          +column_types:
+            event_id: varchar
+            page_view_id: varchar
+            domain_sessionid: varchar
+            event_in_session_index: integer
+            domain_userid: varchar
+            network_userid: varchar
+            user_id: varchar
+            ecommerce_user_id: varchar
+            derived_tstamp: timestamp
+            derived_tstamp_date: date
+            transaction_id: varchar
+            transaction_currency: varchar
+            transaction_payment_method: varchar
+            transaction_revenue: float
+            transaction_total_quantity: integer
+            transaction_credit_order: boolean
+            transaction_discount_amount: float
+            transaction_discount_code: varchar
+            transaction_shipping: float
+            transaction_tax: float
+            ecommerce_user_email: varchar
             ecommerce_user_is_guest: boolean
             number_products: integer
