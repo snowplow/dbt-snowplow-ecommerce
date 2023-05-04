@@ -383,7 +383,7 @@ seeds:
             derived_tstamp_date: date
             cart_id: string
             cart_currency: string
-            cart_total_value: decimal(7,2)
+            cart_total_value: decimal(9,2)
             cart_created: boolean
             cart_emptied: boolean
             cart_transacted: boolean
@@ -439,11 +439,11 @@ seeds:
             product_subcategory_3: string
             product_subcategory_4: string
             product_currency: string
-            product_price: decimal(7,2)
+            product_price: decimal(9,2)
             product_brand: string
             product_creative_id: string
             product_inventory_status: string
-            product_list_price: decimal(7,2)
+            product_list_price: decimal(9,2)
             product_name: string
             product_list_position: integer
             product_quantity: integer
@@ -495,7 +495,7 @@ seeds:
             number_product_transactions: integer
             first_transaction_completed: timestamp
             last_transaction_completed: timestamp
-            total_transaction_revenue: decimal(7,2)
+            total_transaction_revenue: decimal(9,2)
             total_transaction_quantity: integer
             total_number_transactions: integer
             total_transacted_products: integer
@@ -514,13 +514,13 @@ seeds:
             transaction_id: string
             transaction_currency: string
             transaction_payment_method: string
-            transaction_revenue: decimal(7,2)
+            transaction_revenue: decimal(9,2)
             transaction_total_quantity: integer
             transaction_credit_order: boolean
-            transaction_discount_amount: decimal(7,2)
+            transaction_discount_amount: decimal(9,2)
             transaction_discount_code: string
-            transaction_shipping: decimal(7,2)
-            transaction_tax: decimal(7,2)
+            transaction_shipping: decimal(9,2)
+            transaction_tax: decimal(9,2)
             ecommerce_user_email: string
             ecommerce_user_is_guest: boolean
             number_products: integer
