@@ -1,7 +1,7 @@
 root_id,root_tstamp,transaction_id,currency,payment_method,revenue,total_quantity,credit_order,discount_amount,discount_code,shipping,tax,schema_name
 a64a0af6-639e-4735-b06c-7cc4e2ca0c17,2022-12-22 13:25:42.247000 UTC,TtlZ3b,EUR,BNPL,13,1,,,,1,,snowplow_ecommerce_transaction
 bc8487ac-ea8d-4eff-9a44-3505855d44f9,2022-12-22 13:26:12.974000 UTC,TT9ZEQ,EUR,BNPL,13,1,,,,1,,snowplow_ecommerce_transaction
-79314f8f-3979-4e1b-afcf-0ddf02526778,2022-12-22 13:26:33.536000 UTC,TOG6u9,EUR,BNPL,28.2,1,,,,3,,snowplow_ecommerce_transaction
+79314f8f-3979-4e1b-afcf-0ddf02526778,2022-12-22 13:26:33.536000 UTC,TOG6u9,EUR,BNPL,1234567.89,1,,,,3,,snowplow_ecommerce_transaction
 295a97ba-7318-4ec7-9131-397c5b8b4122,2022-11-17 10:21:40.410000 UTC,Tkd7Nu,EUR,credit card,43,1,,,,3,,snowplow_ecommerce_transaction
 67b2e6dd-7ce4-4748-989b-6d66bc9147f8,2022-10-25 08:09:31.975000 UTC,TukaQc,EUR,credit card,18,1,,,,3,,snowplow_ecommerce_transaction
 5eb7314c-5573-4b66-a727-60925bc0c915,2022-11-28 08:37:39.456000 UTC,TlsV50,EUR,bank transfer,26,1,,,,1,,snowplow_ecommerce_transaction

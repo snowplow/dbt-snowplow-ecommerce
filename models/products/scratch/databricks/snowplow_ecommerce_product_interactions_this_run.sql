@@ -70,7 +70,7 @@ with prep as (
     split_part(contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.category::string, '{{ var("snowplow__categories_separator", "/") }}', {{i+1}}) as product_subcategory_{{i+1}},
     {%- endfor %}
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.currency::string as product_currency,
-    contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.price::decimal(7,2) as product_price,
+    contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.price::decimal(9,2) as product_price,
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.brand::string as product_brand,
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.creative_id::string as product_creative_id,
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.inventory_status::string as product_inventory_status,

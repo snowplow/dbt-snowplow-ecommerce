@@ -72,35 +72,35 @@ with prep as (
     CAST(NULL AS {{ type_string() }}) as transaction_id,
     CAST(NULL AS {{ type_string() }}) as transaction_currency,
     CAST(NULL AS {{ type_string() }}) as transaction_payment_method,
-    CAST(NULL AS decimal(7,2)) as transaction_revenue,
+    CAST(NULL AS decimal(9,2)) as transaction_revenue,
     CAST(NULL AS {{ type_int() }}) as transaction_total_quantity,
     CAST(NULL AS {{ type_boolean() }}) as transaction_credit_order,
-    CAST(NULL AS decimal(7,2)) as transaction_discount_amount,
+    CAST(NULL AS decimal(9,2)) as transaction_discount_amount,
     CAST(NULL AS {{ type_string() }}) as transaction_discount_code,
-    CAST(NULL AS decimal(7,2)) as transaction_shipping,
-    CAST(NULL AS decimal(7,2)) as transaction_tax,
+    CAST(NULL AS decimal(9,2)) as transaction_shipping,
+    CAST(NULL AS decimal(9,2)) as transaction_tax,
     {%- else -%}
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:transaction_id::varchar as transaction_id,
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:currency::varchar as transaction_currency,
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:payment_method::varchar as transaction_payment_method,
-    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:revenue::decimal(7,2) as transaction_revenue,
+    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:revenue::decimal(9,2) as transaction_revenue,
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:total_quantity::int as transaction_total_quantity,
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:credit_order::boolean as transaction_credit_order,
-    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discount_amount::decimal(7,2) as transaction_discount_amount,
+    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discount_amount::decimal(9,2) as transaction_discount_amount,
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discount_code::varchar as transaction_discount_code,
-    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:shipping::decimal(7,2) as transaction_shipping,
-    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:tax::decimal(7,2) as transaction_tax,
+    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:shipping::decimal(9,2) as transaction_shipping,
+    a.contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:tax::decimal(9,2) as transaction_tax,
     {%- endif %}
 
     -- unpacking the ecommerce cart object
     {% if var('snowplow__disable_ecommerce_carts', false) -%}
     CAST(NULL AS {{ type_string() }}) as cart_id,
     CAST(NULL AS {{ type_string() }}) as cart_currency,
-    CAST(NULL AS decimal(7,2)) as cart_total_value,
+    CAST(NULL AS decimal(9,2)) as cart_total_value,
     {%- else -%}
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:cart_id::varchar as cart_id,
     a.contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:currency::varchar as cart_currency,
-    a.contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:total_value::decimal(7,2) as cart_total_value,
+    a.contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:total_value::decimal(9,2) as cart_total_value,
     {%- endif%}
 
     -- unpacking the ecommerce action object
