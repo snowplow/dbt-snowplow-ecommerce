@@ -1,10 +1,24 @@
+snowplow-ecommerce 0.4.2 (2023-05-05)
+---------------------------------------
+## Summary
+This version fixes a bug for Snowflake / Databricks / Redshift users where a couple of decimal fields need to be changed to allow for the maximum values that could arrive based on the schema definitions.
+
+## Features
+- Fix small decimal fields
+
+## Upgrading
+Bump the snowplow-ecommerce version in your `packages.yml` file.
+
+## 🚨 Breaking Changes 🚨
+Existing users on Snowflake / Databricks / Redshift will need to make changes to some of their derived tables. For a full sql script on how to achieve this, check out the relevant [migration guide](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/migration-guides/ecommerce/) The other option is to do a [complete refresh](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-operation/#complete-refresh-of-snowplow-package) of the package.
+
 snowplow-ecommerce 0.4.1 (2023-04-21)
 ---------------------------------------
 ## Summary
 This version adds support for running the models on Redshift warehouses. Support for Postgres is also technically added, however the `snowplow_ecommerce_action` context cannot currently be tracked by default into Postgres due to table name length limits, so a custom version of the schema would have to be tracked against.
 
 ## Features
-- Adds support for Redshift 
+- Adds support for Redshift
 
 ## Upgrading
 Bump the snowplow-ecommerce version in your `packages.yml` file
