@@ -9,7 +9,7 @@
 
 This dbt package:
 
-- Transforms and aggregates raw web e-commerce event data collected from the [Snowplow JavaScript tracker][tracker-docs] into a set of derived tables based around the following e-commerce data objects: carts, checkouts, products and transactions.
+- Transforms and aggregates raw web (and optionally mobile) e-commerce event data collected from the [Snowplow JavaScript tracker][tracker-docs] (and iOS/Android Tracker) into a set of derived tables based around the following e-commerce data objects: carts, checkouts, products and transactions.
 - Processes **all e-commerce events incrementally**. It is not just constrained to out-of-the-box events - any custom events you are tracking will also be incrementally processed.
 - Is designed in a modular manner, allowing you to easily integrate your own custom SQL into the incremental framework provided by the package.
 

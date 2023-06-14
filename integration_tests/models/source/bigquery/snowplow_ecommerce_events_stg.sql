@@ -8,7 +8,9 @@ select
     contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_0_0,
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1_0_0,
     contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_0_0,
-    contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0
+    contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0,
+    contexts_com_snowplowanalytics_mobile_screen_1_0_0,
+    contexts_com_snowplowanalytics_snowplow_client_session_1_0_1
   ),
   JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_web_page_1_0_0) AS contexts_com_snowplowanalytics_snowplow_web_page_1_0_0,
   JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_0_0,
@@ -17,7 +19,9 @@ select
   JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_0_0,
   JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_ecommerce_product_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_product_1_0_0,
   JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_0_0,
-  JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0
+  JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0) as contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0,
+    JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_mobile_screen_1_0_0) AS contexts_com_snowplowanalytics_mobile_screen_1_0_0,
+  JSON_EXTRACT_ARRAY(contexts_com_snowplowanalytics_snowplow_client_session_1_0_1) AS contexts_com_snowplowanalytics_snowplow_client_session_1_0_1
 
 
 
@@ -33,8 +37,26 @@ select
     contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_0_0,
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1_0_0,
     contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1_0_0,
-    contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0
+    contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_0_0,
+    contexts_com_snowplowanalytics_mobile_screen_1_0_0,
+    contexts_com_snowplowanalytics_snowplow_client_session_1_0_1
   ),
+  array(
+    select as struct JSON_EXTRACT_scalar(json_array,'$.id') as id,
+                    JSON_EXTRACT_scalar(json_array,'$.name') as name,
+    from unnest(contexts_com_snowplowanalytics_mobile_screen_1_0_0) as json_array
+    ) as contexts_com_snowplowanalytics_mobile_screen_1_0_0,
+  array(
+    select as struct JSON_EXTRACT_scalar(json_array,'$.sessionId') as session_id,
+                    JSON_EXTRACT_scalar(json_array,'$.userId') as user_id,
+                    JSON_EXTRACT_scalar(json_array,'$.sessionIndex') as session_index,
+                    JSON_EXTRACT_scalar(json_array,'$.firstEventId') as first_event_id,
+                    JSON_EXTRACT_scalar(json_array,'$.previousSessionId') as previous_session_id,
+                    JSON_EXTRACT_scalar(json_array,'$.eventIndex') as event_index,
+                    JSON_EXTRACT_scalar(json_array,'$.storageMechanism') as storage_mechanism,
+                    JSON_EXTRACT_scalar(json_array,'$.firstEventTimestamp') as first_event_timestamp
+    from unnest(contexts_com_snowplowanalytics_snowplow_client_session_1_0_1) as json_array
+    ) as contexts_com_snowplowanalytics_snowplow_client_session_1_0_1,
   array(
     select as struct CAST(JSON_EXTRACT_scalar(json_array, '$.id') AS STRING) as id
     from unnest(contexts_com_snowplowanalytics_snowplow_web_page_1_0_0) as json_array

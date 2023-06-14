@@ -24,3 +24,4 @@ logs/
 # End of https://www.toptal.com/developers/gitignore/api/python,dbt,visualstudiocode
 .DS_Store
 dbt-service-account.json
+integration_tests/macros/get_batch_size.sql

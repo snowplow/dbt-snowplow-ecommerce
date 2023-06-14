@@ -23,16 +23,38 @@
 
 with new_events_session_ids as (
   select
-    e.domain_sessionid as session_id,
-    max(e.domain_userid) as domain_userid, -- Edge case 1: Arbitary selection to avoid window function like first_value.
+    {% if var('snowplow__enable_mobile_events', false) %}
+      coalesce(
+        e.contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_id::string,
+        e.domain_sessionid
+      ) as session_id,
+      max(coalesce(
+        e.contexts_com_snowplowanalytics_snowplow_client_session_1[0].user_id::string,
+        e.domain_userid
+      )) as domain_userid,
+    {% else %}
+      e.domain_sessionid as session_id,
+      max(e.domain_userid) as domain_userid, -- Edge case 1: Arbitary selection to avoid window function like first_value.
+    {% endif %}
     min(e.collector_tstamp) as start_tstamp,
     max(e.collector_tstamp) as end_tstamp
 
   from {{ var('snowplow__events') }} e
 
   where
-    e.domain_sessionid is not null
-    and not exists (select 1 from {{ ref('snowplow_ecommerce_base_quarantined_sessions') }} as a where a.session_id = e.domain_sessionid) -- don't continue processing v.long sessions
+    {% if var('snowplow__enable_mobile_events', false) %}
+      coalesce(
+        e.contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_id::string,
+        e.domain_sessionid
+      ) is not null
+      and not exists (select 1 from {{ ref('snowplow_ecommerce_base_quarantined_sessions') }} as a where a.session_id = coalesce(
+        e.contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_id::string,
+        e.domain_sessionid
+      )) -- don't continue processing v.long sessions
+    {% else %}
+      e.domain_sessionid is not null
+      and not exists (select 1 from {{ ref('snowplow_ecommerce_base_quarantined_sessions') }} as a where a.session_id = e.domain_sessionid) -- don't continue processing v.long sessions
+    {% endif %}
     and e.dvce_sent_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__days_late_allowed", 3), 'dvce_created_tstamp') }} -- don't process data that's too late
     and e.collector_tstamp >= {{ lower_limit }}
     and e.collector_tstamp <= {{ upper_limit }}
