@@ -127,3 +127,13 @@ ea8abebc-e6dd-4b86-8e80-5154490c3dbe,2022-10-25 07:56:06.409000 UTC,U12345,peter
 313a1cfb-720a-4310-813b-f8145a3bb95b,2022-11-28 08:38:42.276000 UTC,U12345,peter@snowplowanalytics.com,true,snowplow_ecommerce_user
 c1803fb7-e86a-4d1c-87b9-5fb2a3ebe61d,2022-11-28 08:39:49.914000 UTC,U12345,peter@snowplowanalytics.com,true,snowplow_ecommerce_user
 fb1ddf7f-a240-4440-ba61-8179bfeaed4a,2022-10-25 07:56:13.756000 UTC,U12345,peter@snowplowanalytics.com,,snowplow_ecommerce_user
+11b3a24b-deda-4871-aa6b-d6142cb126fd,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+5a079040-ba3f-40f8-8e45-fc80070d1b5d,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+f17eabf7-b74e-4fe4-9220-9ec4b92eed48,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+ab06d353-d71a-4e3a-88d5-92e4b92043d4,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+cec2ec72-7dd5-43ec-ad70-77fb647655a7,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+a7ef6ae8-cbdc-455a-9d3a-0101949c492f,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+b8f64ad9-54ce-482a-8fc2-64180dfcc976,2022-11-20 11:53:06.352,ecomm_user_id,,,snowplow_ecommerce_user
+41db6068-bc42-4774-808a-e5dd3bc944b1,2022-11-20 11:53:06.328,ecomm_user_id,,,snowplow_ecommerce_user
+88c1023e-810f-4a8d-8063-9836f650e57a,2022-11-20 11:53:06.328,ecomm_user_id,,,snowplow_ecommerce_user
+43a9eadf-97f4-4fd8-acc3-4ab6cba757b5,2022-11-20 11:53:06.328,ecomm_user_id,,,snowplow_ecommerce_user

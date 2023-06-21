@@ -10,7 +10,7 @@ do
   esac
 done
 
-declare -a SUPPORTED_DATABASES=("bigquery" "databricks" "snowflake")
+declare -a SUPPORTED_DATABASES=("bigquery" "postgres" "databricks" "snowflake")
 
 # set to lower case
 DATABASE="$(echo $DATABASE | tr '[:upper:]' '[:lower:]')"
@@ -25,11 +25,15 @@ for db in ${DATABASES[@]}; do
 
   echo "Snowplow e-commerce integration tests: Seeding data"
 
-  eval "dbt seed --target $db --full-refresh" || exit 1;
+  eval "dbt seed --full-refresh --target $db" || exit 1;
+
+    echo "Snowplow e-commerce integration tests: Execute models (no mobile) - run 0/4"
+
+  eval "dbt run --full-refresh --vars '{snowplow__allow_refresh: true, snowplow__backfill_limit_days: 30, snowplow__enable_mobile_events: false}' --target $db" || exit 1;
 
   echo "Snowplow e-commerce integration tests: Execute models - run 1/4"
 
-  eval "dbt run --target $db --full-refresh --vars '{snowplow__allow_refresh: true, snowplow__backfill_limit_days: 30}'" || exit 1;
+  eval "dbt run --full-refresh --vars '{snowplow__allow_refresh: true, snowplow__backfill_limit_days: 30}' --target $db" || exit 1;
 
   for i in {2..4}
   do
@@ -40,7 +44,7 @@ for db in ${DATABASES[@]}; do
 
   echo "Snowplow e-commerce integration tests: Test models"
 
-  eval "dbt test --target $db --store-failures" || exit 1;
+  eval "dbt test --store-failures --target $db" || exit 1;
 
   echo "Snowplow e-commerce integration tests: All tests passed"
 

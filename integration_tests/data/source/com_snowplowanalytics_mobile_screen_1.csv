@@ -1,0 +1,11 @@
+root_id,root_tstamp,id,name,schema_name
+11b3a24b-deda-4871-aa6b-d6142cb126fd,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+5a079040-ba3f-40f8-8e45-fc80070d1b5d,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+f17eabf7-b74e-4fe4-9220-9ec4b92eed48,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+ab06d353-d71a-4e3a-88d5-92e4b92043d4,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+cec2ec72-7dd5-43ec-ad70-77fb647655a7,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+a7ef6ae8-cbdc-455a-9d3a-0101949c492f,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+b8f64ad9-54ce-482a-8fc2-64180dfcc976,2022-11-20 11:53:06.352000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+41db6068-bc42-4774-808a-e5dd3bc944b1,2022-11-20 11:53:06.328000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+88c1023e-810f-4a8d-8063-9836f650e57a,2022-11-20 11:53:06.328000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
+43a9eadf-97f4-4fd8-acc3-4ab6cba757b5,2022-11-20 11:53:06.328000 UTC,d40fc217-6e92-4447-adf0-52d975788391,screenName1,snowplow_mobile_screen
