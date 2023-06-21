@@ -46,6 +46,7 @@ vars:
     snowplow__backfill_limit_days: 30
     snowplow__atomic_schema: "{{ target.schema }}_snplw_ecommerce_int_tests"
     snowplow__sde_ecommerce_action: 'com_snowplowanalytics_snowplow_ecommerce_action_1'
+    snowplow__enable_mobile_events: true
 
 seeds:
   quote_columns: false
@@ -141,7 +142,7 @@ seeds:
           root_tstamp: timestamp
           cart_id: varchar
           currency: varchar
-          total_value: numeric
+          total_value: decimal(9,2)
       com_snowplowanalytics_snowplow_ecommerce_checkout_step_1:
         +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
         +column_types:
@@ -172,8 +173,8 @@ seeds:
           id: varchar
           name: varchar
           category: varchar
-          price: numeric
-          list_price: numeric
+          price: decimal(9,2)
+          list_price: decimal(9,2)
           quantity: integer
           size: varchar
           variant: varchar
@@ -189,13 +190,13 @@ seeds:
           transaction_id: varchar
           currency: varchar
           payment_method: varchar
-          revenue: numeric
+          revenue: decimal(9,2)
           total_quantity: integer
           credit_order: boolean
-          discount_amount: numeric
+          discount_amount: decimal(9,2)
           discount_code: varchar
-          shipping: numeric
-          tax: numeric
+          shipping: decimal(9,2)
+          tax: decimal(9,2)
       com_snowplowanalytics_snowplow_ecommerce_user_1:
         +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
         +column_types:
@@ -208,6 +209,33 @@ seeds:
         +column_types:
           root_tstamp: timestamp
           id: varchar
+      com_snowplowanalytics_mobile_screen_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_id: varchar
+          root_tstamp: timestamp
+          id: varchar
+          name: varchar
+          previous_id: varchar
+          previous_name: varchar
+          previous_type: varchar
+          transition_type: varchar
+          type: varchar
+          schema_name: varchar
+      com_snowplowanalytics_snowplow_client_session_1:
+        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +column_types:
+          root_id: varchar
+          root_tstamp: timestamp
+          session_id: varchar
+          session_index: varchar
+          previous_session_id: varchar
+          user_id: varchar
+          first_event_id: varchar
+          event_index: varchar
+          storage_mechanism: varchar
+          first_event_timestamp: varchar
+          schema_name: varchar
     expected:
       bigquery:
         +enabled: "{{ target.type == 'bigquery' | as_bool() }}"

@@ -35,6 +35,9 @@ vars:
     snowplow__categories_separator: '/'
     snowplow__use_product_quantity: false
 
+    snowplow__enable_mobile_events: false
+
+
     # Redshift/Postgres contexts
     snowplow__context_ecommerce_user: 'com_snowplowanalytics_snowplow_ecommerce_user_1'
     snowplow__context_ecommerce_checkout_step: 'com_snowplowanalytics_snowplow_ecommerce_checkout_step_1'
@@ -44,6 +47,8 @@ vars:
     snowplow__sde_ecommerce_action: 'com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1'
     snowplow__context_web_page: 'com_snowplowanalytics_snowplow_web_page_1'
     snowplow__context_ecommerce_product: 'com_snowplowanalytics_snowplow_ecommerce_product_1'
+    snowplow__mobile_session_context: 'com_snowplowanalytics_snowplow_client_session_1'
+    snowplow__screen_context: 'com_snowplowanalytics_mobile_screen_1'
 
     # Variables - Standard Config
     snowplow__start_date: '2020-01-01'
@@ -84,6 +89,14 @@ models:
     base:
       manifest:
         +schema: "snowplow_manifest"
+        bigquery:
+          +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+        databricks:
+          +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+        default:
+          +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        snowflake:
+          +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
       scratch:
         +schema: "scratch"
         +tags: "scratch"

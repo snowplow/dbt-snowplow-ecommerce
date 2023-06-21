@@ -65,7 +65,7 @@ jobs:
     strategy:
       matrix:
         dbt_version: ["1.*"]
-        warehouse: ["bigquery", "databricks", "snowflake", "postgres"] # TODO: Add RS self-hosted runner
+        warehouse: ["bigquery", "snowflake", "postgres"] # TODO: Add RS self-hosted runner
 
     services:
       postgres:

@@ -12,7 +12,19 @@
 with prep as (
 
   select
-    a.contexts_com_snowplowanalytics_snowplow_web_page_1[0]:id::varchar as page_view_id,
+    {% if var('snowplow__enable_mobile_events', false) %}
+      coalesce(
+        a.contexts_com_snowplowanalytics_mobile_screen_1[0]:id::varchar,
+        a.contexts_com_snowplowanalytics_snowplow_web_page_1[0]:id::varchar
+      ) as page_view_id,
+      coalesce(
+        a.contexts_com_snowplowanalytics_snowplow_client_session_1[0]:sessionId::varchar,
+        a.domain_sessionid
+      ) as domain_sessionid,
+    {% else %}
+      a.contexts_com_snowplowanalytics_snowplow_web_page_1[0]:id::varchar as page_view_id,
+      a.domain_sessionid,
+    {% endif %}
     b.domain_userid,
 
     -- unpacking the ecommerce user object
@@ -107,12 +119,19 @@ with prep as (
     a.unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1:type::varchar as ecommerce_action_type,
     a.unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1:name::varchar as ecommerce_action_name,
 
-    a.* exclude(contexts_com_snowplowanalytics_snowplow_web_page_1, domain_userid)
+    a.* exclude(contexts_com_snowplowanalytics_snowplow_web_page_1, domain_userid, domain_sessionid)
 
 
   from {{ var('snowplow__events') }} as a
   inner join {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as b
-  on a.domain_sessionid = b.session_id
+  {% if var('snowplow__enable_mobile_events', false) %}
+    on coalesce(
+        a.contexts_com_snowplowanalytics_snowplow_client_session_1[0]:sessionId::varchar,
+        a.domain_sessionid
+      ) = b.session_id
+  {% else %}
+    on a.domain_sessionid = b.session_id
+  {% endif %}
 
   where a.collector_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__max_session_days", 3), 'b.start_tstamp') }}
   and a.dvce_sent_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__days_late_allowed", 3), 'a.dvce_created_tstamp') }}

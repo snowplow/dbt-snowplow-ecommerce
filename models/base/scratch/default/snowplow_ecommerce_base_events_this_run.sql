@@ -13,7 +13,14 @@
 /* Dedupe logic: Per dupe event_id keep earliest row ordered by collector_tstamp.
    If multiple earliest rows, take arbitrary one using row_number(). */
 
-with events_this_run AS (
+with
+
+{% if var('snowplow__enable_mobile_events', false) -%}
+    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__mobile_session_context'), lower_limit, upper_limit, 'mob_session') }},
+    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__screen_context'), lower_limit, upper_limit, 'mob_sc_view') }},
+{%- endif %}
+
+events_this_run AS (
     select
         a.app_id,
         a.platform,
@@ -135,7 +142,14 @@ with events_this_run AS (
         a.dvce_sent_tstamp,
         a.refr_domain_userid,
         a.refr_dvce_tstamp,
-        a.domain_sessionid,
+        {% if var('snowplow__enable_mobile_events', false) %}
+            coalesce(
+                ms.mob_session_session_id,
+                a.domain_sessionid
+            ) as domain_sessionid,
+        {% else %}
+            a.domain_sessionid,
+        {% endif %}
         a.derived_tstamp,
         a.event_vendor,
         a.event_name,
@@ -150,8 +164,19 @@ with events_this_run AS (
         count(*) over (partition by a.event_id) as event_id_dedupe_count
 
     from {{ var('snowplow__events') }} as a
+    {% if var('snowplow__enable_mobile_events', false) -%}
+        left join {{ var('snowplow__mobile_session_context') }} ms on a.event_id = ms.mob_session__id and a.collector_tstamp = ms.mob_session__tstamp
+    {%- endif %}
         inner join {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as b
-            on a.domain_sessionid = b.session_id
+            on
+            {% if var('snowplow__enable_mobile_events', false) %}
+                coalesce(
+                    ms.mob_session_session_id,
+                    a.domain_sessionid
+                )
+            {% else %}
+                a.domain_sessionid
+            {% endif %} = b.session_id
 
     where a.collector_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__max_session_days", 3), 'b.start_tstamp') }}
         and a.dvce_sent_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__days_late_allowed", 3), 'a.dvce_created_tstamp') }}
@@ -184,11 +209,15 @@ with events_this_run AS (
 {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_web_page'), lower_limit, upper_limit, 'page_view') }}
 
 
-
-
 select ev.*,
-
-    pv.page_view_id,
+    {% if var('snowplow__enable_mobile_events', false) %}
+        coalesce(
+            sv.mob_sc_view_id,
+            pv.page_view_id
+        ) as page_view_id,
+    {% else %}
+        pv.page_view_id,
+    {% endif %}
 
     {% if var('snowplow__disable_ecommerce_user_context', false) -%}
         cast(NULL as {{ type_string() }}) as ecommerce_user_id,
@@ -301,6 +330,8 @@ from events_this_run ev
 {%- endif %}
     left join {{ var('snowplow__sde_ecommerce_action') }} action on ev.event_id = action.ecommerce_action__id and ev.collector_tstamp = action.ecommerce_action__tstamp
     left join {{ var('snowplow__context_web_page') }} pv on ev.event_id = pv.page_view__id and ev.collector_tstamp = pv.page_view__tstamp
-
+{% if var('snowplow__enable_mobile_events', false) -%}
+    left join {{ var('snowplow__screen_context') }} sv on ev.event_id = sv.mob_sc_view__id and ev.collector_tstamp = sv.mob_sc_view__tstamp
+{%- endif %}
 where
     ev.event_id_dedupe_index = ev.event_id_dedupe_count

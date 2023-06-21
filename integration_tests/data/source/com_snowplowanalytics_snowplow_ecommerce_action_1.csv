@@ -821,3 +821,13 @@ ace4f28c-787d-4492-a416-79886d034d79,2022-11-29 06:18:53.637000 UTC,,,snowplo_ec
 b24eeae8-e7f6-4b14-91ad-05753b3d1de1,2022-11-29 06:24:43.032000 UTC,,,snowplo_ecommerce_action
 599bd0e9-b3bd-4292-abb1-6c37358cca6b,2022-11-29 06:25:18.641000 UTC,,,snowplo_ecommerce_action
 73d863ca-3242-4c68-a0bd-ccfa814dd3aa,2022-11-29 06:17:50.981000 UTC,,,snowplo_ecommerce_action
+11b3a24b-deda-4871-aa6b-d6142cb126fd,2022-11-20 11:53:06.352,add_to_cart,,snowplo_ecommerce_action
+5a079040-ba3f-40f8-8e45-fc80070d1b5d,2022-11-20 11:53:06.352,remove_from_cart,,snowplo_ecommerce_action
+f17eabf7-b74e-4fe4-9220-9ec4b92eed48,2022-11-20 11:53:06.352,product_view,,snowplo_ecommerce_action
+ab06d353-d71a-4e3a-88d5-92e4b92043d4,2022-11-20 11:53:06.352,transaction,,snowplo_ecommerce_action
+cec2ec72-7dd5-43ec-ad70-77fb647655a7,2022-11-20 11:53:06.352,promo_click,,snowplo_ecommerce_action
+a7ef6ae8-cbdc-455a-9d3a-0101949c492f,2022-11-20 11:53:06.352,promo_view,,snowplo_ecommerce_action
+b8f64ad9-54ce-482a-8fc2-64180dfcc976,2022-11-20 11:53:06.352,refund,,snowplo_ecommerce_action
+41db6068-bc42-4774-808a-e5dd3bc944b1,2022-11-20 11:53:06.328,list_click,snowplowProducts,snowplo_ecommerce_action
+88c1023e-810f-4a8d-8063-9836f650e57a,2022-11-20 11:53:06.328,list_view,snowplowProducts,snowplo_ecommerce_action
+43a9eadf-97f4-4fd8-acc3-4ab6cba757b5,2022-11-20 11:53:06.328,checkout_step,,snowplo_ecommerce_action
