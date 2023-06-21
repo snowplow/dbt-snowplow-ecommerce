@@ -37,6 +37,7 @@ events_this_run AS (
         a.user_id,
         a.user_ipaddress,
         a.user_fingerprint,
+        b.domain_userid, -- take domain_userid from manifest. This ensures only 1 domain_userid per session.
         a.domain_sessionidx,
         a.network_userid,
         a.geo_country,
@@ -177,7 +178,8 @@ events_this_run AS (
                 a.domain_sessionid
             {% endif %} = b.session_id
 
-    where a.dvce_sent_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__days_late_allowed", 3), 'a.dvce_created_tstamp') }}
+    where a.collector_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__max_session_days", 3), 'b.start_tstamp') }}
+        and a.dvce_sent_tstamp <= {{ snowplow_utils.timestamp_add('day', var("snowplow__days_late_allowed", 3), 'a.dvce_created_tstamp') }}
         and a.collector_tstamp >= {{ lower_limit }}
         and a.collector_tstamp <= {{ upper_limit }}
         and {{ snowplow_utils.app_id_filter(var("snowplow__app_id",[])) }}
@@ -202,11 +204,6 @@ events_this_run AS (
     {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_ecommerce_cart'), lower_limit, upper_limit, 'cart') }},
 {%- endif %}
 
-{% if var('snowplow__enable_mobile_events', false) -%}
-    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__mobile_session_context'), lower_limit, upper_limit, 'mob_session') }},
-    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__screen_context'), lower_limit, upper_limit, 'mob_sc_view') }},
-{%- endif %}
-
 {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__sde_ecommerce_action'), lower_limit, upper_limit, 'ecommerce_action', single_entity = false) }},
 
 {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_web_page'), lower_limit, upper_limit, 'page_view') }}
@@ -222,97 +219,99 @@ select ev.*,
         pv.page_view_id,
     {% endif %}
 
-        {% if var('snowplow__disable_ecommerce_user_context', false) -%}
-            cast(NULL as {{ type_string() }}) as ecommerce_user_id,
-            cast(NULL as {{ type_string() }}) as ecommerce_user_email,
-            cast(NULL as {{ type_boolean() }}) as ecommerce_user_is_guest,
-        {%- else -%}
-            usr.ecommerce_user_id,
-            usr.ecommerce_user_email,
-            usr.ecommerce_user_is_guest,
-        {%- endif %}
+    {% if var('snowplow__disable_ecommerce_user_context', false) -%}
+        cast(NULL as {{ type_string() }}) as ecommerce_user_id,
+        cast(NULL as {{ type_string() }}) as ecommerce_user_email,
+        cast(NULL as {{ type_boolean() }}) as ecommerce_user_is_guest,
+    {%- else -%}
+        usr.ecommerce_user_id,
+        usr.ecommerce_user_email,
+        usr.ecommerce_user_is_guest,
+    {%- endif %}
 
-        -- unpacking the ecommerce checkout step object
-        {% if var('snowplow__disable_ecommerce_checkouts', false) -%}
-            cast(NULL as {{ type_int() }}) as checkout_step_number,
-            cast(NULL as {{ type_string() }}) as checkout_account_type,
-            cast(NULL as {{ type_string() }}) as checkout_billing_full_address,
-            cast(NULL as {{ type_string() }}) as checkout_billing_postcode,
-            cast(NULL as {{ type_string() }}) as checkout_coupon_code,
-            cast(NULL as {{ type_string() }}) as checkout_delivery_method,
-            cast(NULL as {{ type_string() }}) as checkout_delivery_provider,
-            cast(NULL as {{ type_boolean() }}) as checkout_marketing_opt_in,
-            cast(NULL as {{ type_string() }}) as checkout_payment_method,
-            cast(NULL as {{ type_string() }}) as checkout_proof_of_payment,
-            cast(NULL as {{ type_string() }}) as checkout_shipping_full_address,
-            cast(NULL as {{ type_string() }}) as checkout_shipping_postcode,
-        {%- else -%}
-            checkout.checkout_step as checkout_step_number,
-            checkout.checkout_account_type,
-            checkout.checkout_billing_full_address,
-            checkout.checkout_billing_postcode,
-            checkout.checkout_coupon_code,
-            checkout.checkout_delivery_method,
-            checkout.checkout_delivery_provider,
-            checkout.checkout_marketing_opt_in,
-            checkout.checkout_payment_method,
-            checkout.checkout_proof_of_payment,
-            checkout.checkout_shipping_full_address,
-            checkout.checkout_shipping_postcode,
-        {%- endif %}
+    -- unpacking the ecommerce checkout step object
+    {% if var('snowplow__disable_ecommerce_checkouts', false) -%}
+        cast(NULL as {{ type_int() }}) as checkout_step_number,
+        cast(NULL as {{ type_string() }}) as checkout_account_type,
+        cast(NULL as {{ type_string() }}) as checkout_billing_full_address,
+        cast(NULL as {{ type_string() }}) as checkout_billing_postcode,
+        cast(NULL as {{ type_string() }}) as checkout_coupon_code,
+        cast(NULL as {{ type_string() }}) as checkout_delivery_method,
+        cast(NULL as {{ type_string() }}) as checkout_delivery_provider,
+        cast(NULL as {{ type_boolean() }}) as checkout_marketing_opt_in,
+        cast(NULL as {{ type_string() }}) as checkout_payment_method,
+        cast(NULL as {{ type_string() }}) as checkout_proof_of_payment,
+        cast(NULL as {{ type_string() }}) as checkout_shipping_full_address,
+        cast(NULL as {{ type_string() }}) as checkout_shipping_postcode,
+    {%- else -%}
+        checkout.checkout_step as checkout_step_number,
+        checkout.checkout_account_type,
+        checkout.checkout_billing_full_address,
+        checkout.checkout_billing_postcode,
+        checkout.checkout_coupon_code,
+        checkout.checkout_delivery_method,
+        checkout.checkout_delivery_provider,
+        checkout.checkout_marketing_opt_in,
+        checkout.checkout_payment_method,
+        checkout.checkout_proof_of_payment,
+        checkout.checkout_shipping_full_address,
+        checkout.checkout_shipping_postcode,
+    {%- endif %}
 
-        -- unpacking the ecommerce page object
-        {% if var('snowplow__disable_ecommerce_page_context', false) -%}
-            CAST(NULL as {{ type_string() }}) as ecommerce_page_type,
-            CAST(NULL as {{ type_string() }}) as ecommerce_page_language,
-            CAST(NULL as {{ type_string() }}) as ecommerce_page_locale,
-        {%- else -%}
-            ecom_page.ecommerce_page_type,
-            ecom_page.ecommerce_page_language,
-            ecom_page.ecommerce_page_locale,
-        {%- endif %}
+    -- unpacking the ecommerce page object
+    {% if var('snowplow__disable_ecommerce_page_context', false) -%}
+        CAST(NULL as {{ type_string() }}) as ecommerce_page_type,
+        CAST(NULL as {{ type_string() }}) as ecommerce_page_language,
+        CAST(NULL as {{ type_string() }}) as ecommerce_page_locale,
+    {%- else -%}
+        ecom_page.ecommerce_page_type,
+        ecom_page.ecommerce_page_language,
+        ecom_page.ecommerce_page_locale,
+    {%- endif %}
 
-        -- unpacking the ecommerce transaction object
-        {% if var('snowplow__disable_ecommerce_transactions', false) -%}
-            CAST(NULL AS {{ type_string() }}) as transaction_id,
-            CAST(NULL AS {{ type_string() }}) as transaction_currency,
-            CAST(NULL AS {{ type_string() }}) as transaction_payment_method,
-            CAST(NULL AS decimal(9,2)) as transaction_revenue,
-            CAST(NULL AS {{ type_int() }}) as transaction_total_quantity,
-            CAST(NULL AS {{ type_boolean() }}) as transaction_credit_order,
-            CAST(NULL AS decimal(9,2)) as transaction_discount_amount,
-            CAST(NULL AS {{ type_string() }}) as transaction_discount_code,
-            CAST(NULL AS decimal(9,2)) as transaction_shipping,
-            CAST(NULL AS decimal(9,2)) as transaction_tax,
-        {%- else -%}
-            trans.transaction_transaction_id as transaction_id,
-            trans.transaction_currency,
-            trans.transaction_payment_method,
-            trans.transaction_revenue,
-            trans.transaction_total_quantity,
-            trans.transaction_credit_order,
-            trans.transaction_discount_amount,
-            trans.transaction_discount_code,
-            trans.transaction_shipping,
-            trans.transaction_tax,
-        {%- endif %}
+    -- unpacking the ecommerce transaction object
+    {% if var('snowplow__disable_ecommerce_transactions', false) -%}
+        CAST(NULL AS {{ type_string() }}) as transaction_id,
+        CAST(NULL AS {{ type_string() }}) as transaction_currency,
+        CAST(NULL AS {{ type_string() }}) as transaction_payment_method,
+        CAST(NULL AS decimal(9,2)) as transaction_revenue,
+        CAST(NULL AS {{ type_int() }}) as transaction_total_quantity,
+        CAST(NULL AS {{ type_boolean() }}) as transaction_credit_order,
+        CAST(NULL AS decimal(9,2)) as transaction_discount_amount,
+        CAST(NULL AS {{ type_string() }}) as transaction_discount_code,
+        CAST(NULL AS decimal(9,2)) as transaction_shipping,
+        CAST(NULL AS decimal(9,2)) as transaction_tax,
+    {%- else -%}
+        trans.transaction_transaction_id as transaction_id,
+        trans.transaction_currency,
+        trans.transaction_payment_method,
+        trans.transaction_revenue,
+        trans.transaction_total_quantity,
+        trans.transaction_credit_order,
+        trans.transaction_discount_amount,
+        trans.transaction_discount_code,
+        trans.transaction_shipping,
+        trans.transaction_tax,
+    {%- endif %}
 
-        -- unpacking the ecommerce cart object
-        {% if var('snowplow__disable_ecommerce_carts', false) -%}
-            CAST(NULL AS {{ type_string() }}) as cart_id,
-            CAST(NULL AS {{ type_string() }}) as cart_currency,
-            CAST(NULL AS decimal(9,2)) as cart_total_value,
-        {%- else -%}
-            carts.cart_cart_id as cart_id,
-            carts.cart_currency,
-            carts.cart_total_value,
-        {%- endif%}
+    -- unpacking the ecommerce cart object
+    {% if var('snowplow__disable_ecommerce_carts', false) -%}
+        CAST(NULL AS {{ type_string() }}) as cart_id,
+        CAST(NULL AS {{ type_string() }}) as cart_currency,
+        CAST(NULL AS decimal(9,2)) as cart_total_value,
+    {%- else -%}
+        carts.cart_cart_id as cart_id,
+        carts.cart_currency,
+        carts.cart_total_value,
+    {%- endif%}
 
-        -- unpacking the ecommerce action object
-        action.ecommerce_action_type,
-        action.ecommerce_action_name
+    -- unpacking the ecommerce action object
+    action.ecommerce_action_type,
+    action.ecommerce_action_name,
 
-    from events_this_run ev
+    dense_rank() over (partition by domain_sessionid order by derived_tstamp) AS event_in_session_index
+
+from events_this_run ev
 
 {% if not var('snowplow__disable_ecommerce_user_context', false) -%}
     left join {{ var('snowplow__context_ecommerce_user') }} usr on ev.event_id = usr.ecommerce_user__id and ev.collector_tstamp = usr.ecommerce_user__tstamp
