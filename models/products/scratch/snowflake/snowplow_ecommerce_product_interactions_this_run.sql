@@ -7,7 +7,7 @@
 
 with product_info as (
   select
-    {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.value:id']) }} as product_event_id,
+    {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.value:id', 'r.index']) }} as product_event_id,
     t.event_id,
     t.page_view_id,
 

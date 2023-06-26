@@ -7,7 +7,7 @@
 
 with product_info as (
   select
-    {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.id']) }} as product_event_id,
+    {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.id', 'index']) }} as product_event_id,
     t.event_id,
     t.page_view_id,
 
@@ -56,7 +56,7 @@ with product_info as (
     t.transaction_id
 
 
-  from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t, unnest( {{coalesce_columns_by_prefix(ref('snowplow_ecommerce_base_events_this_run'), 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1') }}) r
+  from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t, unnest( {{coalesce_columns_by_prefix(ref('snowplow_ecommerce_base_events_this_run'), 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1') }}) r WITH OFFSET AS INDEX
 
 )
 

@@ -39,13 +39,13 @@ with prep as (
     t.ecommerce_user_email,
     t.transaction_id,
 
-    EXPLODE(contexts_com_snowplowanalytics_snowplow_ecommerce_product_1) as contexts_com_snowplowanalytics_snowplow_ecommerce_product_1
+    POSEXPLODE(contexts_com_snowplowanalytics_snowplow_ecommerce_product_1) as (index, contexts_com_snowplowanalytics_snowplow_ecommerce_product_1)
 
   from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t
 
 ), product_info as (
   select
-    {{ dbt_utils.generate_surrogate_key(['event_id', 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.id']) }} as product_event_id,
+    {{ dbt_utils.generate_surrogate_key(['event_id', 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.id', 'index']) }} as product_event_id,
     event_id,
     page_view_id,
 

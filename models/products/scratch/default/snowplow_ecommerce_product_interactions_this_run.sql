@@ -15,7 +15,7 @@ with {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic
 
 product_info as (
   select
-    {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.ecommerce_product_id']) }} as product_event_id,
+    {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.ecommerce_product_id', 'r.ecommerce_product__index']) }} as product_event_id,
     t.event_id,
     t.page_view_id,
 

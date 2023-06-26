@@ -47,8 +47,8 @@ vars:
     snowplow__sde_ecommerce_action: 'com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1'
     snowplow__context_web_page: 'com_snowplowanalytics_snowplow_web_page_1'
     snowplow__context_ecommerce_product: 'com_snowplowanalytics_snowplow_ecommerce_product_1'
-    snowplow__mobile_session_context: 'com_snowplowanalytics_snowplow_client_session_1'
-    snowplow__screen_context: 'com_snowplowanalytics_mobile_screen_1'
+    snowplow__context_mobile_session: 'com_snowplowanalytics_snowplow_client_session_1'
+    snowplow__context_screen: 'com_snowplowanalytics_mobile_screen_1'
 
     # Variables - Standard Config
     snowplow__start_date: '2020-01-01'

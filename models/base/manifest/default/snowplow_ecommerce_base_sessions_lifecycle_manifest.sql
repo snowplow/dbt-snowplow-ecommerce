@@ -24,7 +24,7 @@
 with
 
 {% if var('snowplow__enable_mobile_events', false) -%}
-    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__mobile_session_context'), lower_limit, upper_limit, 'mob_session') }},
+    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_mobile_session'), lower_limit, upper_limit, 'mob_session') }},
 {%- endif %}
 
 new_events_session_ids as (
@@ -41,7 +41,7 @@ new_events_session_ids as (
 
   from {{ var('snowplow__events') }} e
   {% if var('snowplow__enable_mobile_events', false) -%}
-      left join {{ var('snowplow__mobile_session_context') }} ms on e.event_id = ms.mob_session__id and e.collector_tstamp = ms.mob_session__tstamp
+      left join {{ var('snowplow__context_mobile_session') }} ms on e.event_id = ms.mob_session__id and e.collector_tstamp = ms.mob_session__tstamp
   {%- endif %}
   where
     {% if var('snowplow__enable_mobile_events', false) %}

@@ -16,8 +16,8 @@
 with
 
 {% if var('snowplow__enable_mobile_events', false) -%}
-    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__mobile_session_context'), lower_limit, upper_limit, 'mob_session') }},
-    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__screen_context'), lower_limit, upper_limit, 'mob_sc_view') }},
+    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_mobile_session'), lower_limit, upper_limit, 'mob_session') }},
+    {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_screen'), lower_limit, upper_limit, 'mob_sc_view') }},
 {%- endif %}
 
 events_this_run AS (
@@ -165,7 +165,7 @@ events_this_run AS (
 
     from {{ var('snowplow__events') }} as a
     {% if var('snowplow__enable_mobile_events', false) -%}
-        left join {{ var('snowplow__mobile_session_context') }} ms on a.event_id = ms.mob_session__id and a.collector_tstamp = ms.mob_session__tstamp
+        left join {{ var('snowplow__context_mobile_session') }} ms on a.event_id = ms.mob_session__id and a.collector_tstamp = ms.mob_session__tstamp
     {%- endif %}
         inner join {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as b
             on
@@ -331,7 +331,7 @@ from events_this_run ev
     left join {{ var('snowplow__sde_ecommerce_action') }} action on ev.event_id = action.ecommerce_action__id and ev.collector_tstamp = action.ecommerce_action__tstamp
     left join {{ var('snowplow__context_web_page') }} pv on ev.event_id = pv.page_view__id and ev.collector_tstamp = pv.page_view__tstamp
 {% if var('snowplow__enable_mobile_events', false) -%}
-    left join {{ var('snowplow__screen_context') }} sv on ev.event_id = sv.mob_sc_view__id and ev.collector_tstamp = sv.mob_sc_view__tstamp
+    left join {{ var('snowplow__context_screen') }} sv on ev.event_id = sv.mob_sc_view__id and ev.collector_tstamp = sv.mob_sc_view__tstamp
 {%- endif %}
 where
     ev.event_id_dedupe_index = ev.event_id_dedupe_count
