@@ -1,6 +1,6 @@
 name: 'snowplow_ecommerce'
 
-version: '0.4.2'
+version: '0.5.0'
 config-version: 2
 
 require-dbt-version: [">=1.4.0", "<2.0.0"]
