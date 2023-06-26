@@ -1,4 +1,4 @@
-snowplow-ecommerce 0.5.0 (2023-0X-XX)
+snowplow-ecommerce 0.5.0 (2023-06-27)
 ---------------------------------------
 ## Summary
 This version adds the ability to model mobile e-commerce events alongside your web events. Note that the `domain_sessionid` and `page_view_id` fields prioritize the client session and screen view contexts respectively and are overwritten with those values even if they exist for the mobile event. This means no change to your derived tables. To enable this (assuming you are tracking e-commerce events on mobile and have those contexts in your events table), set `snowplow__enable_mobile_events` to `true` in your `dbt_project.yml`
