@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.5.1 (2023-07-12)
+---------------------------------------
+## Summary
+This version fixes a bug that may occur when duplicate events in Redshift/Postgres have different collector timestamps.
+
+## Fixes
+- Fix bug relating to duplicate filtering
+
+## Upgrading
+Bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.5.0 (2023-06-27)
 ---------------------------------------
 ## Summary
