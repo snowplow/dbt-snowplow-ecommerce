@@ -334,4 +334,4 @@ from events_this_run ev
     left join {{ var('snowplow__context_screen') }} sv on ev.event_id = sv.mob_sc_view__id and ev.collector_tstamp = sv.mob_sc_view__tstamp
 {%- endif %}
 where
-    ev.event_id_dedupe_index = ev.event_id_dedupe_count
+    ev.event_id_dedupe_index = 1
