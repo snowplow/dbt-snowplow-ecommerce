@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.5.2 (2023-09-04)
+---------------------------------------
+## Summary
+This version adds configuration properties to the `snowplow_ecommerce_incremental_manifest` and `snowplow_ecommerce_base_sessions_lifecycle_manifest` that were missing (in particular `sort`, `dist`, `cluster_by`, `tblproperties`).
+
+## Fixes
+- Add sort, dist and cluster_by config to base_sessions_lifecycle manifest (close #34)
+
+## Upgrading
+Bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.5.1 (2023-07-12)
 ---------------------------------------
 ## Summary
