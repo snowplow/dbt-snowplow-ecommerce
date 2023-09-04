@@ -1,16 +1,23 @@
 {{
   config(
-    materialized="incremental",
+    materialized='incremental',
     unique_key='session_id',
     upsert_date_key='start_tstamp',
-    sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt')),
+    sort='start_tstamp',
+    dist='session_id',
     partition_by = snowplow_utils.get_value_by_target_type(bigquery_val={
       "field": "start_tstamp",
       "data_type": "timestamp"
     }, databricks_val='start_tstamp_date'),
+    cluster_by=snowplow_utils.get_value_by_target_type(bigquery_val=["session_id"], snowflake_val=["to_date(start_tstamp)"]),
     full_refresh=snowplow_ecommerce.allow_refresh(),
     tags=["manifest"],
-    snowplow_optimize=true
+    sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt')),
+    tblproperties={
+      'delta.autoOptimize.optimizeWrite' : 'true',
+      'delta.autoOptimize.autoCompact' : 'true'
+    },
+    snowplow_optimize = true
   )
 }}
 
