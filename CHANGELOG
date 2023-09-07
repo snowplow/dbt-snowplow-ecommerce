@@ -1,3 +1,10 @@
+snowplow-ecommerce 0.5.3 (2023-09-12)
+---------------------------------------
+## Summary
+Bumps the max supported `snowplow-utils` version to allow usage with our other packages.
+## Upgrading
+Bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.5.2 (2023-09-04)
 ---------------------------------------
 ## Summary
