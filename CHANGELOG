@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.5.3 (2023-10-04)
+---------------------------------------
+## Summary
+This release fixes an issue for users using a utils version 0.15.1 or greater.
+
+## Fixes
+Fix error with new utils version on end hook.
+
+## Upgrading
+To upgrade simply bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.5.3 (2023-09-12)
 ---------------------------------------
 ## Summary
