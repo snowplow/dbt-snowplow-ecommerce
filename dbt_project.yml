@@ -50,6 +50,9 @@ vars:
     snowplow__context_mobile_session: 'com_snowplowanalytics_snowplow_client_session_1'
     snowplow__context_screen: 'com_snowplowanalytics_mobile_screen_1'
 
+    snowplow__session_identifiers: []
+    snowplow__user_identifiers: []
+
     # Variables - Standard Config
     snowplow__start_date: '2020-01-01'
     snowplow__backfill_limit_days: 30
@@ -80,7 +83,8 @@ on-run-start:
 
 # Update manifest table with last event consumed per sucessfully executed node/model
 on-run-end:
-  - "{{ snowplow_utils.snowplow_incremental_post_hook('snowplow_ecommerce') }}"
+  - "{{ snowplow_utils.snowplow_incremental_post_hook(package_name='snowplow_ecommerce', incremental_manifest_table_name='snowplow_ecommerce_incremental_manifest', base_events_this_run_table_name='snowplow_ecommerce_base_events_this_run', session_timestamp=var('snowplow__session_timestamp')) }}"
+
 
 
 # Tag 'snowplow_ecommerce_incremental' allows snowplow_incremental_post_hook to identify Snowplow models
@@ -91,25 +95,9 @@ models:
     base:
       manifest:
         +schema: "snowplow_manifest"
-        bigquery:
-          +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
-        databricks:
-          +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
-        default:
-          +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
-        snowflake:
-          +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
       scratch:
         +schema: "scratch"
         +tags: "scratch"
-        bigquery:
-          +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
-        databricks:
-          +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
-        default:
-          +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
-        snowflake:
-          +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
     carts:
       +schema: "derived"
       +tags: "snowplow_ecommerce_incremental"

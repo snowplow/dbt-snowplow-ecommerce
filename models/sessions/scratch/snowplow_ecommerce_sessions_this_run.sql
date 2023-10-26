@@ -46,7 +46,7 @@ with cart_session_stats AS (
     {%- endif %}
 ), checkout_session_stats AS (
     {% if var('snowplow__disable_ecommerce_checkouts', false) -%}
-       select
+        select
             CAST(NULL as {{ type_string() }}) as domain_sessionid,
             CAST(NULL as {{ type_boolean() }}) as session_entered_at_checkout,
             CAST(NULL as {{ type_int() }}) as number_unique_checkout_steps_attempted,
@@ -57,7 +57,7 @@ with cart_session_stats AS (
             CAST(NULL as {{ type_timestamp() }}) as first_checkout_succeeded,
             CAST(NULL as {{ type_timestamp() }}) as last_checkout_succeeded
     {%- else -%}
-     select
+        select
             domain_sessionid,
 
             CAST(MAX(CAST(session_entered_at_step as {{ type_int() }})) as {{ type_boolean() }}) as session_entered_at_checkout,
@@ -127,7 +127,7 @@ with cart_session_stats AS (
             CAST(NULL as {{ type_int() }}) AS total_transacted_products
 
     {%- else -%}
-         select
+        select
             domain_sessionid,
 
             MIN(derived_tstamp) AS first_transaction_completed,
@@ -142,8 +142,8 @@ with cart_session_stats AS (
     {%- endif %}
 )
 select
-    s.session_id as domain_sessionid,
-    s.domain_userid,
+    s.session_identifier as domain_sessionid,
+    s.user_identifier as domain_userid,
     s.start_tstamp,
     s.end_tstamp,
 
@@ -190,7 +190,7 @@ select
 
 
 from {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as s
-left join cart_session_stats as css on s.session_id = css.domain_sessionid
-left join checkout_session_stats as chss on s.session_id = chss.domain_sessionid
-left join product_session_stats as pss on s.session_id = pss.domain_sessionid
-left join transaction_session_stats as tss on s.session_id = tss.domain_sessionid
+left join cart_session_stats as css on s.session_identifier = css.domain_sessionid
+left join checkout_session_stats as chss on s.session_identifier = chss.domain_sessionid
+left join product_session_stats as pss on s.session_identifier = pss.domain_sessionid
+left join transaction_session_stats as tss on s.session_identifier = tss.domain_sessionid
