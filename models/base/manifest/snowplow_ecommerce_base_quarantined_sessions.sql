@@ -10,20 +10,6 @@
   )
 }}
 
-/*
-Boilerplate to generate table.
-Table updated as part of post-hook on sessions_this_run
-Any sessions exceeding max_session_days are quarantined
-Once quarantined, any subsequent events from the session will not be processed.
-This significantly reduces table scans
-*/
+{% set quarantined_query = snowplow_utils.base_create_snowplow_quarantined_sessions() %}
 
-with prep as (
-  select
-    cast(null as {{ dbt.type_string() }}) session_id
-)
-
-select *
-
-from prep
-where false
+{{ quarantined_query }}
