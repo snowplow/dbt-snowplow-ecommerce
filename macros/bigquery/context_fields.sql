@@ -73,3 +73,41 @@
   {{ return(cart_fields) }}
 
 {% endmacro %}
+
+{% macro page_view_fields() %}
+
+  {% set page_view_fields = [
+      {'field': ('id', 'page_view_id'), 'dtype': 'string'},
+    ] %}
+
+  {{ return(page_view_fields) }}
+
+{% endmacro %}
+
+{% macro mobile_session_context_fields()  %}
+
+    {% set mobile_session_context_fields = [
+      {'field': 'event_index', 'dtype': 'numeric'},
+      {'field': 'first_event_id', 'dtype': 'string'},
+      {'field': 'first_event_timestamp', 'dtype': 'timestamp'},
+      {'field': 'previous_session_id', 'dtype': 'string'},
+      {'field': 'session_id', 'dtype': 'string'},
+      {'field': 'session_index', 'dtype': 'numeric'},
+      {'field': 'storage_mechanism', 'dtype': 'string'},
+      {'field': ('user_id', 'mobile_user_id'), 'dtype': 'string'},
+    ] %}
+
+  {{ return(mobile_session_context_fields) }}
+
+{% endmacro %}
+
+{% macro mobile_screen_view_context_fields()  %}
+
+    {% set mobile_screen_view_context_fields = [
+      {'field': 'id', 'dtype': 'string'},
+      {'field': 'name', 'dtype': 'string'},
+    ] %}
+
+  {{ return(mobile_screen_view_context_fields) }}
+
+{% endmacro %}
