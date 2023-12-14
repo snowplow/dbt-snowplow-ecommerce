@@ -15,6 +15,9 @@ models:
       - name: page_view_id
         description: '{{ doc("col_page_view_id") }}'
 
+      - name: app_id
+        description: '{{ doc("col_app_id") }}'
+
       - name: domain_sessionid
         description: '{{ doc("col_domain_sessionid") }}'
 

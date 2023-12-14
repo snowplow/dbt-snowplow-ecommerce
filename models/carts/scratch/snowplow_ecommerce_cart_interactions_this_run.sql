@@ -9,6 +9,7 @@ with cart_product_interactions AS (
     select
         e.event_id,
         e.page_view_id,
+        e.app_id,
 
         -- session fields
         e.domain_sessionid,
@@ -43,7 +44,7 @@ with cart_product_interactions AS (
         left join {{ ref('snowplow_ecommerce_product_interactions_this_run') }} as pi on e.event_id = pi.event_id AND pi.is_add_to_cart
     {%- endif %}
     where e.ecommerce_action_type IN ('add_to_cart', 'remove_from_cart', 'transaction')
-    group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14
+    group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 
 )
 
@@ -51,6 +52,7 @@ select
     -- event fields
     event_id,
     page_view_id,
+    app_id,
 
     -- session fields
     domain_sessionid,

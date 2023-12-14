@@ -140,12 +140,20 @@ with cart_session_stats AS (
         from {{ ref('snowplow_ecommerce_transaction_interactions_this_run') }}
         group by 1
     {%- endif %}
+), session_apps as (
+    select e.domain_sessionid,
+            e.app_id,
+            row_number() over (partition by domain_sessionid order by derived_tstamp, dvce_created_tstamp) as event_session_index
+
+
+    from {{ ref('snowplow_ecommerce_base_events_this_run') }} e
 )
 select
     s.session_identifier as domain_sessionid,
     s.user_identifier as domain_userid,
     s.start_tstamp,
     s.end_tstamp,
+    sa.app_id,
 
     css.number_unique_cart_ids,
     css.number_carts_created,
@@ -190,6 +198,7 @@ select
 
 
 from {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as s
+left join session_apps as sa on s.session_identifier = sa.domain_sessionid and sa.event_session_index = 1
 left join cart_session_stats as css on s.session_identifier = css.domain_sessionid
 left join checkout_session_stats as chss on s.session_identifier = chss.domain_sessionid
 left join product_session_stats as pss on s.session_identifier = pss.domain_sessionid

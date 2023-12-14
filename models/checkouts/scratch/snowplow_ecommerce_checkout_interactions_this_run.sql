@@ -9,6 +9,7 @@ select
   -- event fields
   event_id,
   page_view_id,
+  app_id,
 
   -- session fields
   domain_sessionid,

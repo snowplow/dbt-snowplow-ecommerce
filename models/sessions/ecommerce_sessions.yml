@@ -12,6 +12,9 @@ models:
           - unique
           - not_null
 
+      - name: app_id
+        description: '{{ doc("col_app_id") }}'
+
       - name: start_tstamp
         description: '{{ doc("col_start_tstamp") }}'
 

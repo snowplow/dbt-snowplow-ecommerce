@@ -18,6 +18,7 @@ product_info as (
     {{ dbt_utils.generate_surrogate_key(['t.event_id', 'r.ecommerce_product_id', 'r.ecommerce_product__index']) }} as product_event_id,
     t.event_id,
     t.page_view_id,
+    t.app_id,
 
     -- session fields
     t.domain_sessionid,
@@ -74,6 +75,7 @@ select
   -- event fields
   event_id,
   page_view_id,
+  app_id,
 
   -- session fields
   domain_sessionid,
