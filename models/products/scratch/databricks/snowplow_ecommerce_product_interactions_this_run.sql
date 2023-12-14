@@ -65,6 +65,10 @@ with prep as (
     derived_tstamp,
     derived_tstamp_date,
 
+    -- ecommerce action fields
+    ecommerce_action_type,
+    ecommerce_action_name,
+
     -- ecommerce product fields
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.id::string as product_id,
     contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.category::string as product_category,
@@ -122,6 +126,10 @@ select
   -- timestamp fields
   derived_tstamp,
   derived_tstamp_date,
+
+  -- ecommerce action fields
+  ecommerce_action_type,
+  ecommerce_action_name,
 
   -- ecommerce product fields
   product_id,

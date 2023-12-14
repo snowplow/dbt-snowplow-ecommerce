@@ -108,3 +108,6 @@ select *
     , dense_rank() over (partition by domain_sessionid order by derived_tstamp) AS event_in_session_index
 
 from prep
+
+where 1 = 1
+and {{ snowplow_ecommerce.event_name_filter(var("snowplow__ecommerce_event_names", "['snowplow_ecommerce_action']")) }}
