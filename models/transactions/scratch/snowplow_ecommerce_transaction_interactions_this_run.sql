@@ -10,6 +10,7 @@ with transaction_info AS (
         -- event fields
         e.event_id,
         e.page_view_id,
+        e.app_id,
 
         -- session fields
         e.domain_sessionid,
@@ -52,7 +53,7 @@ with transaction_info AS (
     left join {{ ref('snowplow_ecommerce_product_interactions_this_run') }} as pi on e.transaction_id = pi.transaction_id AND pi.is_product_transaction
     {%- endif %}
     where ecommerce_action_type = 'transaction'
-    group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22
+    group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23
 )
 
 select *

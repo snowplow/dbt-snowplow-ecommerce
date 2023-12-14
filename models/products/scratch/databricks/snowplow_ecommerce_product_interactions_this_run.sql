@@ -9,6 +9,7 @@ with prep as (
   select
     t.event_id,
     t.page_view_id,
+    t.app_id,
 
     -- session fields
     t.domain_sessionid,
@@ -48,6 +49,7 @@ with prep as (
     {{ dbt_utils.generate_surrogate_key(['event_id', 'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1.id', 'index']) }} as product_event_id,
     event_id,
     page_view_id,
+    app_id,
 
     -- session fields
     domain_sessionid,
@@ -105,6 +107,7 @@ select
   -- event fields
   event_id,
   page_view_id,
+  app_id,
 
   -- session fields
   domain_sessionid,
