@@ -45,6 +45,12 @@ models:
       - name: derived_tstamp_date
         description: '{{ doc("col_derived_tstamp_date") }}'
 
+      - name: ecommerce_action_type
+        description: '{{ doc("col_ecommerce_action_type") }}'
+
+      - name: ecommerce_action_name
+        description: '{{ doc("col_ecommerce_action_name") }}'
+
       - name: product_id
         description: '{{ doc("col_product_id") }}'
 

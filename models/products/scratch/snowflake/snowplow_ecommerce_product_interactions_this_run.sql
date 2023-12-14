@@ -83,6 +83,10 @@ select
   derived_tstamp,
   derived_tstamp_date,
 
+  -- ecommerce action fields
+  ecommerce_action_type,
+  ecommerce_action_name,
+
   -- ecommerce product fields
   product_id,
   product_category,
