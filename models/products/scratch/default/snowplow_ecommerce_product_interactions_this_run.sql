@@ -64,6 +64,20 @@ product_info as (
     t.ecommerce_user_email,
     t.transaction_id
 
+    {%- if var('snowplow__product_passthroughs', []) -%}
+      {%- set passthrough_names = [] -%}
+      {%- for identifier in var('snowplow__product_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}} as {{identifier['alias']}}
+          {%- do passthrough_names.append(identifier['alias']) -%}
+      {%- else -%}
+          ,t.{{identifier}}
+          {%- do passthrough_names.append(identifier) -%}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+
 
   from {{ ref('snowplow_ecommerce_base_events_this_run') }} t
   inner join {{ var('snowplow__context_ecommerce_product') }} r on t.event_id = r.ecommerce_product__id and t.collector_tstamp = r.ecommerce_product__tstamp and mod(r.ecommerce_product__index, t.event_id_dedupe_count) = 0 -- ensure only a single match per total number of dupes
@@ -129,5 +143,12 @@ select
   transaction_id,
   ecommerce_user_email,
   ecommerce_user_is_guest
+
+
+  {%- if var('snowplow__product_passthroughs', []) -%}
+    {%- for col in passthrough_names %}
+      , {{col}}
+    {%- endfor -%}
+  {%- endif %}
 
 from product_info
