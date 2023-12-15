@@ -141,12 +141,27 @@ with cart_session_stats AS (
         group by 1
     {%- endif %}
 ), session_apps as (
-    select e.domain_sessionid,
-            e.app_id,
+    select domain_sessionid,
+            app_id,
+
+            {%- if var('snowplow__session_passthroughs', []) -%}
+                {%- set passthrough_names = [] -%}
+                {%- for identifier in var('snowplow__session_passthroughs', []) %}
+                {# Check if it's a simple column or a sql+alias #}
+                {%- if identifier is mapping -%}
+                    {{identifier['sql']}} as {{identifier['alias']}},
+                    {%- do passthrough_names.append(identifier['alias']) -%}
+                {%- else -%}
+                    t.{{identifier}},
+                    {%- do passthrough_names.append(identifier) -%}
+                {%- endif -%}
+                {% endfor -%}
+            {%- endif %}
+
             row_number() over (partition by domain_sessionid order by derived_tstamp, dvce_created_tstamp) as event_session_index
 
 
-    from {{ ref('snowplow_ecommerce_base_events_this_run') }} e
+    from {{ ref('snowplow_ecommerce_base_events_this_run') }}
 )
 select
     s.session_identifier as domain_sessionid,
@@ -154,6 +169,12 @@ select
     s.start_tstamp,
     s.end_tstamp,
     sa.app_id,
+
+    {%- if var('snowplow__session_passthroughs', []) -%}
+        {%- for col in passthrough_names %}
+            sa.{{col}},
+        {%- endfor -%}
+    {%- endif %}
 
     css.number_unique_cart_ids,
     css.number_carts_created,

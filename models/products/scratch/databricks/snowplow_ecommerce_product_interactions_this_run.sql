@@ -101,8 +101,22 @@ with prep as (
     ecommerce_user_email,
     transaction_id
 
+    {%- if var('snowplow__product_passthroughs', []) -%}
+      {%- set passthrough_names = [] -%}
+      {%- for identifier in var('snowplow__product_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}} as {{identifier['alias']}}
+          {%- do passthrough_names.append(identifier['alias']) -%}
+      {%- else -%}
+          ,t.{{identifier}}
+          {%- do passthrough_names.append(identifier) -%}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
 
-  from prep
+
+  from prep t
 
 )
 
@@ -161,5 +175,12 @@ select
   transaction_id,
   ecommerce_user_email,
   ecommerce_user_is_guest
+
+
+  {%- if var('snowplow__product_passthroughs', []) -%}
+    {%- for col in passthrough_names %}
+      , {{col}}
+    {%- endfor -%}
+  {%- endif %}
 
 from product_info

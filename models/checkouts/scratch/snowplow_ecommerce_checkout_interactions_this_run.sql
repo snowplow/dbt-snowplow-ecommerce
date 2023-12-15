@@ -51,5 +51,16 @@ select
   ecommerce_user_email,
   ecommerce_user_is_guest
 
+  {%- if var('snowplow__checkout_passthroughs', []) -%}
+    {%- for identifier in var('snowplow__checkout_passthroughs', []) %}
+    {# Check if it's a simple column or a sql+alias #}
+    {%- if identifier is mapping -%}
+        ,{{identifier['sql']}} as {{identifier['alias']}}
+    {%- else -%}
+        ,{{identifier}}
+    {%- endif -%}
+    {% endfor -%}
+  {%- endif %}
+
 from {{ ref("snowplow_ecommerce_base_events_this_run") }}
 where ecommerce_action_type IN ('transaction', 'checkout_step') -- the two checkout step action types. Either you've initiated the checkout or you've finished with a transaction step
