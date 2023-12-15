@@ -25,20 +25,60 @@ clean-targets:
 
 vars:
   snowplow_ecommerce:
-    # Sources
-    # snowplow__atomic_schema: 'atomic' # Only set if not using 'atomic' schema for Snowplow events data
-    # snowplow__database:  # Only set if not using target.database for Snowplow events data -- WILL BE IGNORED FOR DATABRICKS
+    # See https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-configuration/ecommerce/ for more information and an interactive tool to help you with the variable setup
+    # Please only add those that you change the values of to your root dbt_project.yml file, do not copy all values as this can lead to unexpected issues
+
+    # WAREHOUSE & TRACKERS
+    # See https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-configuration/ecommerce/ for more information
+    # snowplow__atomic_schema: "atomic_data_sample" # Only set if not using 'atomic' schema for Snowplow events data
+    # snowplow__database: Only set if not using target.database for Snowplow events data -- WILL BE IGNORED FOR DATABRICKS
+    snowplow__dev_target_name: 'dev'
     snowplow__events: "{{ source('atomic', 'events') }}"
-    snowplow__ecommerce_event_names: ['snowplow_ecommerce_action']
-    snowplow__number_checkout_steps: 4
-    snowplow__number_category_levels: 4
+    # snowplow__events_table: "events" # Only set if not using 'events' table for Snowplow events data
+
+    # OPERATION & LOGIC
+    snowplow__allow_refresh: false
+    snowplow__backfill_limit_days: 30
     snowplow__categories_separator: '/'
-    snowplow__use_product_quantity: false
-
+    snowplow__days_late_allowed: 3
     snowplow__enable_mobile_events: false
+    snowplow__lookback_window_hours: 6
+    snowplow__max_session_days: 3
+    snowplow__number_category_levels: 4
+    snowplow__number_checkout_steps: 4
+    snowplow__session_lookback_days: 730
+    snowplow__session_identifiers: []
+    # snowplow__session_sql: 'sc.session_id'  # takes priority over session_identifiers
+    snowplow__session_timestamp: collector_tstamp
+    snowplow__start_date: '2020-01-01'
+    snowplow__upsert_lookback_days: 30
+    snowplow__use_product_quantity: false
+    snowplow__user_identifiers: []
+    # snowplow__user_sql: 'sc.user_id' # takes priority over user identifiers
 
 
-    # Redshift/Postgres contexts
+    # CONTEXTS, FILTERS & LOGS
+    snowplow__app_id: []
+    snowplow__disable_ecommerce_cars: false
+    snowplow__disable_ecommerce_checkouts: false
+    snowplow__disable_ecommerce_products: false
+    snowplow__disable_ecommerce_transactions: false
+    snowplow__ecommerce_event_names: ['snowplow_ecommerce_action']
+    snowplow__carts_passthroughs: []
+    snowplow__checkouts_passthroughs: []
+    snowplow__products_passthroughs: []
+    snowplow__session_passthroughs: []
+    snowplow__transaction_passthroughs: []
+
+    # WAREHOUSE SPECIFIC
+      # BigQuery
+    snowplow__derived_tstamp_partitioned: true
+      # Snowflake
+    snowplow__query_tag: "snowplow_dbt"
+      # Databricks
+    # Depending on the use case it should either be the catalog (for Unity Catalog users from databricks connector 1.1.1 onwards) or the same value as your snowplow__atomic_schema (unless changed it should be 'atomic')
+    # snowplow__databricks_catalog: 'hive_metastore'
+      # Redshift/Postgres
     snowplow__context_ecommerce_user: 'com_snowplowanalytics_snowplow_ecommerce_user_1'
     snowplow__context_ecommerce_checkout_step: 'com_snowplowanalytics_snowplow_ecommerce_checkout_step_1'
     snowplow__context_ecommerce_page: 'com_snowplowanalytics_snowplow_ecommerce_page_1'
@@ -49,33 +89,7 @@ vars:
     snowplow__context_ecommerce_product: 'com_snowplowanalytics_snowplow_ecommerce_product_1'
     snowplow__context_mobile_session: 'com_snowplowanalytics_snowplow_client_session_1'
     snowplow__context_screen: 'com_snowplowanalytics_mobile_screen_1'
-
-    snowplow__session_identifiers: []
-    snowplow__user_identifiers: []
-
-    # Variables - Standard Config
-    snowplow__start_date: '2020-01-01'
-    snowplow__backfill_limit_days: 30
-    snowplow__app_id: []
-    snowplow__derived_tstamp_partitioned: true
-    # Variables - Advanced Config
-    snowplow__lookback_window_hours: 6
-    snowplow__session_lookback_days: 730
-    snowplow__days_late_allowed: 3
-    snowplow__max_session_days: 3
-    snowplow__upsert_lookback_days: 30
-    snowplow__query_tag: "snowplow_dbt"
-    snowplow__dev_target_name: 'dev'
-    snowplow__allow_refresh: false
     snowplow__enable_load_tstamp: true
-
-    snowplow__session_timestamp: collector_tstamp # Used to manage utils version higher than 0.15.1, do not change until new base macro is used
-    # Variables - Databricks Only
-    # Add the following variable to your dbt project's dbt_project.yml file
-    # Depending on the use case it should either be the catalog (for Unity Catalog users from databricks connector 1.1.1 onwards) or the same value as your snowplow__atomic_schema (unless changed it should be 'atomic')
-    # snowplow__databricks_catalog: 'hive_metastore'
-
-
 
 # Completely or partially remove models from the manifest during run start.
 on-run-start:
