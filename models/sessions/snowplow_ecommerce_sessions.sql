@@ -1,6 +1,7 @@
 {{
   config(
     materialized="incremental",
+    on_schema_change='append_new_columns',
     unique_key='domain_sessionid',
     upsert_date_key='start_tstamp',
     sql_header=snowplow_utils.set_query_tag(var('snowplow__query_tag', 'snowplow_dbt')),
