@@ -1,3 +1,27 @@
+snowplow-ecommerce 0.6.0 (2024-01-05)
+---------------------------------------
+## Summary
+This release adds the [base macro](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-models/dbt-utils-data-model/) approach to the core models of the package. This enables users to now specify custom fields for sessionization and user identification, to add custom entities/SDEs fields to the base events table for redshift/postgres, and to add passthrough fields to the derived tables so you can now more easily add your own fields to our tables. This release also contains other small enhancements and fixes to various tables. Note a full-refresh is not required unless you plan to change your identifiers, but you do need to run the statements in the [migration guide](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/migration-guides/ecommerce/#upgrading-to-060).
+
+## Breaking Changes
+- This package now requires at least version 0.15.0 of `snowplow_utils`
+- We now require at least version 1.5.0 of dbt
+- Renamed columns in quarantined sessions and sessions lifecycle manifest table (please run the ALTER TABLE statements in the migration guide or do a full-refresh)
+
+## Features
+- Migrate base models to the new base macros for flexibility and consistency
+- Add ability to add custom entity/self-describing event columns to the base_events_this_run table for Redshift/Postgres
+- Add ability to use a custom session identifier and user identifier
+- Add ability to pass fields through to derived page views, sessions, and user tables
+- Add `ecommerce_action_type` and `ecommerce_action_name` to `product_intercations`
+- Add `app_id` field to derived models
+
+## Under the hood
+- Aligned variables to follow the public docs
+
+## Upgrading
+To upgrade bump the snowplow-ecommerce version in your `packages.yml` file and follow the [migration guide](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/migration-guides/ecommerce/#upgrading-to-060).
+
 snowplow-ecommerce 0.5.3 (2023-10-04)
 ---------------------------------------
 ## Summary
