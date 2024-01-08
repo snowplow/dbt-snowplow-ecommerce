@@ -50,6 +50,6 @@
     {% else %}
         , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0]:id::varchar as ecommerce_user_id
         , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0]:email::varchar as ecommerce_user_email
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0]:isGuest::boolean as ecommerce_user_is_guest
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0]:is_guest::boolean as ecommerce_user_is_guest
     {% endif %}
 {% endmacro %}

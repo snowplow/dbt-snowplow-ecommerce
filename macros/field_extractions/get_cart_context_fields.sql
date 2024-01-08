@@ -48,8 +48,8 @@
         , cast(NULL as {{ type_string() }}) as cart_currency
         , cast(NULL as decimal(9,2)) as cart_total_value
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:cartId::varchar as cart_id
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:cart_id::varchar as cart_id
         , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:currency::varchar as cart_currency
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:totalValue::decimal(9,2) as cart_total_value
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0]:total_value::decimal(9,2) as cart_total_value
     {% endif %}
 {% endmacro %}
