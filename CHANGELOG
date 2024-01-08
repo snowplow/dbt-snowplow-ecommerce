@@ -1,3 +1,15 @@
+snowplow-ecommerce 0.6.1 (2024-01-09)
+---------------------------------------
+## Summary
+This release fixes an issue with snowflake schema attribute names in our macros.
+
+## Fixes
+- Fix incorrect schema attribute names in our macros
+
+## Upgrading
+To upgrade bump the snowplow-ecommerce version in your `packages.yml` file.
+
+
 snowplow-ecommerce 0.6.0 (2024-01-05)
 ---------------------------------------
 ## Summary
