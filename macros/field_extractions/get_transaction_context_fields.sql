@@ -90,14 +90,14 @@
         , cast(NULL as decimal(9,2)) as transaction_shipping
         , cast(NULL as decimal(9,2)) as transaction_tax
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:transactionId::varchar as transaction_id
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:transaction_id::varchar as transaction_id
         , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:currency::varchar as transaction_currency
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:paymentMethod::varchar as transaction_payment_method
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:payment_method::varchar as transaction_payment_method
         , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:revenue::decimal(9,2) as transaction_revenue
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:totalQuantity::int as transaction_total_quantity
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:creditOrder::boolean as transaction_credit_order
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discountAmount::decimal(9,2) as transaction_discount_amount
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discountCode::varchar as transaction_discount_code
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:total_quantity::int as transaction_total_quantity
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:credit_order::boolean as transaction_credit_order
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discount_amount::decimal(9,2) as transaction_discount_amount
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:discount_code::varchar as transaction_discount_code
         , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:shipping::decimal(9,2) as transaction_shipping
         , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0]:tax::decimal(9,2) as transaction_tax
     {% endif %}

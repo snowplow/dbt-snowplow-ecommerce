@@ -103,16 +103,16 @@
         , cast(NULL as {{ type_string() }}) as checkout_shipping_postcode
     {% else %}
         , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:step::int as checkout_step_number
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:accountType::varchar as checkout_account_type
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:billingFullAddress::varchar as checkout_billing_full_address
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:billingPostcode::varchar as checkout_billing_postcode
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:couponCode::varchar as checkout_coupon_code
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:deliveryMethod::varchar as checkout_delivery_method
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:deliveryProvider::varchar as checkout_delivery_provider
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:marketingOptIn::boolean as checkout_marketing_opt_in
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:paymentMethod::varchar as checkout_payment_method
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:proofOfPayment::varchar as checkout_proof_of_payment
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:shippingFullAddress::varchar as checkout_shipping_full_address
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:shippingPostcode::varchar as checkout_shipping_postcode
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:account_type::varchar as checkout_account_type
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:billing_full_address::varchar as checkout_billing_full_address
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:billing_postcode::varchar as checkout_billing_postcode
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:coupon_code::varchar as checkout_coupon_code
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:delivery_method::varchar as checkout_delivery_method
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:delivery_provider::varchar as checkout_delivery_provider
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:marketing_opt_in::boolean as checkout_marketing_opt_in
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:payment_method::varchar as checkout_payment_method
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:proof_of_payment::varchar as checkout_proof_of_payment
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:shipping_full_address::varchar as checkout_shipping_full_address
+        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0]:shipping_postcode::varchar as checkout_shipping_postcode
     {% endif %}
 {% endmacro %}
