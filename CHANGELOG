@@ -1,4 +1,4 @@
-snowplow-ecommerce 0.7.0 (2024-01-23)
+snowplow-ecommerce 0.7.0 (2024-01-19)
 ---------------------------------------
 ## Summary
 This release provides a solution for when multiple events are sent for a single transaction. 
