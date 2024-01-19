@@ -89,25 +89,44 @@ with base_query as (
 
     from base_query
 
+),
+
+field_extract as (
+    select *
+        -- extract commonly used contexts / sdes (prefixed)
+        {{ get_user_context_fields() }}
+        {{ get_checkout_context_fields() }}
+        {{ get_page_context_fields() }}
+        {{ get_transaction_context_fields() }}
+        {{ get_cart_context_fields() }}
+        {{ get_page_view_context_fields() }}
+        {{ get_session_context_fields() }}
+        {{ get_screen_view_context_fields () }}
+
+        {% if target.type not in ['redshift', 'postgres'] -%}
+            {{ get_action_context_fields() }}
+        {%- endif %}        
+
+    from prep
+
+    where 1 = 1
+    and {{ snowplow_ecommerce.event_name_filter(var("snowplow__ecommerce_event_names", "['snowplow_ecommerce_action']")) }}
+),
+
+
+transaction_dedupe as (
+    select 
+        *
+        , case when ecommerce_action_type != 'transaction' or ecommerce_action_type is null then 1 else row_number() over (partition by domain_sessionid, transaction_id order by derived_tstamp) end AS transaction_id_index
+    from
+        field_extract
+
 )
-select *
-    -- extract commonly used contexts / sdes (prefixed)
-    {{ get_user_context_fields() }}
-    {{ get_checkout_context_fields() }}
-    {{ get_page_context_fields() }}
-    {{ get_transaction_context_fields() }}
-    {{ get_cart_context_fields() }}
-    {{ get_page_view_context_fields() }}
-    {{ get_session_context_fields() }}
-    {{ get_screen_view_context_fields () }}
 
-    {% if target.type not in ['redshift', 'postgres'] -%}
-        {{ get_action_context_fields() }}
-    {%- endif %}
-
+select 
+    *
     , dense_rank() over (partition by domain_sessionid order by derived_tstamp) AS event_in_session_index
-
-from prep
-
-where 1 = 1
-and {{ snowplow_ecommerce.event_name_filter(var("snowplow__ecommerce_event_names", "['snowplow_ecommerce_action']")) }}
+from 
+    transaction_dedupe
+where 
+    transaction_id_index = 1
