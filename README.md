@@ -61,18 +61,10 @@ If you find a bug, please report an issue on GitHub.
 
 The snowplow-ecommerce package is Copyright 2022-2024 Snowplow Analytics Ltd.
 
-Licensed under the [Apache License, Version 2.0][license] (the "License");
-you may not use this software except in compliance with the License.
+This distribution is all licensed under the [Snowplow Personal and Academic License][license] . (If you are uncertain how it applies to your use case, check our answers to [frequently asked questions](https://docs.snowplow.io/docs/contributing/personal-and-academic-license-faq/).)
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-[license]: http://www.apache.org/licenses/LICENSE-2.0
-[license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
-
+[license]: https://docs.snowplow.io/personal-and-academic-license-1.0/
+[license-image]: http://img.shields.io/badge/license-Snowplow--Personal--and--Academic--1-blue.svg?style=flat
 
 [release-image]: https://img.shields.io/github/v/release/snowplow/dbt-snowplow-ecommerce?sort=semver
 [releases]: https://github.com/snowplow/dbt-snowplow-ecommerce/releases

@@ -1,3 +1,20 @@
+snowplow-ecommerce 0.7.0 (2024-01-23)
+---------------------------------------
+## Summary
+This release provides a solution for when multiple events are sent for a single transaction. 
+
+From this release onwards, the package is being released under the [Snowplow Personal and Academic License][license] . If you are uncertain how it applies to your use case, check our answers to [frequently asked questions](https://docs.snowplow.io/docs/contributing/personal-and-academic-license-faq/).
+
+## Breaking Changes
+- This package is now under the SPAL License
+
+## Fixes
+- In the case of multiple transaction events being sent these are now deduplicated to take the first for that transaction_id within a session.
+
+## Upgrading
+To upgrade bump the snowplow-ecommerce version in your `packages.yml` file. If you have run the package with multiple events for a single transaction, you made need to do a full refresh.
+
+
 snowplow-ecommerce 0.6.1 (2024-01-09)
 ---------------------------------------
 ## Summary
