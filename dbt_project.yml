@@ -65,7 +65,7 @@ vars:
     snowplow__disable_ecommerce_transactions: false
     snowplow__ecommerce_event_names: ['snowplow_ecommerce_action']
     snowplow__carts_passthroughs: []
-    snowplow__checkouts_passthroughs: []
+    snowplow__checkout_passthroughs: []
     snowplow__products_passthroughs: []
     snowplow__session_passthroughs: []
     snowplow__transaction_passthroughs: []

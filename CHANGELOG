@@ -1,3 +1,15 @@
+snowplow-ecommerce 0.7.2 (2024-03-04)
+---------------------------------------
+## Summary
+XXX
+
+## Fixes
+- Fix incorrect variable name default in package
+
+
+## Upgrading
+To upgrade simply bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.7.1 (2024-01-26)
 ---------------------------------------
 ## Summary
