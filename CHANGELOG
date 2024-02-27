@@ -3,8 +3,11 @@ snowplow-ecommerce 0.7.2 (2024-03-04)
 ## Summary
 XXX
 
+## 🚨 Breaking Changes 🚨
+- The sessions table now has sensible defaults (0 or false) for most numeric or boolean fields, even when that session did not have e.g. any cart events. Previously these were null.
+
 ## Fixes
-- Fix incorrect variable name default in package
+- Fix issue where non-ecommerce sessions were showing in the sessions table. Note a full refresh is required to remove old sessions of this type.
 
 
 ## Upgrading
