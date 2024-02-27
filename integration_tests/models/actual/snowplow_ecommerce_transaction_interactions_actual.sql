@@ -6,6 +6,8 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 #}
 
 
-select *
+select * {% if target.type == 'databricks' %}
+  except(derived_tstamp_date)
+{% endif %}
 
 from {{ ref('snowplow_ecommerce_transaction_interactions') }}
