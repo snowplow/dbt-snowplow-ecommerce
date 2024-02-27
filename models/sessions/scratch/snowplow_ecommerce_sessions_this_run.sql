@@ -183,21 +183,21 @@ select
         {%- endfor -%}
     {%- endif %}
 
-    css.number_unique_cart_ids,
-    css.number_carts_created,
-    css.number_carts_emptied,
-    css.number_carts_transacted,
+    coalesce(css.number_unique_cart_ids, 0) as number_unique_cart_ids,
+    coalesce(css.number_carts_created, 0) as number_carts_created,
+    coalesce(css.number_carts_emptied, 0) as number_carts_emptied,
+    coalesce(css.number_carts_transacted, 0) as number_carts_transacted,
 
     css.first_cart_created,
     css.last_cart_created,
     css.first_cart_transacted,
     css.last_cart_transacted,
-    css.session_cart_abandoned,
+    css.session_cart_abandoned, -- keep this null on purpose, can't abandon what you never had
 
-    chss.session_entered_at_checkout,
-    chss.number_unique_checkout_steps_attempted,
-    chss.number_checkout_steps_visited,
-    chss.checkout_succeeded,
+    coalesce(chss.session_entered_at_checkout, false) as session_entered_at_checkout,
+    coalesce(chss.number_unique_checkout_steps_attempted, 0) as number_unique_checkout_steps_attempted,
+    coalesce(chss.number_checkout_steps_visited, 0) as number_checkout_steps_visited,
+    chss.checkout_succeeded, -- keep this null on purpose, success cannot be true/false if never tried
     chss.first_checkout_attempted,
     chss.last_checkout_attempted,
     chss.first_checkout_succeeded,
@@ -211,22 +211,22 @@ select
     pss.last_product_remove_from_cart,
     pss.first_product_transaction,
     pss.last_product_transaction,
-    pss.number_product_views,
-    pss.number_add_to_carts,
-    pss.number_remove_from_carts,
-    pss.number_product_transactions,
+    coalesce(pss.number_product_views, 0) as number_product_views,
+    coalesce(pss.number_add_to_carts, 0) as number_add_to_carts,
+    coalesce(pss.number_remove_from_carts, 0) as number_remove_from_carts,
+    coalesce(pss.number_product_transactions, 0) as number_product_transactions,
 
     tss.first_transaction_completed,
     tss.last_transaction_completed,
-    tss.total_transaction_revenue,
-    tss.total_transaction_quantity,
-    tss.total_number_transactions,
-    tss.total_transacted_products
+    coalesce(tss.total_transaction_revenue, 0.0) as total_transaction_revenue,
+    coalesce(tss.total_transaction_quantity, 0) as total_transaction_quantity,
+    coalesce(tss.total_number_transactions, 0) as total_number_transactions,
+    coalesce(tss.total_transacted_products, 0) as total_transacted_products
 
 
 
 from {{ ref('snowplow_ecommerce_base_sessions_this_run') }} as s
-left join session_apps as sa on s.session_identifier = sa.domain_sessionid and sa.event_session_index = 1
+inner join session_apps as sa on s.session_identifier = sa.domain_sessionid and sa.event_session_index = 1
 left join cart_session_stats as css on s.session_identifier = css.domain_sessionid
 left join checkout_session_stats as chss on s.session_identifier = chss.domain_sessionid
 left join product_session_stats as pss on s.session_identifier = pss.domain_sessionid
