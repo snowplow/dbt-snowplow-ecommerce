@@ -1,17 +1,20 @@
-snowplow-ecommerce 0.7.2 (2024-03-04)
+snowplow-ecommerce 0.8.0 (2024-02-28)
 ---------------------------------------
 ## Summary
-XXX
+This release makes a few core changes to the sessions table. It stops non-ecommerce sessions being added to the derived table, and provides sensible defaults for numeric and boolean columns.
 
 ## 🚨 Breaking Changes 🚨
 - The sessions table now has sensible defaults (0 or false) for most numeric or boolean fields, even when that session did not have e.g. any cart events. Previously these were null.
 
 ## Fixes
 - Fix issue where non-ecommerce sessions were showing in the sessions table. Note a full refresh is required to remove old sessions of this type.
+- Fix an incorrect variable name in our package defaults
 
+## Under the hood
+- Simplified integration tests
 
 ## Upgrading
-To upgrade simply bump the snowplow-ecommerce version in your `packages.yml` file.
+To upgrade simply bump the snowplow-ecommerce version in your `packages.yml` file. If you want to remove old sessions that shouldn't have been included, or populate nulls in the sessions table column, please do a [full refresh](https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-operation/full-or-partial-refreshes/#complete-refresh-of-snowplow-package).
 
 snowplow-ecommerce 0.7.1 (2024-01-26)
 ---------------------------------------
