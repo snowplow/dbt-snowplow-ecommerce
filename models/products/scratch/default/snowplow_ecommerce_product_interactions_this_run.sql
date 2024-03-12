@@ -18,7 +18,7 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
                                                                             'end_tstamp') %}
 
 
-with {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_ecommerce_product'), lower_limit, upper_limit, 'ecommerce_product', single_entity = false) }},
+with {{ snowplow_utils.get_sde_or_context(var('snowplow__atomic_schema', 'atomic'), var('snowplow__context_ecommerce_product'), lower_limit, upper_limit, 'ecommerce_product', single_entity = false, database = var("snowplow__database", target.database)) }},
 
 product_info as (
   select
