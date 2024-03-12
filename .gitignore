@@ -25,3 +25,4 @@ logs/
 .DS_Store
 dbt-service-account.json
 integration_tests/macros/get_batch_size.sql
+package-lock.yml
