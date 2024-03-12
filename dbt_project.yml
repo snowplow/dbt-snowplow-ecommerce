@@ -35,6 +35,8 @@ vars:
     snowplow__dev_target_name: 'dev'
     snowplow__events: "{{ source('atomic', 'events') }}"
     # snowplow__events_table: "events" # Only set if not using 'events' table for Snowplow events data
+    snowplow__grant_select_to: []
+    snowplow__grant_schema_usage: true
 
     # OPERATION & LOGIC
     snowplow__allow_refresh: false
@@ -98,7 +100,7 @@ on-run-start:
 # Update manifest table with last event consumed per sucessfully executed node/model
 on-run-end:
   - "{{ snowplow_utils.snowplow_incremental_post_hook(package_name='snowplow_ecommerce', incremental_manifest_table_name='snowplow_ecommerce_incremental_manifest', base_events_this_run_table_name='snowplow_ecommerce_base_events_this_run', session_timestamp=var('snowplow__session_timestamp')) }}"
-
+  - "{{ snowplow_utils.grant_usage_on_schemas_built_into(var('snowplow__grant_schemas', true)) }}"
 
 
 # Tag 'snowplow_ecommerce_incremental' allows snowplow_incremental_post_hook to identify Snowplow models
