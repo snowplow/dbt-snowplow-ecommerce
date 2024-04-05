@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.8.2 (2024-04-05)
+---------------------------------------
+## Summary
+This release fixes a bug on Redshift that caused an error in case transactions were disabled.
+
+## Fixes
+- Fix error on Redshift due to base_events_this_run using the transaction_id as partition key event if transactions are disabled (#51)
+
+## Upgrading
+To upgrade simply bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.8.1 (2024-03-18)
 ---------------------------------------
 ## Summary

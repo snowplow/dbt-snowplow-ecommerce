@@ -118,22 +118,28 @@ field_extract as (
 
     where 1 = 1
     and {{ snowplow_ecommerce.event_name_filter(var("snowplow__ecommerce_event_names", "['snowplow_ecommerce_action']")) }}
-),
+)
 
 
-transaction_dedupe as (
-    select 
+{% if not var('snowplow__disable_ecommerce_transactions', false) -%}
+, transaction_dedupe as (
+    select
         *
         , case when ecommerce_action_type != 'transaction' or ecommerce_action_type is null then 1 else row_number() over (partition by domain_sessionid, transaction_id order by derived_tstamp) end AS transaction_id_index
     from
         field_extract
 
 )
+{%- endif %}
 
-select 
+select
     *
     , dense_rank() over (partition by domain_sessionid order by derived_tstamp) AS event_in_session_index
 from 
+{% if var('snowplow__disable_ecommerce_transactions', false) -%}
+    field_extract
+{%- else -%}
     transaction_dedupe
 where 
     transaction_id_index = 1
+{%- endif %}
