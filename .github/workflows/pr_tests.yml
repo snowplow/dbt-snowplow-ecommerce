@@ -62,7 +62,18 @@ jobs:
       fail-fast: false
       matrix:
         dbt_version: ["1.*"]
-        warehouse: ["postgres", "bigquery", "snowflake", "databricks", "redshift", "spark_iceberg"] # TODO: Add RS self-hosted runner
+        warehouse: ["postgres", "bigquery", "snowflake", "databricks", "spark_iceberg"] # TODO: Add RS self-hosted runner
+        include:
+          - dbt_version: "1.8.2"  # Explicit version for Postgres
+            warehouse: "postgres"
+          - dbt_version: "1.8.1"  # Explicit version for Redshift
+            warehouse: "redshift"
+          - dbt_version: "1.8.*"  # Wildcard version for BigQuery
+            warehouse: "bigquery"
+          - dbt_version: "1.8.*"  # Wildcard version for Snowflake
+            warehouse: "snowflake"
+          - dbt_version: "1.8.*"  # Wildcard version for Databricks
+            warehouse: "databricks"
     services:
       postgres:
         image: postgres:latest
