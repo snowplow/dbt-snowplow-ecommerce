@@ -184,3 +184,4 @@ jobs:
       - name: "Post-test: Drop ci schemas"
         run: |
           dbt run-operation post_ci_cleanup --target ${{matrix.warehouse}}
+        if: ${{env.WAREHOUSE_PLATFORM != 'spark'}}

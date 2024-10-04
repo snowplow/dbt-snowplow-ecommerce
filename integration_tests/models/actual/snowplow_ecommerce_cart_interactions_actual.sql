@@ -6,7 +6,8 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 #}
 
 {% if target.type in ('databricks','spark') %}
-SELECT {{ dbt_utils.star(from=ref('snowplow_ecommerce_cart_interactions'), except=['derived_tstamp_date'] )}}
+SELECT {{ dbt_utils.star(from=ref('snowplow_ecommerce_cart_interactions'), except=['derived_tstamp_date'] )}},
+date(derived_tstamp) as derived_tstamp_date
 {% else %}
 SELECT {{ dbt_utils.star(from=ref('snowplow_ecommerce_cart_interactions')) }}
 {% endif %}
