@@ -36,7 +36,7 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
     days_late_allowed=var('snowplow__days_late_allowed', 3),
     max_session_days=var('snowplow__max_session_days', 3),
     app_ids=var('snowplow__app_id', []),
-    snowplow_events_database=var('snowplow__database', target.database) if target.type not in ['databricks', 'spark'] else var('snowplow__databricks_catalog', 'hive_metastore') if target.type in ['databricks'] else var('snowplow__atomic_schema', 'atomic'),
+    snowplow_events_database=var('snowplow__database', target.database) if target.type not in ['databricks', 'spark'] else var('snowplow__databricks_catalog', 'hive_metastore') if target.type in ['databricks'] else none,
     snowplow_events_schema=var('snowplow__atomic_schema', 'atomic'),
     snowplow_events_table=var('snowplow__events_table', 'events'),
     event_limits_table='snowplow_ecommerce_base_new_event_limits',

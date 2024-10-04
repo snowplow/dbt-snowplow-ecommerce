@@ -43,9 +43,9 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
         , cast(NULL as {{ type_string() }}) as ecommerce_user_email
         , cast(NULL as {{ type_boolean() }}) as ecommerce_user_is_guest
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0].id::string as ecommerce_user_id
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0].email::string as ecommerce_user_email
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0].is_guest::boolean as ecommerce_user_is_guest
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0].id AS string) as ecommerce_user_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0].email AS string) as ecommerce_user_email
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_user_1[0].is_guest AS boolean) as ecommerce_user_is_guest
     {% endif %}
 {% endmacro %}
 

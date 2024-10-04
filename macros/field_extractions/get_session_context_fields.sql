@@ -54,14 +54,14 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 
 {% macro spark__get_session_context_fields() %}
     {% if var('snowplow__enable_mobile_events', false) %}
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].event_index::int as event_index
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].first_event_id::string as first_event_id
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].first_event_timestamp::timestamp as first_event_timestamp
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].previous_session_id::string as previous_session_id
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_id::string as session_id
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_index::int as session_index
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].storage_mechanism::string as storage_mechanism
-        , contexts_com_snowplowanalytics_snowplow_client_session_1[0].user_id::string as mobile_user_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].event_index AS int) as event_index
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].first_event_id AS string) as first_event_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].first_event_timestamp AS timestamp) as first_event_timestamp
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].previous_session_id AS string) as previous_session_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_id AS string) as session_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].session_index AS int) as session_index
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].storage_mechanism AS string) as storage_mechanism
+        , CAST(contexts_com_snowplowanalytics_snowplow_client_session_1[0].user_id AS string) as mobile_user_id
     {% else %}
         , cast(NULL as {{ type_int() }}) as event_index
         , cast(NULL as {{ type_string() }}) as first_event_id
