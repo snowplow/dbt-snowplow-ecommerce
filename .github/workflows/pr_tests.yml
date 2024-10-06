@@ -72,7 +72,7 @@ jobs:
             warehouse: "snowflake"
           - dbt_version: "1.8.*"  # Wildcard version for Databricks
             warehouse: "databricks"
-          - dbt_version: "1.8.0"  # Wildcard version for Spark
+          - dbt_version: "1.8.6"  # Wildcard version for Spark
             warehouse: "spark_iceberg"
     services:
       postgres:
@@ -157,7 +157,7 @@ jobs:
         run: |
           pip install --upgrade pip wheel setuptools
           pip install -Iv "dbt-core"==${{ matrix.dbt_version }} --upgrade
-          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==${{ matrix.dbt_version }} --upgrade
+          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==1.8.0 --upgrade
           echo "Installing Spark dependencies..."
           echo version: ${{ matrix.dbt_version }}
           dbt deps
