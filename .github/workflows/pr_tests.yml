@@ -72,7 +72,7 @@ jobs:
             warehouse: "snowflake"
           - dbt_version: "1.8.*"  # Wildcard version for Databricks
             warehouse: "databricks"
-          - dbt_version: "1.8.*"  # Wildcard version for Spark
+          - dbt_version: "1.8.0"  # Wildcard version for Spark
             warehouse: "spark_iceberg"
     services:
       postgres:
