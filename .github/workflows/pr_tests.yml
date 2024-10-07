@@ -137,13 +137,13 @@ jobs:
         with:
          python-version: "3.8.x"
 
-      - name: Pip cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
-          restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
+      # - name: Pip cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.cache/pip
+      #     key: ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
 
       # Install latest patch version. Upgrade if cache contains old patch version.
       - name: Install dependencies
@@ -156,8 +156,8 @@ jobs:
       - name: Install spark dependencies
         run: |
           pip install --upgrade pip wheel setuptools
-          pip install -Iv "dbt-core"==${{ matrix.dbt_version }} --upgrade
-          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==1.8.0 --upgrade
+          pip install -Iv "dbt-core"==${{ matrix.dbt_version }}
+          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==1.8.0
           echo "Installing Spark dependencies..."
           echo version: ${{ matrix.dbt_version }}
           dbt deps
