@@ -63,17 +63,6 @@ jobs:
       matrix:
         dbt_version: ["1.*"]
         warehouse: ["postgres", "bigquery", "snowflake", "databricks", "spark_iceberg"] # TODO: Add RS self-hosted runner
-        # include:
-        #   - dbt_version: "1.8.2"  # Explicit version for Postgres
-        #     warehouse: "postgres"
-        #   - dbt_version: "1.8.*"  # Wildcard version for BigQuery
-        #     warehouse: "bigquery"
-        #   - dbt_version: "1.8.*"  # Wildcard version for Snowflake
-        #     warehouse: "snowflake"
-        #   - dbt_version: "1.8.*"  # Wildcard version for Databricks
-        #     warehouse: "databricks"
-        #   - dbt_version: "1.8.6"  # Wildcard version for Spark
-        #     warehouse: "spark_iceberg"
     services:
       postgres:
         image: postgres:latest
@@ -137,13 +126,13 @@ jobs:
         with:
          python-version: "3.8.x"
 
-      # - name: Pip cache
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.cache/pip
-      #     key: ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
+      - name: Pip cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.dbt_version }}-${{env.WAREHOUSE_PLATFORM}}
 
       # Install latest patch version. Upgrade if cache contains old patch version.
       - name: Install dependencies
@@ -156,10 +145,7 @@ jobs:
       - name: Install spark dependencies
         run: |
           pip install --upgrade pip wheel setuptools
-          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==1.8.0
-          pip install -Iv "dbt-core"==${{ matrix.dbt_version }}
-          echo "Installing Spark dependencies..."
-          echo version: ${{ matrix.dbt_version }}
+          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==${{ matrix.dbt_version }} --upgrade
           dbt deps
         if: ${{env.WAREHOUSE_PLATFORM == 'spark'}}
       
@@ -180,7 +166,6 @@ jobs:
       - name: "Pre-test: Drop ci schemas"
         run: |
           dbt run-operation post_ci_cleanup --target ${{matrix.warehouse}}
-        if: ${{env.WAREHOUSE_PLATFORM != 'spark'}}
 
       - name: Run tests
         run: ./.scripts/integration_test.sh -d ${{matrix.warehouse}}
@@ -188,4 +173,3 @@ jobs:
       - name: "Post-test: Drop ci schemas"
         run: |
           dbt run-operation post_ci_cleanup --target ${{matrix.warehouse}}
-        if: ${{env.WAREHOUSE_PLATFORM != 'spark'}}
