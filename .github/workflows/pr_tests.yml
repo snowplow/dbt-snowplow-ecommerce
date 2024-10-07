@@ -156,8 +156,8 @@ jobs:
       - name: Install spark dependencies
         run: |
           pip install --upgrade pip wheel setuptools
-          pip install -Iv "dbt-core"==${{ matrix.dbt_version }}
           pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==1.8.0
+          pip install -Iv "dbt-core"==${{ matrix.dbt_version }}
           echo "Installing Spark dependencies..."
           echo version: ${{ matrix.dbt_version }}
           dbt deps
