@@ -24,8 +24,8 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 {% endmacro %}
 
 {% macro spark__get_action_context_fields() %}
-    , unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1.type::string as ecommerce_action_type
-    , unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1.name::string as ecommerce_action_name
+    , CAST(unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1.type AS string) as ecommerce_action_type
+    , CAST(unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplow_ecommerce_action_1.name AS string) as ecommerce_action_name
 {% endmacro %}
 
 {% macro snowflake__get_action_context_fields() %}

@@ -10,7 +10,7 @@ do
   esac
 done
 
-declare -a SUPPORTED_DATABASES=("bigquery" "postgres" "databricks" "snowflake")
+declare -a SUPPORTED_DATABASES=("bigquery" "postgres" "databricks" "snowflake", "spark_iceberg")
 
 # set to lower case
 DATABASE="$(echo $DATABASE | tr '[:upper:]' '[:lower:]')"
@@ -27,7 +27,7 @@ for db in ${DATABASES[@]}; do
 
   eval "dbt seed --full-refresh --target $db" || exit 1;
 
-    echo "Snowplow e-commerce integration tests: Execute models (no mobile) - run 0/4"
+  echo "Snowplow e-commerce integration tests: Execute models (no mobile) - run 0/4"
 
   eval "dbt run --full-refresh --vars '{snowplow__allow_refresh: true, snowplow__backfill_limit_days: 30, snowplow__enable_mobile_events: false}' --target $db" || exit 1;
 

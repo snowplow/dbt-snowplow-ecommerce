@@ -71,16 +71,16 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
         , cast(NULL as decimal(9,2)) as transaction_shipping
         , cast(NULL as decimal(9,2)) as transaction_tax
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].transaction_id::string as transaction_id
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].currency::string as transaction_currency
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].payment_method::string as transaction_payment_method
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].revenue::decimal(9,2) as transaction_revenue
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].total_quantity::int as transaction_total_quantity
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].credit_order::boolean as transaction_credit_order
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].discount_amount::decimal(9,2) as transaction_discount_amount
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].discount_code::string as transaction_discount_code
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].shipping::decimal(9,2) as transaction_shipping
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].tax::decimal(9,2) as transaction_tax
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].transaction_id AS string) as transaction_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].currency AS string) as transaction_currency
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].payment_method AS string) as transaction_payment_method
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].revenue AS decimal(9,2)) as transaction_revenue
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].total_quantity AS int) as transaction_total_quantity
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].credit_order AS boolean) as transaction_credit_order
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].discount_amount AS decimal(9,2)) as transaction_discount_amount
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].discount_code AS string) as transaction_discount_code
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].shipping AS decimal(9,2)) as transaction_shipping
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1[0].tax AS decimal(9,2)) as transaction_tax
     {% endif %}
 {% endmacro %}
 
