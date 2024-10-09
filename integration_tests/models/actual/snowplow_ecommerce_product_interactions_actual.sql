@@ -6,8 +6,11 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 #}
 
 
-select * {% if target.type == 'databricks' %}
-  except(derived_tstamp_date)
+{% if target.type in ('databricks','spark') %}
+SELECT {{ dbt_utils.star(from=ref('snowplow_ecommerce_product_interactions'), except=['derived_tstamp_date'] )}},
+date(derived_tstamp_date) as derived_tstamp_date
+{% else %}
+SELECT {{ dbt_utils.star(from=ref('snowplow_ecommerce_product_interactions')) }}
 {% endif %}
-
 from {{ ref('snowplow_ecommerce_product_interactions') }}
+

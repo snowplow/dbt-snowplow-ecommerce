@@ -43,9 +43,9 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
         , cast(NULL as {{ type_string() }}) as cart_currency
         , cast(NULL as decimal(9,2)) as cart_total_value
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0].cart_id::string as cart_id
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0].currency::string as cart_currency
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0].total_value::decimal(9,2) as cart_total_value
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0].cart_id AS string) as cart_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0].currency AS string) as cart_currency
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1[0].total_value AS decimal(9,2)) as cart_total_value
     {% endif %}
 {% endmacro %}
 

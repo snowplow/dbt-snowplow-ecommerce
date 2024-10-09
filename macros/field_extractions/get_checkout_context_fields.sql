@@ -79,18 +79,18 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
         , cast(NULL as {{ type_string() }}) as checkout_shipping_full_address
         , cast(NULL as {{ type_string() }}) as checkout_shipping_postcode
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].step::int as checkout_step_number
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].account_type::string as checkout_account_type
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].billing_full_address::string as checkout_billing_full_address
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].billing_postcode::string as checkout_billing_postcode
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].coupon_code::string as checkout_coupon_code
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].delivery_method::string as checkout_delivery_method
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].delivery_provider::string as checkout_delivery_provider
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].marketing_opt_in::boolean as checkout_marketing_opt_in
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].payment_method::string as checkout_payment_method
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].proof_of_payment::string as checkout_proof_of_payment
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].shipping_full_address::string as checkout_shipping_full_address
-        , contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].shipping_postcode::string as checkout_shipping_postcode
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].step AS int) AS checkout_step_number
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].account_type AS string) AS checkout_account_type
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].billing_full_address AS string) AS checkout_billing_full_address
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].billing_postcode AS string) AS checkout_billing_postcode
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].coupon_code AS string) AS checkout_coupon_code
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].delivery_method AS string) AS checkout_delivery_method
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].delivery_provider AS string) AS checkout_delivery_provider
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].marketing_opt_in AS boolean) AS checkout_marketing_opt_in
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].payment_method AS string) AS checkout_payment_method
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].proof_of_payment AS string) AS checkout_proof_of_payment
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].shipping_full_address AS string) AS checkout_shipping_full_address
+        , CAST(contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step_1[0].shipping_postcode AS string) AS checkout_shipping_postcode
     {% endif %}
 {% endmacro %}
 
