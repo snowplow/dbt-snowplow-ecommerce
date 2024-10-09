@@ -50,9 +50,9 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 
 {% macro spark__get_page_view_context_fields() %}
     {% if var('snowplow__enable_mobile_events', false) %}
-        , coalesce(contexts_com_snowplowanalytics_mobile_screen_1[0].id::string, contexts_com_snowplowanalytics_snowplow_web_page_1[0].id::string) as page_view_id
+        , coalesce(CAST(contexts_com_snowplowanalytics_mobile_screen_1[0].id AS string), CAST(contexts_com_snowplowanalytics_snowplow_web_page_1[0].id AS string)) as page_view_id
     {% else %}
-        , contexts_com_snowplowanalytics_snowplow_web_page_1[0].id::string as page_view_id
+        , CAST(contexts_com_snowplowanalytics_snowplow_web_page_1[0].id AS string) as page_view_id
     {% endif %}
 {% endmacro %}
 

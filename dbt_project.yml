@@ -108,6 +108,8 @@ on-run-end:
 models:
   snowplow_ecommerce:
     +materialized: table
+    +file_format: "{{ 'delta' if target.type not in ['spark'] else 'iceberg'}}"
+    +incremental_strategy: "{{ none if target.type not in ['spark'] else 'merge' }}"
     base:
       manifest:
         +schema: "snowplow_manifest"
@@ -135,7 +137,9 @@ models:
         bigquery:
           +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
         databricks:
-          +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
+          +enabled: "{{ target.type in ['databricks'] | as_bool() }}"
+        spark:
+          +enabled: "{{ target.type in ['spark'] | as_bool() }}"
         default:
           +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
         snowflake:

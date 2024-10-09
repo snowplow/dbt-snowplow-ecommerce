@@ -69,7 +69,7 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 with base_query as (
     {{ base_events_query }}
 ), prep as (
-    {% if target.type in ['postgres', 'redshift']%}
+    {% if target.type in ['postgres', 'redshift', 'spark']%}
         select
             {% for col in base_query_cols | map(attribute='name') | list -%}
                 {% if col.lower() == 'session_identifier' -%}
@@ -87,7 +87,6 @@ with base_query as (
             {% endfor %}
     {% else %}
         select * {% if target.type in ['databricks', 'bigquery'] %}except{% else %}exclude{% endif %}(session_identifier, domain_sessionid, user_identifier, domain_userid)
-
         , session_identifier as domain_sessionid
         , domain_sessionid as original_domain_sessionid
         , user_identifier as domain_userid

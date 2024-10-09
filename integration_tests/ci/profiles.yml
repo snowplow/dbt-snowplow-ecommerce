@@ -56,3 +56,24 @@ integration_tests:
       dbname: "{{ env_var('POSTGRES_TEST_DBNAME') }}"
       schema: "gh_sp_ecom_dbt_{{ env_var('SCHEMA_SUFFIX') }}"
       threads: 4
+
+    redshift:
+        type: redshift
+        host: "{{ env_var('REDSHIFT_TEST_HOST') }}"
+        user: "{{ env_var('REDSHIFT_TEST_USER') }}"
+        pass: "{{ env_var('REDSHIFT_TEST_PASS') }}"
+        dbname: "{{ env_var('REDSHIFT_TEST_DBNAME') }}"
+        port: "{{ env_var('REDSHIFT_TEST_PORT') | as_number }}"
+        schema: "gh_sp_ecom_dbt_{{ env_var('SCHEMA_SUFFIX') }}"
+        threads: 4
+
+    spark_iceberg:
+        type: spark
+        method: thrift
+        host: "{{ env_var('SPARK_MASTER_HOST', 'localhost') }}"
+        port: 10000
+        user: "{{ env_var('SPARK_USER', 'spark') }}"
+        schema: "{{ env_var('SPARK_SCHEMA', 'default') }}"
+        connect_retries: 5
+        connect_timeout: 60
+        threads: 1
