@@ -1,3 +1,17 @@
+snowplow-ecommerce 0.9.0 (2024-10-15)
+---------------------------------------
+## Summary
+This release introduces support for Apache Spark with the Iceberg file format and updates integration tests to ensure compatibility.
+
+## Features
+- Add support for Apache Spark with Iceberg file format
+
+## Under the hood
+- Modify integration tests to support Spark
+
+## Upgrading
+Update the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.8.2 (2024-04-05)
 ---------------------------------------
 ## Summary
