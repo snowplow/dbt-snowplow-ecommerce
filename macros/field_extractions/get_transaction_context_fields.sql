@@ -52,7 +52,7 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
         ,{{ snowplow_utils.get_optional_fields(
             enabled=true,
             fields=transaction_fields(),
-            col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1_',
+            col_prefix='contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1',
             relation=source('atomic', 'events') if project_name != 'snowplow_ecommerce_integration_tests' else ref('snowplow_ecommerce_events_stg'),
             relation_alias=none) }}
     {% endif %}
