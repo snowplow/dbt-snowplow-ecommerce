@@ -1,7 +1,6 @@
 name: generate-docs-pages
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
