@@ -49,6 +49,20 @@ with prep as (
 
     POSEXPLODE(contexts_com_snowplowanalytics_snowplow_ecommerce_product_1) as (index, contexts_com_snowplowanalytics_snowplow_ecommerce_product_1)
 
+    {%- if var('snowplow__product_passthroughs', []) -%}
+      {%- set passthrough_names = [] -%}
+      {%- for identifier in var('snowplow__product_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}} as {{identifier['alias']}}
+          {%- do passthrough_names.append(identifier['alias']) -%}
+      {%- else -%}
+          ,t.{{identifier}}
+          {%- do passthrough_names.append(identifier) -%}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+
   from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t
 
 ), product_info as (
@@ -108,19 +122,11 @@ with prep as (
     ecommerce_user_email,
     transaction_id
 
-    {%- if var('snowplow__product_passthroughs', []) -%}
-      {%- set passthrough_names = [] -%}
-      {%- for identifier in var('snowplow__product_passthroughs', []) %}
-      {# Check if it's a simple column or a sql+alias #}
-      {%- if identifier is mapping -%}
-          ,{{identifier['sql']}} as {{identifier['alias']}}
-          {%- do passthrough_names.append(identifier['alias']) -%}
-      {%- else -%}
-          ,t.{{identifier}}
-          {%- do passthrough_names.append(identifier) -%}
-      {%- endif -%}
-      {% endfor -%}
-    {%- endif %}
+  {%- if var('snowplow__product_passthroughs', []) -%}
+    {%- for col in passthrough_names %}
+      , {{col}}
+    {%- endfor -%}
+  {%- endif %}
 
 
   from prep t
