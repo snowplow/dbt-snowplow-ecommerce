@@ -6,63 +6,21 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 #}
 
 select
-    app_id,
-    platform,
-    etl_tstamp,
-    collector_tstamp,
-    dvce_created_tstamp,
-    event,
-    event_id,
-    txn_id,
-    name_tracker,
-    v_tracker,
-    v_collector,
-    v_etl,
-    user_id,
-    user_ipaddress,
-    user_fingerprint,
-    domain_userid,
-    domain_sessionidx,
-    network_userid,
-    geo_country,
-    geo_region,
-    geo_city,
-    geo_zipcode,
-    geo_latitude,
-    geo_longitude,
-    geo_region_name,
-    ip_isp,
-    ip_organization,
-    ip_domain,
-    ip_netspeed,
-    page_url,
-    page_title,
-    page_referrer,
-    page_urlscheme,
-    page_urlhost,
-    page_urlport,
-    page_urlpath,
-    page_urlquery,
-    page_urlfragment,
-    refr_urlscheme,
-    refr_urlhost,
-    refr_urlport,
-    refr_urlpath,
-    refr_urlquery,
-    refr_urlfragment,
-    refr_medium,
-    refr_source,
-    refr_term,
-    mkt_medium,
-    mkt_source,
-    mkt_term,
-    mkt_content,
-    mkt_campaign,
-    se_category,
-    se_action,
-    se_label,
-    se_property,
-    se_value,
+    {{ dbt_utils.star(from=ref('snowplow_ecommerce_events'), 
+    except=[
+            'contexts_com_snowplowanalytics_snowplow_web_page_1_0_0',
+            'contexts_com_snowplowanalytics_snowplow_ecommerce_user_1_0_0',
+            'contexts_com_snowplowanalytics_snowplow_ecommerce_page_1_0_0',
+            'unstruct_event_com_snowplowanalytics_snowplow_ecommerce_snowplo',
+            'contexts_com_snowplowanalytics_snowplow_ecommerce_cart_1_0_0',
+            'contexts_com_snowplowanalytics_snowplow_ecommerce_product_1_0_0',
+            'contexts_com_snowplowanalytics_snowplow_ecommerce_checkout_step',
+            'contexts_com_snowplowanalytics_snowplow_ecommerce_transaction_1',
+            'contexts_com_snowplowanalytics_snowplow_client_session_1_0_1',
+            'contexts_com_snowplowanalytics_mobile_screen_1_0_0'
+        ] 
+    )}},
+    
     null as tr_orderid,
     null as tr_affiliation,
     null as tr_total,
@@ -81,7 +39,6 @@ select
     null as pp_xoffset_max,
     null as pp_yoffset_min,
     null as pp_yoffset_max,
-    useragent,
     null as br_name,
     null as br_family,
     null as br_version,
@@ -101,10 +58,6 @@ select
     null as br_colordepth,
     null as br_viewwidth,
     null as br_viewheight,
-    os_name,
-    os_family,
-    os_manufacturer,
-    os_timezone,
     null as dvce_type,
     null as dvce_ismobile,
     null as dvce_screenwidth,
@@ -118,82 +71,7 @@ select
     null as tr_shipping_base,
     null as ti_currency,
     null as ti_price_base,
-    base_currency,
-    geo_timezone,
-    mkt_clickid,
-    mkt_network,
-    etl_tags,
-    dvce_sent_tstamp,
-    refr_domain_userid,
-    refr_dvce_tstamp,
-    domain_sessionid,
-    derived_tstamp,
-    event_vendor,
-    event_name,
-    event_format,
-    event_version,
-    event_fingerprint,
     cast(null as {{ type_timestamp() }}) as true_tstamp,
     cast(null as {{ type_timestamp() }}) load_tstamp
-    
-    
-    {%- if var('snowplow__cart_passthroughs', []) -%}
-      {%- for identifier in var('snowplow__cart_passthroughs', []) %}
-      {# Check if it's a simple column or a sql+alias #}
-      {%- if identifier is mapping -%}
-          ,{{identifier['sql']}}
-      {%- else -%}
-          ,{{identifier}}
-      {%- endif -%}
-      {% endfor -%}
-    {%- endif %}
-    
-    
-    {%- if var('snowplow__checkout_passthroughs', []) -%}
-      {%- for identifier in var('snowplow__checkout_passthroughs', []) %}
-      {# Check if it's a simple column or a sql+alias #}
-      {%- if identifier is mapping -%}
-          ,{{identifier['sql']}}
-      {%- else -%}
-          ,{{identifier}}
-      {%- endif -%}
-      {% endfor -%}
-    {%- endif %}
-    
-    
-    {%- if var('snowplow__product_passthroughs', []) -%}
-      {%- for identifier in var('snowplow__product_passthroughs', []) %}
-      {# Check if it's a simple column or a sql+alias #}
-      {%- if identifier is mapping -%}
-          ,{{identifier['sql']}}
-      {%- else -%}
-          ,{{identifier}}
-      {%- endif -%}
-      {% endfor -%}
-    {%- endif %}
-    
-    
-    {%- if var('snowplow__session_passthroughs', []) -%}
-      {%- for identifier in var('snowplow__session_passthroughs', []) %}
-      {# Check if it's a simple column or a sql+alias #}
-      {%- if identifier is mapping -%}
-          ,{{identifier['sql']}}
-      {%- else -%}
-          ,{{identifier}}
-      {%- endif -%}
-      {% endfor -%}
-    {%- endif %}
-    
-    
-    {%- if var('snowplow__transaction_passthroughs', []) -%}
-      {%- for identifier in var('snowplow__transaction_passthroughs', []) %}
-      {# Check if it's a simple column or a sql+alias #}
-      {%- if identifier is mapping -%}
-          ,{{identifier['sql']}}
-      {%- else -%}
-          ,{{identifier}}
-      {%- endif -%}
-      {% endfor -%}
-    {%- endif %}
     
 from {{ ref('snowplow_ecommerce_events') }}
