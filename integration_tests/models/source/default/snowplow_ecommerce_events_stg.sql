@@ -135,5 +135,65 @@ select
     event_fingerprint,
     cast(null as {{ type_timestamp() }}) as true_tstamp,
     cast(null as {{ type_timestamp() }}) load_tstamp
-
+    
+    
+    {%- if var('snowplow__cart_passthroughs', []) -%}
+      {%- for identifier in var('snowplow__cart_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}}
+      {%- else -%}
+          ,{{identifier}}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+    
+    
+    {%- if var('snowplow__checkout_passthroughs', []) -%}
+      {%- for identifier in var('snowplow__checkout_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}}
+      {%- else -%}
+          ,{{identifier}}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+    
+    
+    {%- if var('snowplow__product_passthroughs', []) -%}
+      {%- for identifier in var('snowplow__product_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}}
+      {%- else -%}
+          ,{{identifier}}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+    
+    
+    {%- if var('snowplow__session_passthroughs', []) -%}
+      {%- for identifier in var('snowplow__session_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}}
+      {%- else -%}
+          ,{{identifier}}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+    
+    
+    {%- if var('snowplow__transaction_passthroughs', []) -%}
+      {%- for identifier in var('snowplow__transaction_passthroughs', []) %}
+      {# Check if it's a simple column or a sql+alias #}
+      {%- if identifier is mapping -%}
+          ,{{identifier['sql']}}
+      {%- else -%}
+          ,{{identifier}}
+      {%- endif -%}
+      {% endfor -%}
+    {%- endif %}
+    
 from {{ ref('snowplow_ecommerce_events') }}
