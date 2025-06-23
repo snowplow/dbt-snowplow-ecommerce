@@ -55,27 +55,30 @@ vars:
     snowplow__app_id: ['ecom-accel', 'DemoID']
     
     #snowplow__cart_passthroughs: [{'sql': 'e.event_id', 'alias': 'event_id2'}]
-    snowplow__cart_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    snowplow__cart_passthroughs:  ['contexts_com_eqom_user_1', {'sql': 'e.event_id', 'alias': 'event_id2'}]
     #snowplow__cart_passthroughs: ['contexts_com_eqom_user_1']
     
     
     #snowplow__checkout_passthroughs: [{'sql': 'event_id', 'alias': 'event_id2'}]
-    snowplow__checkout_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    snowplow__checkout_passthroughs: ['contexts_com_eqom_user_1', {'sql': 'event_id', 'alias': 'event_id2'}]
     #snowplow__checkout_passthroughs: ['contexts_com_eqom_user_1']
     
     
     #snowplow__product_passthroughs: [{'sql': 't.event_id', 'alias': 'event_id2'}]
-    snowplow__product_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    #snowplow__product_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}, {'sql': 't.event_id', 'alias': 'event_id2'}]
+    snowplow__product_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}, {'sql': 't.event_id', 'alias': 'event_id2'}]
     #snowplow__product_passthroughs: ['contexts_com_eqom_user_1']
     
     
     #snowplow__session_passthroughs: [{'sql': 'domain_sessionid', 'alias': 'session_id2'}]
-    snowplow__session_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    #snowplow__session_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    snowplow__session_passthroughs: ['contexts_com_eqom_user_1', {'sql': 'domain_sessionid', 'alias': 'session_id2'}]
     #snowplow__session_passthroughs: ['contexts_com_eqom_user_1']
     
     
     #snowplow__transaction_passthroughs: [{'sql': 'e.event_id', 'alias': 'event_id2'}]
-    snowplow__transaction_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    #snowplow__transaction_passthroughs: [{'sql': 'contexts_com_eqom_user_1', 'alias': 'contexts_com_eqom_user_1_asad_test'}]
+    snowplow__transaction_passthroughs: ['contexts_com_eqom_user_1', {'sql': 'e.event_id', 'alias': 'event_id2'}]
     #snowplow__transaction_passthroughs: ['contexts_com_eqom_user_1']
 
 seeds:
