@@ -5,6 +5,10 @@ on:
 
 concurrency: dbt_integration_tests
 
+permissions:
+  id-token: write   # This is required for requesting the JWT
+
+
 env:
 
   # Set AWS Role
