@@ -111,6 +111,15 @@ jobs:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           role-session-name: dbt-pr-tests-${{ github.run_number }}
           aws-region: ${{ env.AWS_REGION }}
+      - name: Export AWS credentials for Docker Compose
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> $GITHUB_ENV
+          echo "AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}" >> $GITHUB_ENV
+        env:
+          AWS_ACCESS_KEY_ID: ${{ steps.configure_aws_credentials.outputs.aws-access-key-id }}
+          AWS_SECRET_ACCESS_KEY: ${{ steps.configure_aws_credentials.outputs.aws-secret-access-key }}
+          AWS_SESSION_TOKEN: ${{ steps.configure_aws_credentials.outputs.aws-session-token }}
       - name: Set warehouse variables
         id: set_warehouse
         run: |
@@ -164,7 +173,7 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
-      
+
       - name: Build and start Spark cluster
         working-directory: .github/workflows/spark_deployment
         run: |
@@ -172,6 +181,10 @@ jobs:
           echo "Waiting for Spark services to start..."
           sleep 90
         if: ${{env.WAREHOUSE_PLATFORM == 'spark'}}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
     
       - name: "Pre-test: Drop ci schemas"
         run: |
