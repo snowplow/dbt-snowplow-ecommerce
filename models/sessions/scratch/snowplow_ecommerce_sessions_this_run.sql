@@ -168,7 +168,7 @@ with cart_session_stats AS (
             row_number() over (partition by domain_sessionid order by derived_tstamp, dvce_created_tstamp) as event_session_index
 
 
-    from {{ ref('snowplow_ecommerce_base_events_this_run') }}
+    from {{ ref('snowplow_ecommerce_base_events_this_run') }} as t
 )
 select
     s.session_identifier as domain_sessionid,
