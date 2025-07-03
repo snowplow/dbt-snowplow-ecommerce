@@ -1,3 +1,14 @@
+snowplow-ecommerce 0.9.2 (2025-07-03)
+---------------------------------------
+## Summary
+This release fixes a bug where specifying passthrough fields was having no effect.
+
+## Fixes
+- Fixes a bug where passthrough fields specified in dbt_project.yml were not being passed through the various intermediate tables all the way to the end.
+
+## Upgrading
+To upgrade bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 0.9.1 (2025-05-12)
 ---------------------------------------
 ## Summary
