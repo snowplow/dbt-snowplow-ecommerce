@@ -43,6 +43,8 @@ models:
 
 
 vars:
+  snowplow__license_accepted: true
+  
   snowplow_ecommerce:
     snowplow__atomic_schema: "{{target.schema ~ '_snplw_ecommerce_int_tests'}}"
     snowplow__events: "{{ ref('snowplow_ecommerce_events_stg') }}"
