@@ -39,6 +39,7 @@ vars:
     snowplow__grant_schema_usage: true
 
     # OPERATION & LOGIC
+    snowplow__license_accepted: false
     snowplow__allow_refresh: false
     snowplow__backfill_limit_days: 30
     snowplow__categories_separator: '/'
