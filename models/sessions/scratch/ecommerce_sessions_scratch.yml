@@ -6,12 +6,13 @@ models:
     columns:
       - name: domain_sessionid
         description: '{{ doc("col_domain_sessionid") }}'
-        tags:
-          - primary_key
         tests:
           - unique
           - not_null
 
+        config:
+          tags:
+            - primary_key
       - name: app_id
         description: '{{ doc("col_app_id") }}'
 
