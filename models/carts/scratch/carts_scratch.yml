@@ -6,12 +6,13 @@ models:
     columns:
       - name: event_id
         description: '{{ doc("col_event_id") }}'
-        tags:
-          - primary_key
         tests:
           - unique
           - not_null
 
+        config:
+          tags:
+            - primary_key
       - name: page_view_id
         description: '{{ doc("col_page_view_id") }}'
 

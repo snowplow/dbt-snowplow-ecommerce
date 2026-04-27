@@ -6,6 +6,16 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
 #}
 
 
+{%- if target.type == 'snowflake' -%}
+  {%- set warehouse_suffix = 'snowflake' -%}
+{%- elif target.type == 'bigquery' -%}
+  {%- set warehouse_suffix = 'bigquery' -%}
+{%- elif target.type in ['databricks', 'spark'] -%}
+  {%- set warehouse_suffix = 'databricks' -%}
+{%- else -%}
+  {%- set warehouse_suffix = 'default' -%}
+{%- endif %}
+
 select *
 
-from {{ ref('snowplow_ecommerce_product_interactions_expected') }}
+from {{ ref('snowplow_ecommerce_product_interactions_expected_' ~ warehouse_suffix) }}

@@ -3,7 +3,7 @@ name: 'snowplow_ecommerce'
 version: '0.9.3'
 config-version: 2
 
-require-dbt-version: [">=1.5.0", "<2.0.0"]
+require-dbt-version: [">=1.10.6", "<2.0.0"]
 
 profile: 'default'
 
@@ -16,12 +16,10 @@ test-paths: ["tests"]
 macro-paths: ["macros"]
 docs-paths: ["docs"]
 asset-paths: ["assets"]
-
-target-path: "target"
 clean-targets:
-    - "target"
-    - "dbt_modules"
-    - "dbt_packages"
+  - "target"
+  - "dbt_modules"
+  - "dbt_packages"
 
 vars:
   snowplow_ecommerce:
@@ -137,15 +135,15 @@ models:
         +schema: "scratch"
         +tags: "scratch"
         bigquery:
-          +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+          +enabled: "{{ (target.type == 'bigquery') | as_bool() }}"
         databricks:
-          +enabled: "{{ target.type in ['databricks'] | as_bool() }}"
+          +enabled: "{{ (target.type in ['databricks']) | as_bool() }}"
         spark:
-          +enabled: "{{ target.type in ['spark'] | as_bool() }}"
+          +enabled: "{{ (target.type in ['spark']) | as_bool() }}"
         default:
-          +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+          +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         snowflake:
-          +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
+          +enabled: "{{ (target.type == 'snowflake') | as_bool() }}"
     sessions:
       +schema: "derived"
       +tags: "snowplow_ecommerce_incremental"
@@ -158,3 +156,5 @@ models:
       scratch:
         +schema: "scratch"
         +tags: "scratch"
+flags:
+  require_generic_test_arguments_property: true
