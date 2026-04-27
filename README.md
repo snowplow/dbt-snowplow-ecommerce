@@ -1,7 +1,6 @@
 [![early-release]][tracker-classification]
 [![Release][release-image]][releases]
 [![License][license-image]][license]
-[![Discourse posts][discourse-image]][discourse]
 
 ![snowplow-logo](https://raw.githubusercontent.com/snowplow/dbt-snowplow-utils/main/assets/snowplow_logo.png)
 
@@ -53,8 +52,6 @@ The package contains multiple staging models however the mart models are as foll
 
 We welcome all ideas, questions and contributions!
 
-For support requests, please use our community support [Discourse][discourse] forum.
-
 If you find a bug, please report an issue on GitHub.
 
 # Copyright and license
@@ -80,5 +77,3 @@ This distribution is all licensed under the [Snowplow Personal and Academic Lice
 
 
 [snowplow-ecommerce-docs]: https://docs.snowplow.io/docs/modeling-your-data/modeling-your-data-with-dbt/dbt-models/dbt-ecommerce-data-model/
-[discourse-image]: https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscourse.snowplow.io%2F
-[discourse]: http://discourse.snowplow.io/

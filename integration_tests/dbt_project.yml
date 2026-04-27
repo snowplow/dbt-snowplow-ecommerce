@@ -13,11 +13,9 @@ analysis-paths: ["analysis"]
 test-paths: ["tests"]
 seed-paths: ["data"]
 macro-paths: ["macros"]
-
-target-path: "target"
 clean-targets:
-    - "target"
-    - "dbt_packages"
+  - "target"
+  - "dbt_packages"
 
 quoting:
   identifier: false
@@ -25,26 +23,23 @@ quoting:
 
 models:
   snowplow_ecommerce_integration_tests:
-    bind: false
-    +schema: "snplw_ecommerce_int_tests"
+    +schema: snplw_ecommerce_int_tests
     +materialized: table
     source:
       bigquery:
-        +enabled: "{{ target.type == 'bigquery' | as_bool() }}"
+        +enabled: "{{ (target.type == 'bigquery') | as_bool() }}"
       databricks:
-        +enabled: "{{ target.type in ['databricks'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['databricks']) | as_bool() }}"
       spark:
-        +enabled: "{{ target.type in ['spark'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['spark']) | as_bool() }}"
       default:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
       snowflake:
-        +enabled: "{{ target.type == 'snowflake' | as_bool() }}"
-
-
-
+        +enabled: "{{ (target.type == 'snowflake') | as_bool() }}"
+    +bind: false
 vars:
   snowplow__license_accepted: true
-  
+
   snowplow_ecommerce:
     snowplow__atomic_schema: "{{target.schema ~ '_snplw_ecommerce_int_tests'}}"
     snowplow__events: "{{ ref('snowplow_ecommerce_events_stg') }}"
@@ -62,9 +57,8 @@ vars:
     snowplow__transaction_passthroughs: [{'sql': 'e.event_id', 'alias': 'event_id2'}]
 
 seeds:
-  quote_columns: false
   snowplow_ecommerce_integration_tests:
-    +schema: "snplw_ecommerce_int_tests"
+    +schema: snplw_ecommerce_int_tests
     source:
       snowplow_ecommerce_events:
         +column_types:
@@ -88,8 +82,8 @@ seeds:
           geo_region: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           geo_city: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           geo_zipcode: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-          geo_latitude: float
-          geo_longitude: float
+          geo_latitude: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
+          geo_longitude: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           geo_region_name: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           ip_isp: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           ip_organization: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
@@ -122,7 +116,7 @@ seeds:
           se_action: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           se_label: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           se_property: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-          se_value: float
+          se_value: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           useragent: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           os_name: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           os_family: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
@@ -144,20 +138,20 @@ seeds:
           event_version: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           event_fingerprint: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
       com_snowplowanalytics_snowplow_ecommerce_action_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           type: varchar
           name: varchar
       com_snowplowanalytics_snowplow_ecommerce_cart_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           cart_id: varchar
           currency: varchar
           total_value: decimal(9,2)
       com_snowplowanalytics_snowplow_ecommerce_checkout_step_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           step: integer
@@ -173,14 +167,14 @@ seeds:
           shipping_full_address: varchar
           shipping_postcode: varchar
       com_snowplowanalytics_snowplow_ecommerce_page_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           type: varchar
           language: varchar
           locale: varchar
       com_snowplowanalytics_snowplow_ecommerce_product_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           id: varchar
@@ -197,7 +191,7 @@ seeds:
           currency: varchar
           creative_id: varchar
       com_snowplowanalytics_snowplow_ecommerce_transaction_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           transaction_id: varchar
@@ -211,19 +205,19 @@ seeds:
           shipping: decimal(9,2)
           tax: decimal(9,2)
       com_snowplowanalytics_snowplow_ecommerce_user_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           id: varchar
           email: varchar
           is_guest: boolean
       com_snowplowanalytics_snowplow_web_page_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_tstamp: timestamp
           id: varchar
       com_snowplowanalytics_mobile_screen_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_id: varchar
           root_tstamp: timestamp
@@ -236,7 +230,7 @@ seeds:
           type: varchar
           schema_name: varchar
       com_snowplowanalytics_snowplow_client_session_1:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
         +column_types:
           root_id: varchar
           root_tstamp: timestamp
@@ -288,7 +282,7 @@ seeds:
           number_product_transactions: integer
           first_transaction_completed: timestamp
           last_transaction_completed: timestamp
-          total_transaction_revenue: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+          total_transaction_revenue: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           total_transaction_quantity: integer
           total_number_transactions: integer
           total_transacted_products: integer
@@ -307,7 +301,7 @@ seeds:
           derived_tstamp_date: date
           cart_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           cart_currency: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-          cart_total_value: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+          cart_total_value: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           cart_created: boolean
           cart_emptied: boolean
           cart_transacted: boolean
@@ -360,19 +354,19 @@ seeds:
           transaction_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           transaction_currency: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           transaction_payment_method: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-          transaction_revenue: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+          transaction_revenue: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           transaction_total_quantity: integer
           transaction_credit_order: boolean
-          transaction_discount_amount: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+          transaction_discount_amount: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           transaction_discount_code: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-          transaction_shipping: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
-          transaction_tax: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+          transaction_shipping: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
+          transaction_tax: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
           ecommerce_user_email: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
           ecommerce_user_is_guest: boolean
           number_products: integer
       snowflake:
-        +enabled: "{{ target.type in ['snowflake'] | as_bool() }}"
-        snowplow_ecommerce_product_interactions_expected:
+        +enabled: "{{ (target.type in ['snowflake']) | as_bool() }}"
+        snowplow_ecommerce_product_interactions_expected_snowflake:
           +column_types:
             product_event_id: varchar
             event_id: varchar
@@ -393,11 +387,11 @@ seeds:
             product_subcategory_3: varchar
             product_subcategory_4: varchar
             product_currency: varchar
-            product_price: float
+            product_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_brand: varchar
             product_creative_id: varchar
             product_inventory_status: varchar
-            product_list_price: float
+            product_list_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_name: varchar
             product_list_position: integer
             product_quantity: integer
@@ -413,8 +407,8 @@ seeds:
             ecommerce_user_email: varchar
             ecommerce_user_is_guest: boolean
       databricks:
-        +enabled: "{{ target.type in ['databricks', 'spark'] | as_bool() }}"
-        snowplow_ecommerce_product_interactions_expected:
+        +enabled: "{{ (target.type in ['databricks', 'spark']) | as_bool() }}"
+        snowplow_ecommerce_product_interactions_expected_databricks:
           +column_types:
             product_event_id: string
             event_id: string
@@ -435,11 +429,11 @@ seeds:
             product_subcategory_3: string
             product_subcategory_4: string
             product_currency: string
-            product_price: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+            product_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_brand: string
             product_creative_id: string
             product_inventory_status: string
-            product_list_price: "{{'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float' }}"
+            product_list_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_name: string
             product_list_position: integer
             product_quantity: integer
@@ -455,8 +449,8 @@ seeds:
             ecommerce_user_email: string
             ecommerce_user_is_guest: boolean
       bigquery:
-        +enabled: "{{ target.type in ['bigquery'] | as_bool() }}"
-        snowplow_ecommerce_product_interactions_expected:
+        +enabled: "{{ (target.type in ['bigquery']) | as_bool() }}"
+        snowplow_ecommerce_product_interactions_expected_bigquery:
           +column_types:
             product_event_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             event_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
@@ -477,11 +471,11 @@ seeds:
             product_subcategory_3: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             product_subcategory_4: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             product_currency: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-            product_price: float
+            product_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_brand: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             product_creative_id: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             product_inventory_status: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
-            product_list_price: float
+            product_list_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_name: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             product_list_position: integer
             product_quantity: integer
@@ -497,8 +491,8 @@ seeds:
             ecommerce_user_email: "{{ 'string' if target.type in ['bigquery', 'databricks', 'spark'] else 'varchar' }}"
             ecommerce_user_is_guest: boolean
       default:
-        +enabled: "{{ target.type in ['redshift', 'postgres'] | as_bool() }}"
-        snowplow_ecommerce_product_interactions_expected:
+        +enabled: "{{ (target.type in ['redshift', 'postgres']) | as_bool() }}"
+        snowplow_ecommerce_product_interactions_expected_default:
           +column_types:
             product_event_id: varchar
             event_id: varchar
@@ -519,11 +513,11 @@ seeds:
             product_subcategory_3: varchar
             product_subcategory_4: varchar
             product_currency: varchar
-            product_price: float
+            product_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_brand: varchar
             product_creative_id: varchar
             product_inventory_status: varchar
-            product_list_price: float
+            product_list_price: "{{ 'decimal(9,2)' if target.type in ['databricks', 'spark'] else 'float64' if target.type == 'bigquery' else 'float' }}"
             product_name: varchar
             product_list_position: integer
             product_quantity: integer
@@ -538,3 +532,8 @@ seeds:
             transaction_id: varchar
             ecommerce_user_email: varchar
             ecommerce_user_is_guest: boolean
+  +quote_columns: false
+flags:
+  require_generic_test_arguments_property: true
+  send_anonymous_usage_stats: false
+  use_colors: true

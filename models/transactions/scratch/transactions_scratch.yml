@@ -6,12 +6,13 @@ models:
     columns:
       - name: transaction_id
         description: '{{ doc("col_transaction_id") }}'
-        tags:
-          - primary_key
         tests:
           - unique
           - not_null
 
+        config:
+          tags:
+            - primary_key
       - name: event_id
         description: '{{ doc("col_event_id") }}'
 
