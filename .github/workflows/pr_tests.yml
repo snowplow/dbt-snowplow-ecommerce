@@ -141,14 +141,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install wheel setuptools
-          pip install -Iv dbt-${{env.WAREHOUSE_PLATFORM}}==${{ matrix.dbt_version }} --upgrade
+          pip install -Iv dbt-${{env.WAREHOUSE_PLATFORM}}==${{ matrix.dbt_version }} "dbt-core<2.0.0" --upgrade
           dbt deps
         if: ${{env.WAREHOUSE_PLATFORM != 'spark'}}
 
       - name: Install spark dependencies
         run: |
           pip install --upgrade pip wheel setuptools
-          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==${{ matrix.dbt_version }} --upgrade
+          pip install -Iv "dbt-${{ env.WAREHOUSE_PLATFORM }}[PyHive]"==${{ matrix.dbt_version }} "dbt-core<2.0.0" --upgrade
           dbt deps
         if: ${{env.WAREHOUSE_PLATFORM == 'spark'}}
       
@@ -167,6 +167,7 @@ jobs:
         if: ${{env.WAREHOUSE_PLATFORM == 'spark'}}
     
       - name: "Pre-test: Drop ci schemas"
+        continue-on-error: true
         run: |
           dbt run-operation post_ci_cleanup --target ${{matrix.warehouse}}
 
@@ -174,5 +175,6 @@ jobs:
         run: ./.scripts/integration_test.sh -d ${{matrix.warehouse}}
 
       - name: "Post-test: Drop ci schemas"
+        continue-on-error: true
         run: |
           dbt run-operation post_ci_cleanup --target ${{matrix.warehouse}}

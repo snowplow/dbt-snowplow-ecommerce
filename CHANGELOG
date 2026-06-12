@@ -1,3 +1,11 @@
+snowplow-ecommerce 1.0.1 (2026-06-16)
+---------------------------------------
+## Summary
+This patch release restores the `database` field in the events source definition (`models/base/src_base.yml`), which was accidentally commented out in 0.9.0 and remained missing through 1.0.0. Users who had `snowplow__database` set to a different value than `target.database`, or Databricks users relying on `snowplow__databricks_catalog`, would have been querying the wrong database during those releases. In most cases this would have surfaced as an immediate error; the silent failure scenario (wrong data, no error) only applies where both databases are accessible with the same credentials and have the atomic events table with the necessary columns this package expects. Affected users should run `dbt run --full-refresh` after upgrading.
+
+## Upgrading
+To upgrade bump the snowplow-ecommerce version in your `packages.yml` file.
+
 snowplow-ecommerce 1.0.0 (2026-05-06)
 ---------------------------------------
 ## Summary
