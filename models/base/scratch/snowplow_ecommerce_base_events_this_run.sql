@@ -61,7 +61,8 @@ You may obtain a copy of the Snowplow Personal and Academic License Version 1.0 
                             snowplow_events_database=var('snowplow__database', target.database) if target.type not in ['databricks', 'spark'] else var('snowplow__databricks_catalog', 'hive_metastore') if target.type in ['databricks'] else var('snowplow__atomic_schema', 'atomic'),
                             snowplow_events_schema=var('snowplow__atomic_schema', 'atomic'),
                             snowplow_events_table=var('snowplow__events_table', 'events'),
-                            entities_or_sdes=contexts
+                            entities_or_sdes=contexts,
+                            event_names=var('snowplow__ecommerce_event_names', ['snowplow_ecommerce_action'])
     ) %}
 
 {% set base_query_cols = get_column_schema_from_query( 'select * from (' + base_events_query +') a') %}
@@ -114,9 +115,6 @@ field_extract as (
         {%- endif %}        
 
     from prep
-
-    where 1 = 1
-    and {{ snowplow_ecommerce.event_name_filter(var("snowplow__ecommerce_event_names", "['snowplow_ecommerce_action']")) }}
 )
 
 
